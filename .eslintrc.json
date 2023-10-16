@@ -21,8 +21,10 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/prop-types": 0,
         "react/destructuring-assignment": [0],
-        "arrow-body-style": ["error", "always"],
         "react/function-component-definition": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "jsx-a11y/anchor-has-content": "off",
+        "jsx-a11y/control-has-associated-label": "off",
+        "arrow-body-style": "off"
     }
 }
