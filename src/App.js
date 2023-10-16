@@ -2,6 +2,9 @@ import { useState } from "react";
 import { GlobalStyles } from "./components/global/Global.styles";
 import * as S from "./components/global/App.styles";
 import { Nav } from "./components/nav-bar/Nav";
+import { Header } from "./components/header/Header";
+import * as T from "./data/titles";
+import * as P from "./data/pages";
 
 export const App = () => {
     const [isOpenedMenu, setIsOpenedMenu] = useState(false);
@@ -11,36 +14,14 @@ export const App = () => {
             <GlobalStyles />
             <S.Wrapper>
                 <S.Container>
-                    <main className="main">
+                    <S.Main>
                         <Nav
+                            page={P.MAIN}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                         />
-                        <div className="main__centerblock centerblock">
-                            <div className="centerblock__search search">
-                                <svg className="search__svg">
-                                    <use xlinkHref="img/icon/sprite.svg#icon-search" />
-                                </svg>
-                                <input
-                                    className="search__text"
-                                    type="search"
-                                    placeholder="Поиск"
-                                    name="search"
-                                />
-                            </div>
-                            <h2 className="centerblock__h2">Треки</h2>
-                            <div className="centerblock__filter filter">
-                                <div className="filter__title">Искать по:</div>
-                                <div className="filter__button button-author _btn-text">
-                                    исполнителю
-                                </div>
-                                <div className="filter__button button-year _btn-text">
-                                    году выпуска
-                                </div>
-                                <div className="filter__button button-genre _btn-text">
-                                    жанру
-                                </div>
-                            </div>
+                        <S.MainCenterblock>
+                            <Header page={P.MAIN} title={T.MAIN_TITLE} />
                             <div className="centerblock__content">
                                 <div className="content__title playlist-title">
                                     <div className="playlist-title__col col01">
@@ -927,7 +908,7 @@ export const App = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </S.MainCenterblock>
                         <div className="main__sidebar sidebar">
                             <div className="sidebar__personal">
                                 <p className="sidebar__personal-name">
@@ -971,7 +952,7 @@ export const App = () => {
                                 </div>
                             </div>
                         </div>
-                    </main>
+                    </S.Main>
                     <div className="bar">
                         <div className="bar__content">
                             <div className="bar__player-progress" />

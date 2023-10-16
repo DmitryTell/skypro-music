@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import * as S from "./Nav.styles";
+import * as P from "../../data/pages";
 
 const MENU_ITEMS = [
     {
@@ -18,12 +19,16 @@ const MENU_ITEMS = [
         key: uuid(),
     },
 ];
+const IMG_PATH = "img/logo.png";
 
-export const Nav = ({ isOpenedMenu, setIsOpenedMenu }) => {
+export const Nav = ({ page, isOpenedMenu, setIsOpenedMenu }) => {
     return (
         <S.Nav>
             <S.NavLogo>
-                <img src="img/logo.png" alt="logo" />
+                <img
+                    src={page === P.CATEGORY ? `../${IMG_PATH}` : IMG_PATH}
+                    alt="logo"
+                />
             </S.NavLogo>
             <S.NavBurger onClick={() => setIsOpenedMenu(!isOpenedMenu)}>
                 <S.NavBurgerLine />
