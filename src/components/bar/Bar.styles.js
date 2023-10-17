@@ -249,4 +249,5 @@ export const VolumeProgress = styled.div`
 `;
 export const VolumeProgressLine = styled.input`
     width: 109px;
+    cursor: pointer;
 `;

@@ -50,12 +50,18 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
                 {isLoaded ? (
                     <>
                         <S.PlaylistTrackAuthor>
-                            <S.PlaylistTrackAuthorLink href="/#">
+                            <S.PlaylistTrackAuthorLink
+                                href="/#"
+                                onClick={handleClick}
+                            >
                                 {track.author}
                             </S.PlaylistTrackAuthorLink>
                         </S.PlaylistTrackAuthor>
                         <S.PlaylistTrackAlbum>
-                            <S.PlaylistTrackAlbumLink href="/#">
+                            <S.PlaylistTrackAlbumLink
+                                href="/#"
+                                onClick={handleClick}
+                            >
                                 {track.album}
                             </S.PlaylistTrackAlbumLink>
                         </S.PlaylistTrackAlbum>

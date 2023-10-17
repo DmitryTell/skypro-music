@@ -1,6 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
+    @font-face {
+        font-family: "StratosSkyeng";
+        src: local("StratosSkyeng"), local("StratosSkyeng"),
+        url("../fonts/StratosSkyeng.woff2") format("woff2"),
+        url("../fonts/StratosSkyeng.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -12,15 +21,6 @@ export const GlobalStyles = createGlobalStyle`
     *:after {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-    }
-
-    @font-face {
-        font-family: "StratosSkyeng";
-        src: local("StratosSkyeng"), local("StratosSkyeng"),
-        url("../fonts/StratosSkyeng.woff2") format("woff2"),
-        url("../fonts/StratosSkyeng.woff") format("woff");
-        font-weight: 400;
-        font-style: normal;
     }
     
     a,
