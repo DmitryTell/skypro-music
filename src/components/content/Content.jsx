@@ -3,7 +3,7 @@ import { Title } from "./Title";
 import { Item } from "./Item";
 import * as S from "./Content.styles";
 
-export const Content = ({ page, tracks, isLoaded }) => {
+export const Content = ({ page, tracks, isLoaded, setPlayer }) => {
     return (
         <S.Content>
             <Title page={page} />
@@ -14,8 +14,10 @@ export const Content = ({ page, tracks, isLoaded }) => {
                         page={page}
                         track={track}
                         isLoaded={isLoaded}
+                        setPlayer={setPlayer}
                     />
                 ))}
+                <S.PlaylistLastItem />
             </S.ContentPlaylist>
         </S.Content>
     );

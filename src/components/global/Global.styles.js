@@ -79,5 +79,23 @@ export const GlobalStyles = createGlobalStyle`
         100% {
           background: #4E4E4E;
         }
-      }
+    }
+
+    ._btn-icon:hover svg {
+        fill: transparent;
+        stroke: #acacac;
+        cursor: pointer;
+    }
+
+    ._btn-icon:active svg {
+        fill: transparent;
+        stroke: #ffffff;
+        cursor: pointer;
+    }
+      
+    ._btn-icon:active {
+        fill: #696969;
+        stroke: #ffffff;
+        cursor: pointer;
+    }
 `;

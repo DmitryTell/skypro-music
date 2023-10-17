@@ -25,10 +25,7 @@ export const App = () => {
     ]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isOpenedMenu, setIsOpenedMenu] = useState(false);
-    const [player, setPlayer] = useState({
-        title: "Yyyyy, phhhh!",
-        author: "Her mamin",
-    });
+    const [player, setPlayer] = useState(null);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -61,7 +58,7 @@ export const App = () => {
                         </S.MainCenterblock>
                         <Sidebar page={P.MAIN} isLoaded={isLoaded} />
                     </S.Main>
-                    {player && <Bar player={player} />}
+                    {player && <Bar page={P.MAIN} player={player} />}
                     <footer className="footer" />
                 </S.Container>
             </S.Wrapper>

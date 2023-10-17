@@ -77,6 +77,9 @@ export const PlaylistItem = styled.li`
     display: block;
     margin-bottom: 18px;
 `;
+export const PlaylistLastItem = styled.li`
+    margin-top: 450px;
+`;
 export const PlaylistTrack = styled.div`
     ${mixinFlexbox}
     ${mixinFlexboxHorizontal}

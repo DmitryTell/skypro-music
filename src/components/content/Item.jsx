@@ -4,7 +4,16 @@ import * as P from "../../data/pages";
 const NOTE_PATH = "img/icon/sprite.svg#icon-note";
 const LIKE_PATH = "img/icon/sprite.svg#icon-like";
 
-export const Item = ({ page, track, isLoaded }) => {
+export const Item = ({ page, track, isLoaded, setPlayer }) => {
+    const handleClick = (event) => {
+        event.preventDefault();
+
+        setPlayer({
+            title: track.title,
+            author: track.author,
+        });
+    };
+
     return (
         <S.PlaylistItem>
             <S.PlaylistTrack>
@@ -23,7 +32,10 @@ export const Item = ({ page, track, isLoaded }) => {
                                 </S.PlaylistTrackTitleSvg>
                             </S.PlaylistTrackTitleImg>
                             <div>
-                                <S.PlaylistTrackTitleLink href="http://">
+                                <S.PlaylistTrackTitleLink
+                                    href="/#"
+                                    onClick={handleClick}
+                                >
                                     {track.title}
                                 </S.PlaylistTrackTitleLink>
                             </div>
