@@ -13,6 +13,15 @@ export const GlobalStyles = createGlobalStyle`
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+
+    @font-face {
+        font-family: "StratosSkyeng";
+        src: local("StratosSkyeng"), local("StratosSkyeng"),
+        url("../fonts/StratosSkyeng.woff2") format("woff2"),
+        url("../fonts/StratosSkyeng.woff") format("woff");
+        font-weight: 400;
+        font-style: normal;
+    }
     
     a,
     a:visited {
@@ -30,15 +39,6 @@ export const GlobalStyles = createGlobalStyle`
         list-style: none;
     }
     
-    @font-face {
-        font-family: "StratosSkyeng";
-        src: local("StratosSkyeng"), local("StratosSkyeng"),
-        url("../fonts/StratosSkyeng.woff2") format("woff2"),
-        url("../fonts/StratosSkyeng.woff") format("woff");
-        font-weight: 400;
-        font-style: normal;
-    }
-    
     html,
     body {
         width: 100%;
@@ -46,4 +46,38 @@ export const GlobalStyles = createGlobalStyle`
         font-family: "StratosSkyeng", sans-serif;
         color: #ffffff;
     }
+
+    .col01 {
+        width: 447px;
+        }
+        
+    .col02 {
+        width: 321px;
+    }
+        
+    .col03 {
+        width: 245px;
+    }
+        
+    .col04 {
+        width: 60px;
+        text-align: end;
+    }
+
+    @-webkit-keyframes skeleton-animation {
+        0% {
+          background: #313131;
+        }
+        100% {
+          background: #4E4E4E;
+        }
+      }
+      @keyframes skeleton-animation {
+        0% {
+          background: #313131;
+        }
+        100% {
+          background: #4E4E4E;
+        }
+      }
 `;

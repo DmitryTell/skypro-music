@@ -22,6 +22,8 @@ const mixinPopupsContainer = css`
     flex-direction: column;
     gap: 28px;
     overflow: auto;
+    scrollbar-width: 4px;
+    scrollbar-color: #fff #4b4949;
 
     &::-webkit-scrollbar {
         width: 4px;
@@ -130,6 +132,9 @@ export const FilterButton = styled.div`
         border-color: #ad61ff;
         color: #ad61ff;
     }
+    &:not(:last-child) {
+        margin-right: 10px;
+    }
 `;
 export const Author = styled.div`
     ${mixinPopups}
@@ -143,13 +148,13 @@ export const Year = styled.div`
     height: 196px;
     position: absolute;
     top: 40px;
-    left: 170px;
+    left: 200px;
 `;
 export const Genre = styled.div`
     ${mixinPopups}
     position: absolute;
     top: 40px;
-    left: 290px;
+    left: 320px;
 `;
 export const PopupContainer = styled.div`
     ${mixinPopupsContainer}
