@@ -140,7 +140,6 @@ export const PlaylistTrackTime = styled.span`
     text-align: right;
     color: #696969;
 `;
-
 export const PlaylistSkeletonImg = styled.div`
     width: 51px;
     height: 51px;
@@ -155,12 +154,11 @@ export const PlaylistSkeletonTitle = styled.div`
 export const PlaylistSkeletonAuthor = styled.div`
     width: 271px;
     height: 19px;
-    margin-right: 50px;
+    margin-right: 60px;
     ${skeletonAnimation}
 `;
 export const PlaylistSkeletonAlbum = styled.div`
     width: 305px;
     height: 19px;
-    margin-right: 50px;
     ${skeletonAnimation}
 `;
