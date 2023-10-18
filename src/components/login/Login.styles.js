@@ -14,32 +14,24 @@ const mixinModalInput = css`
     padding: 8px 1px;
 
     &::-webkit-input-placeholder {
-        font-style: normal;
-        font-weight: 400;
         font-size: 18px;
         line-height: 24px;
         letter-spacing: -0.05px;
         color: #d0cece;
     }
     &:-ms-input-placeholder {
-        font-style: normal;
-        font-weight: 400;
         font-size: 18px;
         line-height: 24px;
         letter-spacing: -0.05px;
         color: #d0cece;
     }
     &::-ms-input-placeholder {
-        font-style: normal;
-        font-weight: 400;
         font-size: 18px;
         line-height: 24px;
         letter-spacing: -0.05px;
         color: #d0cece;
     }
     &::placeholder {
-        font-style: normal;
-        font-weight: 400;
         font-size: 18px;
         line-height: 24px;
         letter-spacing: -0.05px;
@@ -111,8 +103,6 @@ export const ModalButtonEnter = styled.button`
     margin-bottom: 20px;
     border: none;
     cursor: pointer;
-    font-style: normal;
-    font-weight: 400;
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
@@ -132,8 +122,6 @@ export const ModalButtonSignUp = styled.button`
     background-color: transparent;
     border: 1px solid #d0cece;
     border-radius: 6px;
-    font-style: normal;
-    font-weight: 400;
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
@@ -156,8 +144,6 @@ export const ModalButtonRegister = styled.button`
     border: none;
     margin-top: 30px;
     cursor: pointer;
-    font-style: normal;
-    font-weight: 400;
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;

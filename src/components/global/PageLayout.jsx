@@ -27,7 +27,7 @@ export const PageLayout = ({
                     setIsOpenedMenu={setIsOpenedMenu}
                 />
                 <S.MainCenterblock>
-                    <Header page={page} title={title} />
+                    <Header page={page} title={title} tracks={tracks} />
                     {page !== P.NOT_FOUND ? (
                         <Content
                             page={page}

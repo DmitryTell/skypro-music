@@ -164,8 +164,6 @@ export const TrackAuthor = styled.div`
     min-width: 49px;
 `;
 export const TrackAuthorSpan = styled.span`
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
@@ -178,8 +176,6 @@ export const TrackAlbum = styled.div`
     min-width: 49px;
 `;
 export const TrackAlbumSpan = styled.span`
-    font-style: normal;
-    font-weight: 400;
     font-size: 13px;
     line-height: 24px;
     color: #ffffff;

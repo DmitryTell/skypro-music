@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 
 const mixinSearchText = css`
     background-color: transparent;
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
@@ -85,8 +83,6 @@ export const SearchText = styled.input`
     }
 `;
 export const Title = styled.h2`
-    font-style: normal;
-    font-weight: 400;
     font-size: 64px;
     line-height: 72px;
     letter-spacing: -0.8px;
@@ -107,15 +103,11 @@ export const Filter = styled.div`
     margin-bottom: 51px;
 `;
 export const FilterTitle = styled.h3`
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     margin-right: 15px;
 `;
 export const FilterButton = styled.div`
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     border: 1px solid #ffffff;
@@ -163,8 +155,6 @@ export const PopupLink = styled.a`
     color: #fff;
     font-variant-numeric: lining-nums proportional-nums;
     font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
     line-height: 24px;
     ${mixinTransition}
 

@@ -54,7 +54,6 @@ export const NavMenuItem = styled.li`
 `;
 export const NavMenuLink = styled(Link)`
     color: #ffffff;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
 `;

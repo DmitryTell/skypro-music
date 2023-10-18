@@ -25,10 +25,7 @@ export const NotFoundTitle = styled.h2`
     font-feature-settings:
         "clig" off,
         "liga" off;
-    font-family: StratosSkyeng, sans-serif;
     font-size: 160px;
-    font-style: normal;
-    font-weight: 400;
     line-height: 168px;
 `;
 export const NotFoundSubtitle = styled.div`
@@ -40,10 +37,7 @@ export const NotFoundSubtitle = styled.div`
 export const NotFoundSubtitleText = styled.p`
     color: #fff;
     font-variant-numeric: lining-nums proportional-nums;
-    font-family: StratosSkyeng, sans-serif;
     font-size: 32px;
-    font-style: normal;
-    font-weight: 400;
     line-height: 40px;
 `;
 export const NotFoundText = styled.p`
@@ -52,10 +46,7 @@ export const NotFoundText = styled.p`
     color: #4e4e4e;
     text-align: center;
     font-variant-numeric: lining-nums proportional-nums;
-    font-family: StratosSkyeng, sans-serif;
     font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
     line-height: 24px;
     letter-spacing: -0.054px;
 `;
@@ -68,10 +59,7 @@ export const NotFoundButton = styled.button`
     cursor: pointer;
     color: #fff;
     font-variant-numeric: lining-nums proportional-nums;
-    font-family: StratosSkyeng, sans-serif;
     font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
     line-height: 24px;
     letter-spacing: -0.054px;
     transition: all 0.5s;

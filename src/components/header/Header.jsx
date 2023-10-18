@@ -8,7 +8,7 @@ import { AUTHOR, GENRE, YEAR } from "../../data/popups";
 
 const SVG_PATH = "img/icon/sprite.svg#icon-search";
 
-export const Header = ({ page, title }) => {
+export const Header = ({ page, title, tracks }) => {
     const [opened, setOpened] = useState(null);
 
     const handleClick = (popup) => {
@@ -40,7 +40,7 @@ export const Header = ({ page, title }) => {
                     <S.FilterButton onClick={() => handleClick(AUTHOR)}>
                         исполнителю
                     </S.FilterButton>
-                    {opened === AUTHOR && <Author />}
+                    {opened === AUTHOR && <Author tracks={tracks} />}
                     <S.FilterButton onClick={() => handleClick(YEAR)}>
                         году выпуска
                     </S.FilterButton>
@@ -48,7 +48,7 @@ export const Header = ({ page, title }) => {
                     <S.FilterButton onClick={() => handleClick(GENRE)}>
                         жанру
                     </S.FilterButton>
-                    {opened === GENRE && <Genre />}
+                    {opened === GENRE && <Genre tracks={tracks} />}
                 </S.Filter>
             )}
         </>

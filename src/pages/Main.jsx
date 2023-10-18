@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { PageLayout } from "../components/global/PageLayout";
-import { ALL_TRACKS } from "../data/all-tracks";
+import { getTracks } from "../api/tracks";
 
 export const Main = ({
     page,
@@ -17,13 +17,12 @@ export const Main = ({
     setNewError,
 }) => {
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setIsLoaded(true);
-            setTracks(ALL_TRACKS);
-            setNewError(null);
-        }, 5000);
-
-        return () => clearTimeout(timeout);
+        getTracks()
+            .then((allTracks) => {
+                setTracks(allTracks);
+                setIsLoaded(true);
+            })
+            .catch((error) => setNewError(`Ошибка загрузки. ${error.message}`));
     }, []);
 
     return (

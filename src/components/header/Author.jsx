@@ -1,15 +1,8 @@
 import { v4 as uuid } from "uuid";
 import * as S from "./Header.styles";
 
-export const Author = () => {
-    const AUTHORS = [
-        "Michael Jackson",
-        "Frank Sinatra",
-        "Calvin Harris",
-        "Zhu",
-        "Arctic Monkeys",
-        "Hui mamin",
-    ];
+export const Author = ({ tracks }) => {
+    const AUTHORS = [...new Set(tracks.map((track) => track.author))];
 
     return (
         <S.Author>

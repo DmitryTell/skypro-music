@@ -25,8 +25,6 @@ const mixinFlexboxBetween = css`
     justify-content: space-between;
 `;
 const mixinLinks = css`
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
@@ -47,8 +45,6 @@ export const ContentTitle = styled.div`
     margin-bottom: 24px;
 `;
 export const ContentTitleCol = styled.div`
-    font-style: normal;
-    font-weight: 400;
     font-size: 14px;
     line-height: 24px;
     letter-spacing: 2px;
@@ -74,8 +70,6 @@ export const ContentPlaylist = styled.ul`
 `;
 export const ContentPlaylistErrorText = styled.p`
     width: 500px;
-    font-style: normal;
-    font-weight: 400;
     font-size: 32px;
     line-height: 48px;
     color: #fff;
@@ -144,8 +138,6 @@ export const PlaylistTrackLikeSvg = styled.svg`
     cursor: pointer;
 `;
 export const PlaylistTrackTime = styled.span`
-    font-style: normal;
-    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     text-align: right;

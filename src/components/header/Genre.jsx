@@ -1,8 +1,8 @@
 import { v4 as uuid } from "uuid";
 import * as S from "./Header.styles";
 
-export const Genre = () => {
-    const GENRES = ["Рок", "Хип-хоп", "Поп-музыка", "Техно", "Инди"];
+export const Genre = ({ tracks }) => {
+    const GENRES = [...new Set(tracks.map((track) => track.genre))];
 
     return (
         <S.Genre>

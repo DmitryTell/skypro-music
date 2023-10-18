@@ -1,5 +1,6 @@
 import * as S from "./Content.styles";
 import * as P from "../../data/pages";
+import { getMinutesFromSeconds } from "../../data/secondary-functions";
 
 const NOTE_PATH = "img/icon/sprite.svg#icon-note";
 const LIKE_PATH = "img/icon/sprite.svg#icon-like";
@@ -9,7 +10,7 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
         event.preventDefault();
 
         setPlayer({
-            title: track.title,
+            title: track.name,
             author: track.author,
         });
     };
@@ -36,7 +37,7 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
                                     href="/#"
                                     onClick={handleClick}
                                 >
-                                    {track.title}
+                                    {track.name}
                                 </S.PlaylistTrackTitleLink>
                             </div>
                         </>
@@ -76,7 +77,9 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
                                 />
                             </S.PlaylistTrackLikeSvg>
                             <S.PlaylistTrackTime>
-                                {track.duration}
+                                {getMinutesFromSeconds(
+                                    track.duration_in_seconds,
+                                )}
                             </S.PlaylistTrackTime>
                         </div>
                     </>
