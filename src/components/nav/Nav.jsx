@@ -5,17 +5,17 @@ import * as P from "../../data/pages";
 const MENU_ITEMS = [
     {
         title: "Главное",
-        to: "/#",
+        to: "/",
         key: uuid(),
     },
     {
         title: "Мой плейлист",
-        to: "/#",
+        to: "/favourites",
         key: uuid(),
     },
     {
         title: "Войти",
-        to: "/#",
+        to: "/login",
         key: uuid(),
     },
 ];
@@ -41,7 +41,7 @@ export const Nav = ({ page, isOpenedMenu, setIsOpenedMenu }) => {
                         {MENU_ITEMS.map((item) => {
                             return (
                                 <S.NavMenuItem key={item.key}>
-                                    <S.NavMenuLink href={item.to}>
+                                    <S.NavMenuLink to={item.to}>
                                         {item.title}
                                     </S.NavMenuLink>
                                 </S.NavMenuItem>

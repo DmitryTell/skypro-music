@@ -72,6 +72,14 @@ export const ContentPlaylist = styled.ul`
         width: 0;
     }
 `;
+export const ContentPlaylistErrorText = styled.p`
+    width: 500px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 48px;
+    color: #fff;
+`;
 export const PlaylistItem = styled.li`
     width: 100%;
     display: block;

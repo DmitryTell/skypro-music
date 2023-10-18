@@ -1,9 +1,11 @@
+import { NotFound } from "../not-found/NotFound";
 import { Nav } from "../nav/Nav";
 import { Header } from "../header/Header";
 import { Content } from "../content/Content";
 import { Sidebar } from "../sidebar/Sidebar";
 import { Bar } from "../bar/Bar";
 import * as S from "./App.styles";
+import * as P from "../../data/pages";
 
 export const PageLayout = ({
     page,
@@ -14,6 +16,7 @@ export const PageLayout = ({
     setIsOpenedMenu,
     player,
     setPlayer,
+    newError,
 }) => {
     return (
         <S.Container>
@@ -25,12 +28,17 @@ export const PageLayout = ({
                 />
                 <S.MainCenterblock>
                     <Header page={page} title={title} />
-                    <Content
-                        page={page}
-                        tracks={tracks}
-                        isLoaded={isLoaded}
-                        setPlayer={setPlayer}
-                    />
+                    {page !== P.NOT_FOUND ? (
+                        <Content
+                            page={page}
+                            tracks={tracks}
+                            isLoaded={isLoaded}
+                            setPlayer={setPlayer}
+                            newError={newError}
+                        />
+                    ) : (
+                        <NotFound />
+                    )}
                 </S.MainCenterblock>
                 <Sidebar page={page} isLoaded={isLoaded} />
             </S.Main>

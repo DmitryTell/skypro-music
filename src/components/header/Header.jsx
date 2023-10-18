@@ -33,7 +33,7 @@ export const Header = ({ page, title }) => {
                 </S.SearchSvg>
                 <S.SearchText type="search" placeholder="Поиск" name="search" />
             </S.Search>
-            <S.Title>{title}</S.Title>
+            {page !== P.NOT_FOUND && <S.Title>{title}</S.Title>}
             {page === P.MAIN && (
                 <S.Filter>
                     <S.FilterTitle>Искать по:</S.FilterTitle>

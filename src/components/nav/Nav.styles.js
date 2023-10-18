@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.div`
@@ -51,7 +52,7 @@ export const NavMenuItem = styled.li`
     padding: 5px 0;
     margin-bottom: 16px;
 `;
-export const NavMenuLink = styled.a`
+export const NavMenuLink = styled(Link)`
     color: #ffffff;
     font-weight: 400;
     font-size: 16px;

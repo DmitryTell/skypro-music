@@ -1,4 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const mixinFlexbox = css`
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+`;
 
 export const Wrapper = styled.div`
     width: 100%;
@@ -17,9 +23,7 @@ export const Main = styled.div`
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    ${mixinFlexbox}
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     -webkit-box-pack: justify;

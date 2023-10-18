@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const mixinFlexbox = css`
@@ -72,7 +73,7 @@ export const SidebarItem = styled.li`
         margin-bottom: 30px;
     }
 `;
-export const SidebarLink = styled.a`
+export const SidebarLink = styled(Link)`
     width: 100%;
     height: 100%;
 `;

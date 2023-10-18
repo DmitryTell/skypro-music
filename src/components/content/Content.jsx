@@ -3,20 +3,26 @@ import { Title } from "./Title";
 import { Item } from "./Item";
 import * as S from "./Content.styles";
 
-export const Content = ({ page, tracks, isLoaded, setPlayer }) => {
+export const Content = ({ page, tracks, isLoaded, setPlayer, newError }) => {
     return (
         <S.Content>
             <Title page={page} />
             <S.ContentPlaylist>
-                {tracks.map((track) => (
-                    <Item
-                        key={uuid()}
-                        page={page}
-                        track={track}
-                        isLoaded={isLoaded}
-                        setPlayer={setPlayer}
-                    />
-                ))}
+                {newError ? (
+                    <S.ContentPlaylistErrorText>
+                        {newError}
+                    </S.ContentPlaylistErrorText>
+                ) : (
+                    tracks.map((track) => (
+                        <Item
+                            key={uuid()}
+                            page={page}
+                            track={track}
+                            isLoaded={isLoaded}
+                            setPlayer={setPlayer}
+                        />
+                    ))
+                )}
                 <S.PlaylistLastItem />
             </S.ContentPlaylist>
         </S.Content>
