@@ -7,9 +7,10 @@ const CONTROL_PATHS = [
     "img/icon/sprite.svg#icon-next",
     "img/icon/sprite.svg#icon-repeat",
     "img/icon/sprite.svg#icon-shuffle",
+    "img/icon/sprite.svg#icon-pause",
 ];
 
-export const Controls = ({ page }) => {
+export const Controls = ({ page, isLoop, isPlaying, controls }) => {
     return (
         <S.PlayerControls>
             <S.PlayerButtonPrev>
@@ -23,17 +24,37 @@ export const Controls = ({ page }) => {
                     />
                 </S.PlayerButtonPrevSvg>
             </S.PlayerButtonPrev>
-            <S.PlayerButtonPlay>
-                <S.PlayerButtonPlaySvg alt="play">
-                    <use
-                        xlinkHref={
-                            page === P.CATEGORY
-                                ? `../${CONTROL_PATHS[1]}`
-                                : CONTROL_PATHS[1]
-                        }
-                    />
-                </S.PlayerButtonPlaySvg>
-            </S.PlayerButtonPlay>
+            {isPlaying ? (
+                <S.PlayerButtonPause
+                    className="_btn-icon"
+                    onClick={controls.handlePause}
+                >
+                    <S.PlayerButtonPauseSvg alt="pause">
+                        <use
+                            xlinkHref={
+                                page === P.CATEGORY
+                                    ? `../${CONTROL_PATHS[5]}`
+                                    : CONTROL_PATHS[5]
+                            }
+                        />
+                    </S.PlayerButtonPauseSvg>
+                </S.PlayerButtonPause>
+            ) : (
+                <S.PlayerButtonPlay
+                    className="_btn-icon"
+                    onClick={controls.handlePlay}
+                >
+                    <S.PlayerButtonPlaySvg alt="play">
+                        <use
+                            xlinkHref={
+                                page === P.CATEGORY
+                                    ? `../${CONTROL_PATHS[1]}`
+                                    : CONTROL_PATHS[1]
+                            }
+                        />
+                    </S.PlayerButtonPlaySvg>
+                </S.PlayerButtonPlay>
+            )}
             <S.PlayerButtonNext>
                 <S.PlayerButtonNextSvg alt="next">
                     <use
@@ -45,8 +66,14 @@ export const Controls = ({ page }) => {
                     />
                 </S.PlayerButtonNextSvg>
             </S.PlayerButtonNext>
-            <S.PlayerButtonRepeat className="_btn-icon">
-                <S.PlayerButtonRepeatSvg alt="repeat">
+            <S.PlayerButtonRepeat
+                className="_btn-icon"
+                onClick={controls.toggleLoop}
+            >
+                <S.PlayerButtonRepeatSvg
+                    stroke={isLoop ? "#fff" : "#696969"}
+                    alt="repeat"
+                >
                     <use
                         xlinkHref={
                             page === P.CATEGORY

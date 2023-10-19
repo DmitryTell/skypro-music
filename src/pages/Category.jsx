@@ -15,6 +15,9 @@ export const Category = ({
     setPlayer,
     newError,
     setNewError,
+    isLoop,
+    isPlaying,
+    controls,
 }) => {
     const params = useParams();
 
@@ -37,6 +40,9 @@ export const Category = ({
             player={player}
             setPlayer={setPlayer}
             newError={newError}
+            isLoop={isLoop}
+            isPlaying={isPlaying}
+            controls={controls}
         />
     );
 };

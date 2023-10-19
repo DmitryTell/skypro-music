@@ -21,6 +21,9 @@ export const AppRoutes = ({
     setPlayer,
     newError,
     setNewError,
+    isLoop,
+    isPlaying,
+    controls,
 }) => {
     return (
         <Routes>
@@ -63,6 +66,9 @@ export const AppRoutes = ({
                             setPlayer={setPlayer}
                             newError={newError}
                             setNewError={setNewError}
+                            isLoop={isLoop}
+                            isPlaying={isPlaying}
+                            controls={controls}
                         />
                     }
                 />
@@ -82,6 +88,9 @@ export const AppRoutes = ({
                             setPlayer={setPlayer}
                             newError={newError}
                             setNewError={setNewError}
+                            isLoop={isLoop}
+                            isPlaying={isPlaying}
+                            controls={controls}
                         />
                     }
                 />
@@ -101,6 +110,9 @@ export const AppRoutes = ({
                         setPlayer={setPlayer}
                         newError={newError}
                         setNewError={setNewError}
+                        isLoop={isLoop}
+                        isPlaying={isPlaying}
+                        controls={controls}
                     />
                 }
             />

@@ -15,6 +15,9 @@ export const Main = ({
     setPlayer,
     newError,
     setNewError,
+    isLoop,
+    isPlaying,
+    controls,
 }) => {
     useEffect(() => {
         getTracks()
@@ -36,6 +39,9 @@ export const Main = ({
             player={player}
             setPlayer={setPlayer}
             newError={newError}
+            isLoop={isLoop}
+            isPlaying={isPlaying}
+            controls={controls}
         />
     );
 };

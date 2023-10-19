@@ -14,6 +14,9 @@ export const Favourites = ({
     setPlayer,
     newError,
     setNewError,
+    isLoop,
+    isPlaying,
+    controls,
 }) => {
     useEffect(() => {
         setIsLoaded(false);
@@ -32,6 +35,9 @@ export const Favourites = ({
             player={player}
             setPlayer={setPlayer}
             newError={newError}
+            isLoop={isLoop}
+            isPlaying={isPlaying}
+            controls={controls}
         />
     );
 };

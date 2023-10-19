@@ -12,6 +12,7 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
         setPlayer({
             title: track.name,
             author: track.author,
+            link: track.track_file,
         });
     };
 

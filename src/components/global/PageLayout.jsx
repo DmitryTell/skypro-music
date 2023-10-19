@@ -17,6 +17,9 @@ export const PageLayout = ({
     player,
     setPlayer,
     newError,
+    isLoop,
+    isPlaying,
+    controls,
 }) => {
     return (
         <S.Container>
@@ -42,7 +45,15 @@ export const PageLayout = ({
                 </S.MainCenterblock>
                 <Sidebar page={page} isLoaded={isLoaded} />
             </S.Main>
-            {player && <Bar page={page} player={player} />}
+            {player && (
+                <Bar
+                    page={page}
+                    player={player}
+                    isLoop={isLoop}
+                    isPlaying={isPlaying}
+                    controls={controls}
+                />
+            )}
             <footer className="footer" />
         </S.Container>
     );
