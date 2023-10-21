@@ -17,6 +17,11 @@ export const PageLayout = ({
     player,
     setPlayer,
     newError,
+    currentTime,
+    setCurrentTime,
+    duration,
+    volume,
+    setVolume,
     isLoop,
     isPlaying,
     controls,
@@ -49,6 +54,11 @@ export const PageLayout = ({
                 <Bar
                     page={page}
                     player={player}
+                    currentTime={currentTime}
+                    setCurrentTime={setCurrentTime}
+                    duration={duration}
+                    volume={volume}
+                    setVolume={setVolume}
                     isLoop={isLoop}
                     isPlaying={isPlaying}
                     controls={controls}

@@ -25,14 +25,10 @@ export const App = () => {
     const [player, setPlayer] = useState(null);
     const [newError, setNewError] = useState(null);
     const [isLoop, setIsLoop] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(null);
+    const [volume, setVolume] = useState(40);
     const [isPlaying, setIsPlaying] = useState(false);
-
-    useEffect(() => {
-        if (player) {
-            audioRef.current.src = player.link;
-            setIsPlaying(true);
-        }
-    }, [player]);
 
     const controls = {
         handlePlay: () => {
@@ -47,15 +43,44 @@ export const App = () => {
             audioRef.current.loop = !isLoop;
             setIsLoop(!isLoop);
         },
+        handleChangeProgress: () => {
+            audioRef.current.currentTime = currentTime;
+        },
     };
+    const updateTime = () => {
+        setCurrentTime(audioRef.current.currentTime);
+    };
+
+    useEffect(() => {
+        const currentDuration = audioRef.current.duration;
+
+        if (!currentDuration || Number.isNaN(currentDuration)) {
+            setDuration(190);
+        } else {
+            setDuration(currentDuration);
+        }
+    });
+    useEffect(() => {
+        audioRef.current.addEventListener("timeupdate", updateTime);
+
+        return () =>
+            audioRef.current.removeEventListener("timeupdate", updateTime);
+    });
+    useEffect(() => {
+        if (player) {
+            audioRef.current.src = player.link;
+            setIsPlaying(true);
+        }
+    }, [player]);
+    useEffect(() => {
+        audioRef.current.volume = volume / 100;
+    }, [volume]);
 
     return (
         <>
-            {player && (
-                <audio controls autoPlay ref={audioRef}>
-                    <source src={player?.link} type="audio/mpeg" />
-                </audio>
-            )}
+            <audio autoPlay ref={audioRef}>
+                <source src={player?.link} type="audio/mpeg" />
+            </audio>
             <GlobalStyles />
             <S.Wrapper>
                 <AppRoutes
@@ -70,6 +95,11 @@ export const App = () => {
                     setPlayer={setPlayer}
                     newError={newError}
                     setNewError={setNewError}
+                    currentTime={currentTime}
+                    setCurrentTime={setCurrentTime}
+                    duration={duration}
+                    volume={volume}
+                    setVolume={setVolume}
                     isLoop={isLoop}
                     isPlaying={isPlaying}
                     controls={controls}

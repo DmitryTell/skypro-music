@@ -3,7 +3,7 @@ import * as S from "./Bar.styles";
 
 const VOLUME_PATH = "img/icon/sprite.svg#icon-volume";
 
-export const Volume = ({ page }) => {
+export const Volume = ({ page, volume, setVolume }) => {
     return (
         <S.Volume>
             <S.VolumeContent>
@@ -19,7 +19,14 @@ export const Volume = ({ page }) => {
                     </S.VolumeSvg>
                 </S.VolumeImg>
                 <S.VolumeProgress>
-                    <S.VolumeProgressLine type="range" name="range" />
+                    <S.VolumeProgressLine
+                        type="range"
+                        min={0}
+                        max={100}
+                        step={0.01}
+                        value={volume}
+                        onChange={(e) => setVolume(e.target.value)}
+                    />
                 </S.VolumeProgress>
             </S.VolumeContent>
         </S.Volume>

@@ -21,6 +21,11 @@ export const AppRoutes = ({
     setPlayer,
     newError,
     setNewError,
+    currentTime,
+    setCurrentTime,
+    duration,
+    volume,
+    setVolume,
     isLoop,
     isPlaying,
     controls,
@@ -66,6 +71,11 @@ export const AppRoutes = ({
                             setPlayer={setPlayer}
                             newError={newError}
                             setNewError={setNewError}
+                            currentTime={currentTime}
+                            setCurrentTime={setCurrentTime}
+                            duration={duration}
+                            volume={volume}
+                            setVolume={setVolume}
                             isLoop={isLoop}
                             isPlaying={isPlaying}
                             controls={controls}
@@ -88,6 +98,11 @@ export const AppRoutes = ({
                             setPlayer={setPlayer}
                             newError={newError}
                             setNewError={setNewError}
+                            currentTime={currentTime}
+                            setCurrentTime={setCurrentTime}
+                            duration={duration}
+                            volume={volume}
+                            setVolume={setVolume}
                             isLoop={isLoop}
                             isPlaying={isPlaying}
                             controls={controls}
@@ -110,6 +125,11 @@ export const AppRoutes = ({
                         setPlayer={setPlayer}
                         newError={newError}
                         setNewError={setNewError}
+                        currentTime={currentTime}
+                        setCurrentTime={setCurrentTime}
+                        duration={duration}
+                        volume={volume}
+                        setVolume={setVolume}
                         isLoop={isLoop}
                         isPlaying={isPlaying}
                         controls={controls}

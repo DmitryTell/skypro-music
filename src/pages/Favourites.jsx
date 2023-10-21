@@ -14,6 +14,11 @@ export const Favourites = ({
     setPlayer,
     newError,
     setNewError,
+    currentTime,
+    setCurrentTime,
+    duration,
+    volume,
+    setVolume,
     isLoop,
     isPlaying,
     controls,
@@ -35,6 +40,11 @@ export const Favourites = ({
             player={player}
             setPlayer={setPlayer}
             newError={newError}
+            currentTime={currentTime}
+            setCurrentTime={setCurrentTime}
+            duration={duration}
+            volume={volume}
+            setVolume={setVolume}
             isLoop={isLoop}
             isPlaying={isPlaying}
             controls={controls}
