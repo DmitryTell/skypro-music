@@ -11,6 +11,7 @@ import * as T from "../data/titles";
 
 export const AppRoutes = ({
     user,
+    setUser,
     tracks,
     setTracks,
     isLoaded,
@@ -35,13 +36,21 @@ export const AppRoutes = ({
             <Route
                 path="/login"
                 element={
-                    <Login newError={newError} setNewError={setNewError} />
+                    <Login
+                        newError={newError}
+                        setNewError={setNewError}
+                        setUser={setUser}
+                    />
                 }
             />
             <Route
                 path="/register"
                 element={
-                    <Register newError={newError} setNewError={setNewError} />
+                    <Register
+                        newError={newError}
+                        setNewError={setNewError}
+                        setUser={setUser}
+                    />
                 }
             />
             <Route
@@ -51,6 +60,14 @@ export const AppRoutes = ({
                         page={P.NOT_FOUND}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
+                        currentTime={currentTime}
+                        setCurrentTime={setCurrentTime}
+                        duration={duration}
+                        volume={volume}
+                        setVolume={setVolume}
+                        isLoop={isLoop}
+                        isPlaying={isPlaying}
+                        controls={controls}
                     />
                 }
             />

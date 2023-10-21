@@ -7,24 +7,30 @@ export const Content = ({ page, tracks, isLoaded, setPlayer, newError }) => {
     return (
         <S.Content>
             <Title page={page} />
-            <S.ContentPlaylist>
-                {newError ? (
-                    <S.ContentPlaylistErrorText>
-                        {newError}
-                    </S.ContentPlaylistErrorText>
-                ) : (
-                    tracks.map((track) => (
-                        <Item
-                            key={uuid()}
-                            page={page}
-                            track={track}
-                            isLoaded={isLoaded}
-                            setPlayer={setPlayer}
-                        />
-                    ))
-                )}
-                <S.PlaylistLastItem />
-            </S.ContentPlaylist>
+            {newError ? (
+                <S.ContentPlaylistErrorText>
+                    {newError}
+                </S.ContentPlaylistErrorText>
+            ) : (
+                <S.ContentPlaylist>
+                    {tracks.length ? (
+                        tracks.map((track) => (
+                            <Item
+                                key={uuid()}
+                                page={page}
+                                track={track}
+                                isLoaded={isLoaded}
+                                setPlayer={setPlayer}
+                            />
+                        ))
+                    ) : (
+                        <S.ContentPlaylistErrorText>
+                            Список треков пуст
+                        </S.ContentPlaylistErrorText>
+                    )}
+                    <S.PlaylistLastItem />
+                </S.ContentPlaylist>
+            )}
         </S.Content>
     );
 };

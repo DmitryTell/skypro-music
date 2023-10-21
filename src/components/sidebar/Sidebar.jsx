@@ -1,17 +1,20 @@
 import { ITEMS } from "../../data/category-items";
 import * as S from "./Sidebar.styles";
 import * as P from "../../data/pages";
+import { useUserContext } from "../../context/user";
 
 const LOGOUT_PATH = "img/icon/sprite.svg#logout";
 
 export const Sidebar = ({ page, isLoaded }) => {
+    const { username, clearUser } = useUserContext();
+
     return (
         <S.Sidebar>
             <S.SidebarPersonal>
                 {page !== P.NOT_FOUND && (
-                    <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+                    <S.SidebarPersonalName>{username}</S.SidebarPersonalName>
                 )}
-                <S.SidebarIcon>
+                <S.SidebarIcon onClick={clearUser}>
                     <svg alt="logout">
                         <use
                             xlinkHref={

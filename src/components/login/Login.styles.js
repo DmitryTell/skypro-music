@@ -11,6 +11,7 @@ const mixinModalInput = css`
     border-left: none;
     border-right: none;
     border-bottom: 1px solid #d0cece;
+    outline: none;
     padding: 8px 1px;
 
     &::-webkit-input-placeholder {
@@ -53,9 +54,9 @@ export const ModalBlock = styled.div`
     top: calc(50% - (439px / 2));
     opacity: 1;
 `;
-export const ModalFormLogin = styled.form`
+export const ModalFormLogin = styled.div`
     width: 366px;
-    height: 439px;
+    min-height: 439px;
     background-color: #ffffff;
     border-radius: 12px;
     ${mixinFlexbox}
@@ -99,7 +100,7 @@ export const ModalButtonEnter = styled.button`
     height: 52px;
     background-color: #580ea2;
     border-radius: 6px;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
     border: none;
     cursor: pointer;
@@ -156,4 +157,14 @@ export const ModalButtonRegister = styled.button`
     &:active {
         background-color: #271a58;
     }
+`;
+export const ModalErrorText = styled.span`
+    margin-top: 5px;
+    margin-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: -0.05px;
+    color: red;
 `;

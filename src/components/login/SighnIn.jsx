@@ -1,8 +1,57 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../api/user";
 import * as S from "./Login.styles";
 
-export const SighnIn = () => {
+export const SighnIn = ({
+    newError,
+    setNewError,
+    setUser,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    isLoadingBtn,
+    setIsLoadingBtn,
+}) => {
     const navigate = useNavigate();
+
+    const initLogin = () => {
+        setIsLoadingBtn(true);
+
+        if (!email) {
+            setNewError("Введите адрес почты");
+            setIsLoadingBtn(false);
+            return;
+        }
+        if (!password) {
+            setNewError("Введите пароль");
+            setIsLoadingBtn(false);
+            return;
+        }
+
+        loginUser(email, password)
+            .then((user) => {
+                const userJson = JSON.stringify(user);
+
+                window.localStorage.setItem("USER", userJson);
+
+                setUser(user);
+                setIsLoadingBtn(false);
+                setNewError(null);
+
+                navigate("/", { replace: true });
+            })
+            .catch((error) => {
+                setNewError(error.message);
+                setIsLoadingBtn(false);
+            });
+    };
+
+    useEffect(() => {
+        setUser(null);
+        setNewError(null);
+    }, []);
 
     return (
         <S.ContainerLogin>
@@ -14,18 +63,31 @@ export const SighnIn = () => {
                         </S.ModalLogo>
                     </Link>
                     <S.ModalInputLogin
-                        type="text"
+                        type="email"
                         name="login"
                         placeholder="Почта"
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <S.ModalInputPassword
                         type="password"
                         name="password"
                         placeholder="Пароль"
+                        onChange={(e) => setPassword(e.target.value)}
                     />
-                    <S.ModalButtonEnter>Войти</S.ModalButtonEnter>
+                    {newError && (
+                        <S.ModalErrorText>{newError}</S.ModalErrorText>
+                    )}
+                    <S.ModalButtonEnter
+                        disabled={isLoadingBtn}
+                        onClick={initLogin}
+                    >
+                        {!isLoadingBtn && "Войти"}
+                    </S.ModalButtonEnter>
                     <S.ModalButtonSignUp
-                        onClick={() => navigate("/register", { replace: true })}
+                        onClick={() => {
+                            setNewError(null);
+                            navigate("/register", { replace: true });
+                        }}
                     >
                         Зарегистрироваться
                     </S.ModalButtonSignUp>

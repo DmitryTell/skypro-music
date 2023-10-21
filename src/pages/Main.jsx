@@ -25,6 +25,9 @@ export const Main = ({
     controls,
 }) => {
     useEffect(() => {
+        window.localStorage.setItem("PAGE", page);
+        setNewError(null);
+
         getTracks()
             .then((allTracks) => {
                 setTracks(allTracks);

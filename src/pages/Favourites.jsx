@@ -24,9 +24,11 @@ export const Favourites = ({
     controls,
 }) => {
     useEffect(() => {
+        window.localStorage.setItem("PAGE", page);
+
         setIsLoaded(false);
         setTracks([]);
-        setNewError("Список треков пуст");
+        setNewError(null);
     }, []);
 
     return (

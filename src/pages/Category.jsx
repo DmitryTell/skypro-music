@@ -25,13 +25,14 @@ export const Category = ({
     controls,
 }) => {
     const params = useParams();
-
     const category = ITEMS.find((item) => item.id === Number(params.id));
 
     useEffect(() => {
+        window.localStorage.setItem("PAGE", `${page}/${category.id}`);
+
         setTracks([]);
         setIsLoaded(false);
-        setNewError(`Список пуст. Страница: ${category.title}`);
+        setNewError(null);
     }, []);
 
     return (
