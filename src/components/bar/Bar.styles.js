@@ -129,10 +129,6 @@ export const PlayerButtonPlaySvg = styled.svg`
     height: 20px;
     fill: #d9d9d9;
 `;
-export const PlayerButtonPause = styled.div`
-    margin-right: 23px;
-    cursor: pointer;
-`;
 export const PlayerButtonPauseSvg = styled.svg`
     width: 15px;
     height: 19px;

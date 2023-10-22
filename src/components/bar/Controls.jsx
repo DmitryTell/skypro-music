@@ -11,6 +11,8 @@ const CONTROL_PATHS = [
 ];
 
 export const Controls = ({ page, isLoop, isPlaying, controls }) => {
+    const { handlePlay, handlePause } = controls;
+
     return (
         <S.PlayerControls>
             <S.PlayerButtonPrev>
@@ -24,11 +26,11 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                     />
                 </S.PlayerButtonPrevSvg>
             </S.PlayerButtonPrev>
-            {isPlaying ? (
-                <S.PlayerButtonPause
-                    className="_btn-icon"
-                    onClick={controls.handlePause}
-                >
+            <S.PlayerButtonPlay
+                className="_btn-icon"
+                onClick={isPlaying ? handlePause : handlePlay}
+            >
+                {isPlaying ? (
                     <S.PlayerButtonPauseSvg alt="pause">
                         <use
                             xlinkHref={
@@ -38,12 +40,7 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                             }
                         />
                     </S.PlayerButtonPauseSvg>
-                </S.PlayerButtonPause>
-            ) : (
-                <S.PlayerButtonPlay
-                    className="_btn-icon"
-                    onClick={controls.handlePlay}
-                >
+                ) : (
                     <S.PlayerButtonPlaySvg alt="play">
                         <use
                             xlinkHref={
@@ -53,8 +50,8 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                             }
                         />
                     </S.PlayerButtonPlaySvg>
-                </S.PlayerButtonPlay>
-            )}
+                )}
+            </S.PlayerButtonPlay>
             <S.PlayerButtonNext>
                 <S.PlayerButtonNextSvg alt="next">
                     <use
