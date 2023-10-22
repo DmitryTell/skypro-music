@@ -79,6 +79,7 @@ export const SighnIn = ({
                     )}
                     <S.ModalButtonEnter
                         disabled={isLoadingBtn}
+                        loading={isLoadingBtn ? "yes" : ""}
                         onClick={initLogin}
                     >
                         {!isLoadingBtn && "Войти"}

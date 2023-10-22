@@ -109,6 +109,7 @@ export const SighnUp = ({
                     )}
                     <S.ModalButtonRegister
                         disabled={isLoadingBtn}
+                        loading={isLoadingBtn ? "yes" : ""}
                         onClick={initRegister}
                     >
                         {!isLoadingBtn && "Зарегистрироваться"}

@@ -80,6 +80,22 @@ export const GlobalStyles = createGlobalStyle`
           background: #4E4E4E;
         }
     }
+    @-webkit-keyframes button-animation {
+        0% {
+          background: #580ea2;
+        }
+        100% {
+          background: #b22cff;
+        }
+      }
+      @keyframes button-animation {
+        0% {
+          background: #580ea2;
+        }
+        100% {
+          background: #b22cff;
+        }
+      }
 
     ._btn-icon:hover svg {
         fill: transparent;

@@ -39,6 +39,10 @@ const mixinModalInput = css`
         color: #d0cece;
     }
 `;
+const buttonAnimation = css`
+    -webkit-animation: button-animation 2s linear infinite alternate both;
+    animation: button-animation 2s linear infinite alternate both;
+`;
 
 export const ContainerLogin = styled.div`
     max-width: 100%;
@@ -109,6 +113,7 @@ export const ModalButtonEnter = styled.button`
     letter-spacing: -0.05px;
     color: #ffffff;
     transition: all 0.5s;
+    ${({ loading }) => Boolean(loading) && buttonAnimation}
 
     &:hover {
         background-color: #3f007d;
@@ -150,6 +155,7 @@ export const ModalButtonRegister = styled.button`
     letter-spacing: -0.05px;
     color: #ffffff;
     transition: all 0.5s;
+    ${({ loading }) => Boolean(loading) && buttonAnimation}
 
     &:hover {
         background-color: #3f007d;
