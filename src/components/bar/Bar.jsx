@@ -11,10 +11,16 @@ export const Bar = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
+    const {
+        togglePlayPause,
+        toggleLoop,
+        toggleShuffled,
+        handleChangeProgress,
+        handleNextTrack,
+    } = controls;
+
     return (
         <S.Bar>
             <S.BarContent>
@@ -25,15 +31,16 @@ export const Bar = ({
                     value={currentTime}
                     step={0.01}
                     onChange={(event) => setCurrentTime(event.target.value)}
-                    onClick={controls.handleChangeProgress}
+                    onClick={handleChangeProgress}
                 />
                 <S.BarPlayerBlock>
                     <S.BarPlayer>
                         <Controls
                             page={page}
-                            isLoop={isLoop}
-                            isPlaying={isPlaying}
-                            controls={controls}
+                            togglePlayPause={togglePlayPause}
+                            toggleLoop={toggleLoop}
+                            toggleShuffled={toggleShuffled}
+                            handleNextTrack={handleNextTrack}
                         />
                         <Track page={page} player={player} />
                     </S.BarPlayer>

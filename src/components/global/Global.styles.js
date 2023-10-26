@@ -65,37 +65,65 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     @-webkit-keyframes skeleton-animation {
-        0% {
-          background: #313131;
-        }
-        100% {
-          background: #4E4E4E;
-        }
+      0% {
+        background: #313131;
       }
-      @keyframes skeleton-animation {
-        0% {
-          background: #313131;
-        }
-        100% {
-          background: #4E4E4E;
-        }
+      100% {
+        background: #4E4E4E;
+      }
+    }
+    @keyframes skeleton-animation {
+      0% {
+        background: #313131;
+      }
+      100% {
+        background: #4E4E4E;
+      }
     }
     @-webkit-keyframes button-animation {
-        0% {
-          background: #580ea2;
-        }
-        100% {
-          background: #b22cff;
-        }
+      0% {
+        background: #580ea2;
       }
-      @keyframes button-animation {
-        0% {
-          background: #580ea2;
-        }
-        100% {
-          background: #b22cff;
-        }
+      100% {
+        background: #b22cff;
       }
+    }
+    @keyframes button-animation {
+      0% {
+        background: #580ea2;
+      }
+      100% {
+        background: #b22cff;
+      }
+    }
+    @-webkit-keyframes track-dote-animation {
+      0% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+      50% {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+      }
+      100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+    }
+    @keyframes track-dote-animation {
+      0% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+      50% {
+        -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+      }
+      100% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+      }
+    }
 
     ._btn-icon:hover svg {
         fill: transparent;

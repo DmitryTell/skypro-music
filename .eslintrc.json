@@ -26,6 +26,8 @@
         "jsx-a11y/anchor-has-content": "off",
         "jsx-a11y/control-has-associated-label": "off",
         "arrow-body-style": "off",
-        "jsx-a11y/media-has-caption": "off"
+        "jsx-a11y/media-has-caption": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off"
     }
 }

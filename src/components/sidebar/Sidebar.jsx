@@ -5,7 +5,7 @@ import { useUserContext } from "../../context/user";
 
 const LOGOUT_PATH = "img/icon/sprite.svg#logout";
 
-export const Sidebar = ({ page, isLoaded }) => {
+export const Sidebar = ({ page, isLoading }) => {
     const { username, clearUser } = useUserContext();
 
     return (
@@ -31,7 +31,7 @@ export const Sidebar = ({ page, isLoaded }) => {
                     <S.SidebarList>
                         {ITEMS.map((item) => (
                             <S.SidebarItem key={item.key}>
-                                {isLoaded ? (
+                                {!isLoading ? (
                                     <S.SidebarLink to={`/category/${item.id}`}>
                                         <S.SidebarImg
                                             src={

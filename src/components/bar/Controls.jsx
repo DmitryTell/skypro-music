@@ -1,5 +1,11 @@
+import { useSelector } from "react-redux";
 import * as P from "../../data/pages";
 import * as S from "./Bar.styles";
+import {
+    playerISShuffledSelector,
+    playerIsLoopSelector,
+    playerIsPausedSelector,
+} from "../../store/selectors/player";
 
 const CONTROL_PATHS = [
     "img/icon/sprite.svg#icon-prev",
@@ -10,8 +16,16 @@ const CONTROL_PATHS = [
     "img/icon/sprite.svg#icon-pause",
 ];
 
-export const Controls = ({ page, isLoop, isPlaying, controls }) => {
-    const { handlePlay, handlePause } = controls;
+export const Controls = ({
+    page,
+    togglePlayPause,
+    toggleLoop,
+    toggleShuffled,
+    handleNextTrack,
+}) => {
+    const isLoop = useSelector(playerIsLoopSelector);
+    const isPaused = useSelector(playerIsPausedSelector);
+    const isShuffled = useSelector(playerISShuffledSelector);
 
     return (
         <S.PlayerControls>
@@ -26,11 +40,8 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                     />
                 </S.PlayerButtonPrevSvg>
             </S.PlayerButtonPrev>
-            <S.PlayerButtonPlay
-                className="_btn-icon"
-                onClick={isPlaying ? handlePause : handlePlay}
-            >
-                {isPlaying ? (
+            <S.PlayerButtonPlay className="_btn-icon" onClick={togglePlayPause}>
+                {!isPaused ? (
                     <S.PlayerButtonPauseSvg alt="pause">
                         <use
                             xlinkHref={
@@ -52,7 +63,7 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                     </S.PlayerButtonPlaySvg>
                 )}
             </S.PlayerButtonPlay>
-            <S.PlayerButtonNext>
+            <S.PlayerButtonNext onClick={handleNextTrack}>
                 <S.PlayerButtonNextSvg alt="next">
                     <use
                         xlinkHref={
@@ -63,10 +74,7 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                     />
                 </S.PlayerButtonNextSvg>
             </S.PlayerButtonNext>
-            <S.PlayerButtonRepeat
-                className="_btn-icon"
-                onClick={controls.toggleLoop}
-            >
+            <S.PlayerButtonRepeat className="_btn-icon" onClick={toggleLoop}>
                 <S.PlayerButtonRepeatSvg
                     stroke={isLoop ? "#fff" : "#696969"}
                     alt="repeat"
@@ -80,8 +88,14 @@ export const Controls = ({ page, isLoop, isPlaying, controls }) => {
                     />
                 </S.PlayerButtonRepeatSvg>
             </S.PlayerButtonRepeat>
-            <S.PlayerButtonShuffle className="_btn-icon">
-                <S.PlayerButtonShuffleSvg alt="shuffle">
+            <S.PlayerButtonShuffle
+                className="_btn-icon"
+                onClick={toggleShuffled}
+            >
+                <S.PlayerButtonShuffleSvg
+                    stroke={isShuffled ? "#fff" : "#696969"}
+                    alt="shuffle"
+                >
                     <use
                         xlinkHref={
                             page === P.CATEGORY

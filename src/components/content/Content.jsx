@@ -1,9 +1,13 @@
+import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { Title } from "./Title";
 import { Item } from "./Item";
 import * as S from "./Content.styles";
+import { playerAllTracksSelector } from "../../store/selectors/player";
 
-export const Content = ({ page, tracks, isLoaded, setPlayer, newError }) => {
+export const Content = ({ page, isLoading, setPlayer, newError }) => {
+    const tracks = useSelector(playerAllTracksSelector);
+
     return (
         <S.Content>
             <Title page={page} />
@@ -19,7 +23,7 @@ export const Content = ({ page, tracks, isLoaded, setPlayer, newError }) => {
                                 key={uuid()}
                                 page={page}
                                 track={track}
-                                isLoaded={isLoaded}
+                                isLoading={isLoading}
                                 setPlayer={setPlayer}
                             />
                         ))

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { PageLayout } from "../components/global/PageLayout";
+import { addAllTracks } from "../store/slices/player";
 
 export const Favourites = ({
     page,
     title,
-    tracks,
-    setTracks,
     isLoaded,
     setIsLoaded,
     isOpenedMenu,
@@ -19,23 +19,20 @@ export const Favourites = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
-    useEffect(() => {
-        window.localStorage.setItem("PAGE", page);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
         setIsLoaded(false);
-        setTracks([]);
         setNewError(null);
+        dispatch(addAllTracks({ tracks: [] }));
     }, []);
 
     return (
         <PageLayout
             page={page}
             title={title}
-            tracks={tracks}
             isLoaded={isLoaded}
             isOpenedMenu={isOpenedMenu}
             setIsOpenedMenu={setIsOpenedMenu}
@@ -47,8 +44,6 @@ export const Favourites = ({
             duration={duration}
             volume={volume}
             setVolume={setVolume}
-            isLoop={isLoop}
-            isPlaying={isPlaying}
             controls={controls}
         />
     );

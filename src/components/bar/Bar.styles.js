@@ -152,7 +152,7 @@ export const PlayerButtonRepeatSvg = styled.svg`
     width: 18px;
     height: 12px;
     fill: transparent;
-    stroke: ${(props) => props.stroke};
+    stroke: ${({ stroke }) => stroke};
 `;
 export const PlayerButtonShuffle = styled.div`
     ${mixinFlexbox}
@@ -164,7 +164,7 @@ export const PlayerButtonShuffleSvg = styled.svg`
     width: 19px;
     height: 12px;
     fill: transparent;
-    stroke: #696969;
+    stroke: ${({ stroke }) => stroke};
 `;
 export const Track = styled.div`
     ${mixinFlexbox}

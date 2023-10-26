@@ -9,8 +9,6 @@ export const Page404 = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
     return (
@@ -23,8 +21,6 @@ export const Page404 = ({
             duration={duration}
             volume={volume}
             setVolume={setVolume}
-            isLoop={isLoop}
-            isPlaying={isPlaying}
             controls={controls}
         />
     );

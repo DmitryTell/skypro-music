@@ -1,11 +1,23 @@
+import { useSelector, useDispatch } from "react-redux";
 import * as S from "./Content.styles";
 import * as P from "../../data/pages";
 import { getMinutesFromSeconds } from "../../data/secondary-functions";
+import {
+    playerCurrentIdSelector,
+    playerIsPausedSelector,
+} from "../../store/selectors/player";
+import { setCurrentId } from "../../store/slices/player";
 
 const NOTE_PATH = "img/icon/sprite.svg#icon-note";
 const LIKE_PATH = "img/icon/sprite.svg#icon-like";
+const DOTE_PATH = "img/icon/sprite.svg#dote";
 
-export const Item = ({ page, track, isLoaded, setPlayer }) => {
+export const Item = ({ page, track, isLoading, setPlayer }) => {
+    const isPaused = useSelector(playerIsPausedSelector);
+    const currentId = useSelector(playerCurrentIdSelector);
+
+    const dispatch = useDispatch();
+
     const handleClick = (event) => {
         event.preventDefault();
 
@@ -14,24 +26,39 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
             author: track.author,
             link: track.track_file,
         });
+        dispatch(setCurrentId({ id: track.id }));
     };
 
     return (
         <S.PlaylistItem>
             <S.PlaylistTrack>
                 <S.PlaylistTrackTitle>
-                    {isLoaded ? (
+                    {!isLoading ? (
                         <>
                             <S.PlaylistTrackTitleImg>
-                                <S.PlaylistTrackTitleSvg>
-                                    <use
-                                        xlinkHref={
-                                            page === P.CATEGORY
-                                                ? `../${NOTE_PATH}`
-                                                : NOTE_PATH
-                                        }
-                                    />
-                                </S.PlaylistTrackTitleSvg>
+                                {track.id === currentId ? (
+                                    <S.PlaylistTrackDoteSvg
+                                        $paused={!isPaused ? "paused" : ""}
+                                    >
+                                        <use
+                                            xlinkHref={
+                                                page === P.CATEGORY
+                                                    ? `../${DOTE_PATH}`
+                                                    : DOTE_PATH
+                                            }
+                                        />
+                                    </S.PlaylistTrackDoteSvg>
+                                ) : (
+                                    <S.PlaylistTrackTitleSvg>
+                                        <use
+                                            xlinkHref={
+                                                page === P.CATEGORY
+                                                    ? `../${NOTE_PATH}`
+                                                    : NOTE_PATH
+                                            }
+                                        />
+                                    </S.PlaylistTrackTitleSvg>
+                                )}
                             </S.PlaylistTrackTitleImg>
                             <div>
                                 <S.PlaylistTrackTitleLink
@@ -49,7 +76,7 @@ export const Item = ({ page, track, isLoaded, setPlayer }) => {
                         </>
                     )}
                 </S.PlaylistTrackTitle>
-                {isLoaded ? (
+                {!isLoading ? (
                     <>
                         <S.PlaylistTrackAuthor>
                             <S.PlaylistTrackAuthorLink

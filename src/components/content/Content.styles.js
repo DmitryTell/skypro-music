@@ -33,6 +33,10 @@ const skeletonAnimation = css`
     -webkit-animation: skeleton-animation 1s linear infinite alternate both;
     animation: skeleton-animation 1s linear infinite alternate both;
 `;
+const trackDoteAnimation = css`
+    -webkit-animation: track-dote-animation 0.5s ease-in-out infinite both;
+    animation: track-dote-animation 0.5s ease-in-out infinite both;
+`;
 
 export const Content = styled.div`
     ${mixinFlexbox}
@@ -107,6 +111,12 @@ export const PlaylistTrackTitleSvg = styled.svg`
     height: 17px;
     fill: transparent;
     stroke: #4e4e4e;
+`;
+export const PlaylistTrackDoteSvg = styled.svg`
+    width: 16px;
+    height: 16px;
+    fill: #b672ff;
+    ${({ $paused }) => Boolean($paused) && trackDoteAnimation}
 `;
 export const PlaylistTrackTitleLink = styled.a`
     ${mixinLinks}

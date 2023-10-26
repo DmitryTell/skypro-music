@@ -10,8 +10,7 @@ import * as P from "../../data/pages";
 export const PageLayout = ({
     page,
     title,
-    tracks,
-    isLoaded,
+    isLoading,
     isOpenedMenu,
     setIsOpenedMenu,
     player,
@@ -22,8 +21,6 @@ export const PageLayout = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
     return (
@@ -35,12 +32,11 @@ export const PageLayout = ({
                     setIsOpenedMenu={setIsOpenedMenu}
                 />
                 <S.MainCenterblock>
-                    <Header page={page} title={title} tracks={tracks} />
+                    <Header page={page} title={title} />
                     {page !== P.NOT_FOUND ? (
                         <Content
                             page={page}
-                            tracks={tracks}
-                            isLoaded={isLoaded}
+                            isLoading={isLoading}
                             setPlayer={setPlayer}
                             newError={newError}
                         />
@@ -48,7 +44,7 @@ export const PageLayout = ({
                         <NotFound />
                     )}
                 </S.MainCenterblock>
-                <Sidebar page={page} isLoaded={isLoaded} />
+                <Sidebar page={page} isLoading={isLoading} />
             </S.Main>
             {player && (
                 <Bar
@@ -59,8 +55,6 @@ export const PageLayout = ({
                     duration={duration}
                     volume={volume}
                     setVolume={setVolume}
-                    isLoop={isLoop}
-                    isPlaying={isPlaying}
                     controls={controls}
                 />
             )}

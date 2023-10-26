@@ -1,14 +1,12 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useGetAllTracksQuery } from "../services/player";
 import { PageLayout } from "../components/global/PageLayout";
-import { getTracks } from "../api/tracks";
+import { addAllTracks } from "../store/slices/player";
 
 export const Main = ({
     page,
     title,
-    tracks,
-    setTracks,
-    isLoaded,
-    setIsLoaded,
     isOpenedMenu,
     setIsOpenedMenu,
     player,
@@ -20,28 +18,28 @@ export const Main = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
+    const dispatch = useDispatch();
+    const { data, error, isLoading } = useGetAllTracksQuery();
+
     useEffect(() => {
-        window.localStorage.setItem("PAGE", page);
         setNewError(null);
 
-        getTracks()
-            .then((allTracks) => {
-                setTracks(allTracks);
-                setIsLoaded(true);
-            })
-            .catch((error) => setNewError(`Ошибка загрузки. ${error.message}`));
-    }, []);
+        if (error) {
+            setNewError(error);
+        }
+
+        if (data) {
+            dispatch(addAllTracks({ tracks: data }));
+        }
+    });
 
     return (
         <PageLayout
             page={page}
             title={title}
-            tracks={tracks}
-            isLoaded={isLoaded}
+            isLoading={isLoading}
             isOpenedMenu={isOpenedMenu}
             setIsOpenedMenu={setIsOpenedMenu}
             player={player}
@@ -52,8 +50,6 @@ export const Main = ({
             duration={duration}
             volume={volume}
             setVolume={setVolume}
-            isLoop={isLoop}
-            isPlaying={isPlaying}
             controls={controls}
         />
     );

@@ -5,8 +5,6 @@ import { ITEMS } from "../data/category-items";
 
 export const Category = ({
     page,
-    tracks,
-    setTracks,
     isLoaded,
     setIsLoaded,
     isOpenedMenu,
@@ -20,17 +18,12 @@ export const Category = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
     const params = useParams();
     const category = ITEMS.find((item) => item.id === Number(params.id));
 
     useEffect(() => {
-        window.localStorage.setItem("PAGE", `${page}/${category.id}`);
-
-        setTracks([]);
         setIsLoaded(false);
         setNewError(null);
     }, []);
@@ -39,7 +32,6 @@ export const Category = ({
         <PageLayout
             page={page}
             title={category.title}
-            tracks={tracks}
             isLoaded={isLoaded}
             isOpenedMenu={isOpenedMenu}
             setIsOpenedMenu={setIsOpenedMenu}
@@ -51,8 +43,6 @@ export const Category = ({
             duration={duration}
             volume={volume}
             setVolume={setVolume}
-            isLoop={isLoop}
-            isPlaying={isPlaying}
             controls={controls}
         />
     );

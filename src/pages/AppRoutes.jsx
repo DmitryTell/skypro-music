@@ -12,10 +12,6 @@ import * as T from "../data/titles";
 export const AppRoutes = ({
     user,
     setUser,
-    tracks,
-    setTracks,
-    isLoaded,
-    setIsLoaded,
     isOpenedMenu,
     setIsOpenedMenu,
     player,
@@ -27,8 +23,6 @@ export const AppRoutes = ({
     duration,
     volume,
     setVolume,
-    isLoop,
-    isPlaying,
     controls,
 }) => {
     return (
@@ -65,8 +59,6 @@ export const AppRoutes = ({
                         duration={duration}
                         volume={volume}
                         setVolume={setVolume}
-                        isLoop={isLoop}
-                        isPlaying={isPlaying}
                         controls={controls}
                     />
                 }
@@ -78,10 +70,6 @@ export const AppRoutes = ({
                         <Main
                             page={P.MAIN}
                             title={T.MAIN_TITLE}
-                            tracks={tracks}
-                            setTracks={setTracks}
-                            isLoaded={isLoaded}
-                            setIsLoaded={setIsLoaded}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                             player={player}
@@ -93,8 +81,6 @@ export const AppRoutes = ({
                             duration={duration}
                             volume={volume}
                             setVolume={setVolume}
-                            isLoop={isLoop}
-                            isPlaying={isPlaying}
                             controls={controls}
                         />
                     }
@@ -105,10 +91,6 @@ export const AppRoutes = ({
                         <Favourites
                             page={P.FAVOURITES}
                             title={T.FAVOURITES_TITLE}
-                            tracks={tracks}
-                            setTracks={setTracks}
-                            isLoaded={isLoaded}
-                            setIsLoaded={setIsLoaded}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                             player={player}
@@ -120,8 +102,6 @@ export const AppRoutes = ({
                             duration={duration}
                             volume={volume}
                             setVolume={setVolume}
-                            isLoop={isLoop}
-                            isPlaying={isPlaying}
                             controls={controls}
                         />
                     }
@@ -132,10 +112,6 @@ export const AppRoutes = ({
                 element={
                     <Category
                         page={P.CATEGORY}
-                        tracks={tracks}
-                        setTracks={setTracks}
-                        isLoaded={isLoaded}
-                        setIsLoaded={setIsLoaded}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
                         player={player}
@@ -147,8 +123,6 @@ export const AppRoutes = ({
                         duration={duration}
                         volume={volume}
                         setVolume={setVolume}
-                        isLoop={isLoop}
-                        isPlaying={isPlaying}
                         controls={controls}
                     />
                 }
