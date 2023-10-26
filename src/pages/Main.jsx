@@ -1,8 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetAllTracksQuery } from "../services/player";
 import { PageLayout } from "../components/global/PageLayout";
-import { addAllTracks } from "../store/slices/player";
+import { addAllTracks, getNewId, shuffleTracks } from "../store/slices/player";
+import {
+    playerCurrentIdSelector,
+    playerISShuffledSelector,
+    playerShuffledTracksIdsSelector,
+    playerTracksIdsSelector,
+} from "../store/selectors/player";
 
 export const Main = ({
     page,
@@ -23,6 +29,18 @@ export const Main = ({
     const dispatch = useDispatch();
     const { data, error, isLoading } = useGetAllTracksQuery();
 
+    const allIds = useSelector(playerTracksIdsSelector);
+    const shuffledIds = useSelector(playerShuffledTracksIdsSelector);
+    const isShuffled = useSelector(playerISShuffledSelector);
+    const currentId = useSelector(playerCurrentIdSelector);
+
+    useEffect(() => {
+        if (!isShuffled) {
+            dispatch(getNewId({ ids: allIds, currentId }));
+        } else {
+            dispatch(getNewId({ ids: shuffledIds, currentId }));
+        }
+    }, [currentId, isShuffled]);
     useEffect(() => {
         setNewError(null);
 
@@ -32,8 +50,9 @@ export const Main = ({
 
         if (data) {
             dispatch(addAllTracks({ tracks: data }));
+            dispatch(shuffleTracks({ tracks: data }));
         }
-    });
+    }, [data]);
 
     return (
         <PageLayout

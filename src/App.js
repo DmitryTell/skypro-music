@@ -8,8 +8,11 @@ import * as S from "./components/global/App.styles";
 import {
     playerIsLoopSelector,
     playerIsPausedSelector,
+    playerNextTrackSelector,
+    playerPrevTrackSelector,
 } from "./store/selectors/player";
 import {
+    setCurrentId,
     toggleIsLoop,
     toggleIsPaused,
     toggleIsShuffled,
@@ -18,6 +21,8 @@ import {
 export const App = () => {
     const isLoop = useSelector(playerIsLoopSelector);
     const isPaused = useSelector(playerIsPausedSelector);
+    const nextTrack = useSelector(playerNextTrackSelector);
+    const prevTrack = useSelector(playerPrevTrackSelector);
 
     const [user, setUser] = useState(null);
     const [isOpenedMenu, setIsOpenedMenu] = useState(false);
@@ -54,6 +59,26 @@ export const App = () => {
         handleChangeProgress: () => {
             audioRef.current.currentTime = currentTime;
         },
+        handleNextTrack: () => {
+            if (nextTrack) {
+                setPlayer({
+                    title: nextTrack.name,
+                    author: nextTrack.author,
+                    link: nextTrack.track_file,
+                });
+                dispatch(setCurrentId({ id: nextTrack.id }));
+            }
+        },
+        handlePrevTrack: () => {
+            if (prevTrack) {
+                setPlayer({
+                    title: prevTrack.name,
+                    author: prevTrack.author,
+                    link: prevTrack.track_file,
+                });
+                dispatch(setCurrentId({ id: prevTrack.id }));
+            }
+        },
     };
     const updateTime = () => {
         setCurrentTime(audioRef.current.currentTime);
@@ -62,6 +87,16 @@ export const App = () => {
         window.localStorage.clear();
 
         navigate("/login");
+    };
+    const getNextTrack = () => {
+        if (!isLoop && nextTrack) {
+            setPlayer({
+                title: nextTrack.name,
+                author: nextTrack.author,
+                link: nextTrack.track_file,
+            });
+            dispatch(setCurrentId({ id: nextTrack.id }));
+        }
     };
 
     const contextUser = useMemo(() => ({
@@ -86,10 +121,11 @@ export const App = () => {
         }
     }, [audioRef.current?.duration]);
     useEffect(() => {
-        audioRef.current.addEventListener("timeupdate", updateTime);
+        audioRef.current?.addEventListener("timeupdate", updateTime);
+        audioRef.current?.addEventListener("ended", getNextTrack);
 
         return () =>
-            audioRef.current.removeEventListener("timeupdate", updateTime);
+            audioRef.current?.removeEventListener("timeupdate", updateTime);
     });
     useEffect(() => {
         if (player) {

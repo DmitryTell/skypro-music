@@ -19,6 +19,7 @@ export const Bar = ({
         toggleShuffled,
         handleChangeProgress,
         handleNextTrack,
+        handlePrevTrack,
     } = controls;
 
     return (
@@ -41,6 +42,7 @@ export const Bar = ({
                             toggleLoop={toggleLoop}
                             toggleShuffled={toggleShuffled}
                             handleNextTrack={handleNextTrack}
+                            handlePrevTrack={handlePrevTrack}
                         />
                         <Track page={page} player={player} />
                     </S.BarPlayer>

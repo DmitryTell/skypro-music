@@ -22,6 +22,7 @@ export const Controls = ({
     toggleLoop,
     toggleShuffled,
     handleNextTrack,
+    handlePrevTrack,
 }) => {
     const isLoop = useSelector(playerIsLoopSelector);
     const isPaused = useSelector(playerIsPausedSelector);
@@ -29,7 +30,7 @@ export const Controls = ({
 
     return (
         <S.PlayerControls>
-            <S.PlayerButtonPrev>
+            <S.PlayerButtonPrev onClick={handlePrevTrack}>
                 <S.PlayerButtonPrevSvg alt="prev">
                     <use
                         xlinkHref={
