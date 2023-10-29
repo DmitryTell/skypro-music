@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { shuffleTrackList } from "../../data/secondary-functions";
 
 const initialState = {
-    allTracks: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+    allTracks: [],
     shuffledTracks: [],
     isLoop: false,
     isPaused: true,

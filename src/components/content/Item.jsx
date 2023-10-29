@@ -1,20 +1,35 @@
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "./Content.styles";
 import * as P from "../../data/pages";
 import { getMinutesFromSeconds } from "../../data/secondary-functions";
 import {
-    playerCurrentIdSelector,
-    playerIsPausedSelector,
-} from "../../store/selectors/player";
-import { setCurrentId } from "../../store/slices/player";
+    playlistCurrentIdSelector,
+    playlistIsPausedSelector,
+} from "../../store/selectors/playlist";
+import { setCurrentId } from "../../store/slices/playlist";
+import { useLikeTrackMutation } from "../../services/playlist";
+import { useUserContext } from "../../context/user";
 
 const NOTE_PATH = "img/icon/sprite.svg#icon-note";
 const LIKE_PATH = "img/icon/sprite.svg#icon-like";
 const DOTE_PATH = "img/icon/sprite.svg#dote";
 
-export const Item = ({ page, track, isLoading, setPlayer }) => {
-    const isPaused = useSelector(playerIsPausedSelector);
-    const currentId = useSelector(playerCurrentIdSelector);
+export const Item = ({
+    page,
+    track,
+    userId,
+    staredUser,
+    isLoading,
+    setPlayer,
+}) => {
+    const isPaused = useSelector(playlistIsPausedSelector);
+    const currentId = useSelector(playlistCurrentIdSelector);
+
+    const [likeTrack, { error }] = useLikeTrackMutation();
+    const { clearUser } = useUserContext();
+
+    const [isLiked, setIsLiked] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -28,6 +43,22 @@ export const Item = ({ page, track, isLoading, setPlayer }) => {
         });
         dispatch(setCurrentId({ id: track.id }));
     };
+    const toggleLike = () => {
+        if (!error) {
+            likeTrack({ id: track.id, isLiked });
+        } else {
+            alert(error);
+            clearUser();
+        }
+    };
+
+    useEffect(() => {
+        staredUser?.forEach(({ id }) => {
+            if (id === userId) {
+                setIsLiked(true);
+            }
+        });
+    }, [staredUser]);
 
     return (
         <S.PlaylistItem>
@@ -95,7 +126,12 @@ export const Item = ({ page, track, isLoading, setPlayer }) => {
                             </S.PlaylistTrackAlbumLink>
                         </S.PlaylistTrackAlbum>
                         <div>
-                            <S.PlaylistTrackLikeSvg alt="like">
+                            <S.PlaylistTrackLikeSvg
+                                alt="like"
+                                fill={isLiked ? "#B672FF" : "transparent"}
+                                stroke={isLiked ? "#B672FF" : "#696969"}
+                                onClick={toggleLike}
+                            >
                                 <use
                                     xlinkHref={
                                         page === P.CATEGORY

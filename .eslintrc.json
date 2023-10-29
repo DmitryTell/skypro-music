@@ -28,6 +28,7 @@
         "arrow-body-style": "off",
         "jsx-a11y/media-has-caption": "off",
         "no-param-reassign": "off",
-        "no-plusplus": "off"
+        "no-plusplus": "off",
+        "no-alert": "off"
     }
 }

@@ -10,6 +10,7 @@ import * as P from "../../data/pages";
 export const PageLayout = ({
     page,
     title,
+    tracks,
     isLoading,
     isOpenedMenu,
     setIsOpenedMenu,
@@ -36,6 +37,7 @@ export const PageLayout = ({
                     {page !== P.NOT_FOUND ? (
                         <Content
                             page={page}
+                            tracks={tracks}
                             isLoading={isLoading}
                             setPlayer={setPlayer}
                             newError={newError}

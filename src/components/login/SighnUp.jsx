@@ -1,7 +1,9 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../../api/user";
+import { getNewToken, registerUser } from "../../api/user";
 import * as S from "./Login.styles";
+import { setToken } from "../../store/slices/token";
 
 export const SighnUp = ({
     newError,
@@ -19,6 +21,7 @@ export const SighnUp = ({
     setIsLoadingBtn,
 }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const initRegister = () => {
         setIsLoadingBtn(true);
@@ -49,6 +52,18 @@ export const SighnUp = ({
             return;
         }
 
+        getNewToken(email, password)
+            .then((newToken) => {
+                window.localStorage.setItem("REFRESH", newToken.refresh);
+
+                dispatch(
+                    setToken({
+                        access: newToken.access,
+                        refresh: newToken.refresh,
+                    }),
+                );
+            })
+            .catch((error) => setNewError(error.message));
         registerUser(name, email, password)
             .then((user) => {
                 const userJson = JSON.stringify(user);

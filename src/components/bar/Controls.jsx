@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import * as P from "../../data/pages";
 import * as S from "./Bar.styles";
 import {
-    playerISShuffledSelector,
-    playerIsLoopSelector,
-    playerIsPausedSelector,
-} from "../../store/selectors/player";
+    playlistIsShuffledSelector,
+    playlistIsLoopSelector,
+    playlistIsPausedSelector,
+} from "../../store/selectors/playlist";
 
 const CONTROL_PATHS = [
     "img/icon/sprite.svg#icon-prev",
@@ -24,9 +24,9 @@ export const Controls = ({
     handleNextTrack,
     handlePrevTrack,
 }) => {
-    const isLoop = useSelector(playerIsLoopSelector);
-    const isPaused = useSelector(playerIsPausedSelector);
-    const isShuffled = useSelector(playerISShuffledSelector);
+    const isLoop = useSelector(playlistIsLoopSelector);
+    const isPaused = useSelector(playlistIsPausedSelector);
+    const isShuffled = useSelector(playlistIsShuffledSelector);
 
     return (
         <S.PlayerControls>

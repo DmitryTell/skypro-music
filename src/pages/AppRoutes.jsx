@@ -12,6 +12,9 @@ import * as T from "../data/titles";
 export const AppRoutes = ({
     user,
     setUser,
+    tracks,
+    setTracks,
+    isLoading,
     isOpenedMenu,
     setIsOpenedMenu,
     player,
@@ -70,6 +73,9 @@ export const AppRoutes = ({
                         <Main
                             page={P.MAIN}
                             title={T.MAIN_TITLE}
+                            tracks={tracks}
+                            setTracks={setTracks}
+                            isLoading={isLoading}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                             player={player}
@@ -91,6 +97,9 @@ export const AppRoutes = ({
                         <Favourites
                             page={P.FAVOURITES}
                             title={T.FAVOURITES_TITLE}
+                            tracks={tracks}
+                            setTracks={setTracks}
+                            isLoading={isLoading}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                             player={player}
@@ -112,6 +121,9 @@ export const AppRoutes = ({
                 element={
                     <Category
                         page={P.CATEGORY}
+                        tracks={tracks}
+                        setTracks={setTracks}
+                        isLoading={isLoading}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
                         player={player}

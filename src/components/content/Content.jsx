@@ -1,12 +1,11 @@
-import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import { Title } from "./Title";
 import { Item } from "./Item";
 import * as S from "./Content.styles";
-import { playerAllTracksSelector } from "../../store/selectors/player";
+import { useUserContext } from "../../context/user";
 
-export const Content = ({ page, isLoading, setPlayer, newError }) => {
-    const tracks = useSelector(playerAllTracksSelector);
+export const Content = ({ page, tracks, isLoading, setPlayer, newError }) => {
+    const { userId } = useUserContext();
 
     return (
         <S.Content>
@@ -23,6 +22,8 @@ export const Content = ({ page, isLoading, setPlayer, newError }) => {
                                 key={uuid()}
                                 page={page}
                                 track={track}
+                                userId={userId}
+                                staredUser={track.stared_user}
                                 isLoading={isLoading}
                                 setPlayer={setPlayer}
                             />

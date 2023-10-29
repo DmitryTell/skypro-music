@@ -1,7 +1,9 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../../api/user";
+import { getNewToken, loginUser } from "../../api/user";
 import * as S from "./Login.styles";
+import { setToken } from "../../store/slices/token";
 
 export const SighnIn = ({
     newError,
@@ -15,6 +17,7 @@ export const SighnIn = ({
     setIsLoadingBtn,
 }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const initLogin = () => {
         setIsLoadingBtn(true);
@@ -30,6 +33,20 @@ export const SighnIn = ({
             return;
         }
 
+        getNewToken(email, password)
+            .then((newToken) => {
+                window.localStorage.setItem("REFRESH", newToken.refresh);
+
+                dispatch(
+                    setToken({
+                        access: newToken.access,
+                        refresh: newToken.refresh,
+                    }),
+                );
+            })
+            .catch((error) => {
+                setNewError(error.message);
+            });
         loginUser(email, password)
             .then((user) => {
                 const userJson = JSON.stringify(user);
@@ -39,7 +56,6 @@ export const SighnIn = ({
                 setUser(user);
                 setIsLoadingBtn(false);
                 setNewError(null);
-
                 navigate("/", { replace: true });
             })
             .catch((error) => {
@@ -49,7 +65,6 @@ export const SighnIn = ({
     };
 
     useEffect(() => {
-        setUser(null);
         setNewError(null);
     }, []);
 

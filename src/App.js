@@ -6,25 +6,54 @@ import { AppRoutes } from "./pages/AppRoutes";
 import { UserContext } from "./context/user";
 import * as S from "./components/global/App.styles";
 import {
-    playerIsLoopSelector,
-    playerIsPausedSelector,
-    playerNextTrackSelector,
-    playerPrevTrackSelector,
-} from "./store/selectors/player";
+    playlistIsLoopSelector,
+    playlistIsPausedSelector,
+    playlistNextTrackSelector,
+    playlistPrevTrackSelector,
+    playlistTracksIdsSelector,
+    playlistShuffledTracksIdsSelector,
+    playlistIsShuffledSelector,
+    playlistCurrentIdSelector,
+} from "./store/selectors/playlist";
 import {
+    getNewId,
     setCurrentId,
     toggleIsLoop,
     toggleIsPaused,
     toggleIsShuffled,
-} from "./store/slices/player";
+} from "./store/slices/playlist";
+import {
+    tokenAccessSelector,
+    tokenRefreshSelector,
+} from "./store/selectors/token";
+import { setToken } from "./store/slices/token";
+import { refreshToken } from "./api/user";
 
 export const App = () => {
-    const isLoop = useSelector(playerIsLoopSelector);
-    const isPaused = useSelector(playerIsPausedSelector);
-    const nextTrack = useSelector(playerNextTrackSelector);
-    const prevTrack = useSelector(playerPrevTrackSelector);
+    const isLoop = useSelector(playlistIsLoopSelector);
+    const isPaused = useSelector(playlistIsPausedSelector);
+    const nextTrack = useSelector(playlistNextTrackSelector);
+    const prevTrack = useSelector(playlistPrevTrackSelector);
+    const allIds = useSelector(playlistTracksIdsSelector);
+    const shuffledIds = useSelector(playlistShuffledTracksIdsSelector);
+    const isShuffled = useSelector(playlistIsShuffledSelector);
+    const currentId = useSelector(playlistCurrentIdSelector);
+    const tokenAccess = useSelector(tokenAccessSelector);
+    const tokenRefresh = useSelector(tokenRefreshSelector);
 
     const [user, setUser] = useState(null);
+    const [tracks, setTracks] = useState([
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+    ]);
     const [isOpenedMenu, setIsOpenedMenu] = useState(false);
     const [player, setPlayer] = useState(null);
     const [newError, setNewError] = useState(null);
@@ -86,7 +115,9 @@ export const App = () => {
     const clearUser = () => {
         window.localStorage.clear();
 
+        setUser(null);
         navigate("/login");
+        dispatch(setToken({ access: null, refresh: null }));
     };
     const getNextTrack = () => {
         if (!isLoop && nextTrack) {
@@ -101,15 +132,48 @@ export const App = () => {
 
     const contextUser = useMemo(() => ({
         username: user?.username,
+        userId: user?.id,
         clearUser,
     }));
 
+    useEffect(() => {
+        const lastRefresh = window.localStorage.getItem("REFRESH");
+
+        if (tokenAccess) {
+            setTimeout(() => {
+                window.localStorage.setItem("REFRESH", tokenRefresh);
+
+                dispatch(setToken({ access: null, refresh: tokenRefresh }));
+            }, 200000);
+        }
+        if (!tokenAccess && lastRefresh) {
+            refreshToken(lastRefresh)
+                .then((newToken) => {
+                    dispatch(
+                        setToken({
+                            access: newToken.access,
+                            refresh: lastRefresh,
+                        }),
+                    );
+                })
+                .catch((err) => {
+                    setNewError(err.message);
+                    clearUser();
+                });
+        }
+    }, [tokenAccess]);
+    useEffect(() => {
+        if (!isShuffled) {
+            dispatch(getNewId({ ids: allIds, currentId }));
+        } else {
+            dispatch(getNewId({ ids: shuffledIds, currentId }));
+        }
+    }, [currentId, isShuffled]);
     useEffect(() => {
         const userJson = window.localStorage.getItem("USER");
 
         if (userJson) {
             setUser(JSON.parse(userJson));
-
             navigate("/", { replace: true });
         }
     }, []);
@@ -130,6 +194,7 @@ export const App = () => {
     useEffect(() => {
         if (player) {
             audioRef.current.src = player.link;
+
             dispatch(toggleIsPaused({ status: false }));
         }
     }, [player]);
@@ -148,6 +213,8 @@ export const App = () => {
                     <AppRoutes
                         user={user}
                         setUser={setUser}
+                        tracks={tracks}
+                        setTracks={setTracks}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
                         player={player}
