@@ -17,3 +17,19 @@ export const shuffleTrackList = (list) => {
 
     return result;
 };
+export const makeMergTracks = (allTracks, favouriteTracks) => {
+    const result = [];
+
+    favouriteTracks?.forEach((favTrack) => {
+        allTracks?.forEach((track) => {
+            if (favTrack.id === track.id) {
+                result.push({
+                    ...favTrack,
+                    ...track,
+                });
+            }
+        });
+    });
+
+    return result;
+};

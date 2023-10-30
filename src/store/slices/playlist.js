@@ -12,8 +12,8 @@ const initialState = {
     prevId: null,
 };
 
-export const playerSlice = createSlice({
-    name: "player",
+export const playlistSlice = createSlice({
+    name: "playlist",
     initialState,
     reducers: {
         addAllTracks: (state, action) => {
@@ -60,6 +60,6 @@ export const {
     toggleIsShuffled,
     shuffleTracks,
     getNewId,
-} = playerSlice.actions;
+} = playlistSlice.actions;
 
-export default playerSlice.reducer;
+export default playlistSlice.reducer;

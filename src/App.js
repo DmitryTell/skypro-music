@@ -27,7 +27,6 @@ import {
     tokenRefreshSelector,
 } from "./store/selectors/token";
 import { setToken } from "./store/slices/token";
-import { refreshToken } from "./api/user";
 
 export const App = () => {
     const isLoop = useSelector(playlistIsLoopSelector);
@@ -137,29 +136,12 @@ export const App = () => {
     }));
 
     useEffect(() => {
-        const lastRefresh = window.localStorage.getItem("REFRESH");
-
         if (tokenAccess) {
             setTimeout(() => {
                 window.localStorage.setItem("REFRESH", tokenRefresh);
 
                 dispatch(setToken({ access: null, refresh: tokenRefresh }));
             }, 200000);
-        }
-        if (!tokenAccess && lastRefresh) {
-            refreshToken(lastRefresh)
-                .then((newToken) => {
-                    dispatch(
-                        setToken({
-                            access: newToken.access,
-                            refresh: lastRefresh,
-                        }),
-                    );
-                })
-                .catch((err) => {
-                    setNewError(err.message);
-                    clearUser();
-                });
         }
     }, [tokenAccess]);
     useEffect(() => {

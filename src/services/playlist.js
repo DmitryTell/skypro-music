@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { selectToken } from "../store/selectors/token";
 
-const DATA_TAG = { type: "Tracks", id: "LIST" };
+const DATA_TAG = { type: "Playlist", id: "LIST" };
 
 export const playlistApi = createApi({
     reducerPath: "playlistApi",
@@ -36,7 +36,18 @@ export const playlistApi = createApi({
             },
             invalidatesTags: (post) => [{ type: DATA_TAG.type, id: post?.id }],
         }),
+        getAllFavouriteTracks: builder.query({
+            query: () => "track/favorite/all/",
+            invalidatesTags: [DATA_TAG],
+        }),
     }),
+    onError: (error) => {
+        throw new Error(error.response.data);
+    },
 });
 
-export const { useGetAllTracksQuery, useLikeTrackMutation } = playlistApi;
+export const {
+    useGetAllTracksQuery,
+    useLikeTrackMutation,
+    useGetAllFavouriteTracksQuery,
+} = playlistApi;

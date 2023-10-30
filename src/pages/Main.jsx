@@ -26,12 +26,13 @@ export const Main = ({
     const { data, error, isLoading } = useGetAllTracksQuery();
 
     useEffect(() => {
-        setNewError(null);
-
         if (error) {
-            setNewError(error);
+            setNewError(`Ошибка загрузки: ${error.error}`);
         }
+    }, [error]);
+    useEffect(() => {
         if (data) {
+            setNewError(null);
             dispatch(addAllTracks({ tracks: data }));
             dispatch(shuffleTracks({ tracks: data }));
             setTracks(data);

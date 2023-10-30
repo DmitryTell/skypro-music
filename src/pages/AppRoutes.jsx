@@ -14,7 +14,6 @@ export const AppRoutes = ({
     setUser,
     tracks,
     setTracks,
-    isLoading,
     isOpenedMenu,
     setIsOpenedMenu,
     player,
@@ -75,7 +74,6 @@ export const AppRoutes = ({
                             title={T.MAIN_TITLE}
                             tracks={tracks}
                             setTracks={setTracks}
-                            isLoading={isLoading}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                             player={player}
@@ -99,7 +97,6 @@ export const AppRoutes = ({
                             title={T.FAVOURITES_TITLE}
                             tracks={tracks}
                             setTracks={setTracks}
-                            isLoading={isLoading}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
                             player={player}
@@ -123,7 +120,6 @@ export const AppRoutes = ({
                         page={P.CATEGORY}
                         tracks={tracks}
                         setTracks={setTracks}
-                        isLoading={isLoading}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
                         player={player}

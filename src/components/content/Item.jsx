@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "./Content.styles";
 import * as P from "../../data/pages";
@@ -9,6 +8,8 @@ import {
 } from "../../store/selectors/playlist";
 import { setCurrentId } from "../../store/slices/playlist";
 import { useLikeTrackMutation } from "../../services/playlist";
+import { refreshToken } from "../../api/user";
+import { setToken } from "../../store/slices/token";
 import { useUserContext } from "../../context/user";
 
 const NOTE_PATH = "img/icon/sprite.svg#icon-note";
@@ -23,16 +24,36 @@ export const Item = ({
     isLoading,
     setPlayer,
 }) => {
+    const [likeTrack] = useLikeTrackMutation();
+
+    const isLiked = Boolean(
+        staredUser?.find(({ id }) => id === userId) || false,
+    );
+    const { clearUser } = useUserContext();
+
     const isPaused = useSelector(playlistIsPausedSelector);
     const currentId = useSelector(playlistCurrentIdSelector);
 
-    const [likeTrack, { error }] = useLikeTrackMutation();
-    const { clearUser } = useUserContext();
-
-    const [isLiked, setIsLiked] = useState(false);
-
     const dispatch = useDispatch();
 
+    const processLikeError = () => {
+        const tokenRefresh = window.localStorage.getItem("REFRESH");
+
+        refreshToken(tokenRefresh)
+            .then((newToken) => {
+                alert("Token пользователя успешно обновлен");
+                dispatch(
+                    setToken({
+                        access: newToken.access,
+                        refresh: tokenRefresh,
+                    }),
+                );
+            })
+            .catch(() => {
+                alert("Не удалось обновить token пользователя");
+                clearUser();
+            });
+    };
     const handleClick = (event) => {
         event.preventDefault();
 
@@ -44,21 +65,21 @@ export const Item = ({
         dispatch(setCurrentId({ id: track.id }));
     };
     const toggleLike = () => {
-        if (!error) {
-            likeTrack({ id: track.id, isLiked });
-        } else {
-            alert(error);
-            clearUser();
-        }
-    };
+        const data = { id: track.id, isLiked };
 
-    useEffect(() => {
-        staredUser?.forEach(({ id }) => {
-            if (id === userId) {
-                setIsLiked(true);
-            }
-        });
-    }, [staredUser]);
+        likeTrack(data)
+            .unwrap()
+            .then(() => {})
+            .catch((error) => {
+                if (error.status === 401) {
+                    alert(`Ошибка авторизации: ${error.data.detail}`);
+
+                    processLikeError();
+                } else {
+                    alert(`Что-то пошло не так: ${error.error}`);
+                }
+            });
+    };
 
     return (
         <S.PlaylistItem>

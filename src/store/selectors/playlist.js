@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-const playlistSelector = (store) => store.player;
+const playlistSelector = (store) => store.playlist;
 
 const getAllTracks = (store) => playlistSelector(store).allTracks;
 const getShuffledTracks = (store) => playlistSelector(store).shuffledTracks;
