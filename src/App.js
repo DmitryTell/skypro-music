@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GlobalStyles } from "./components/global/Global.styles";
-import { AppRoutes } from "./pages/AppRoutes";
+import { AppRoutes } from "./pages/routes";
 import { UserContext } from "./context/user";
 import * as S from "./components/global/App.styles";
 import { userAccessSelector } from "./store/selectors/user";
