@@ -4,22 +4,27 @@ import { shuffleTrackList } from "../../data/secondary-functions";
 const initialState = {
     allTracks: [],
     shuffledTracks: [],
+    currentTrack: null,
     isLoop: false,
     isPaused: true,
-    currentId: null,
     isShuffled: false,
     nextId: null,
     prevId: null,
 };
 
-export const playlistSlice = createSlice({
-    name: "playlist",
+export const playerSlice = createSlice({
+    name: "player",
     initialState,
     reducers: {
         addAllTracks: (state, action) => {
             const { tracks } = action.payload;
 
             state.allTracks = [...tracks];
+        },
+        shuffleTracks: (state, action) => {
+            const { tracks } = action.payload;
+
+            state.shuffledTracks = [...shuffleTrackList(tracks)];
         },
         toggleIsLoop: (state) => {
             state.isLoop = !state.isLoop;
@@ -29,18 +34,19 @@ export const playlistSlice = createSlice({
 
             state.isPaused = status;
         },
-        setCurrentId: (state, action) => {
-            const { id } = action.payload;
+        setCurrentTrack: (state, action) => {
+            const { id, tracks } = action.payload;
 
-            state.currentId = id;
+            if (!id || !tracks?.length) {
+                state.currentTrack = null;
+            } else {
+                state.currentTrack = {
+                    ...tracks.find((track) => track.id === id),
+                };
+            }
         },
         toggleIsShuffled: (state) => {
             state.isShuffled = !state.isShuffled;
-        },
-        shuffleTracks: (state, action) => {
-            const { tracks } = action.payload;
-
-            state.shuffledTracks = [...shuffleTrackList(tracks)];
         },
         getNewId: (state, action) => {
             const { ids, currentId } = action.payload;
@@ -54,12 +60,12 @@ export const playlistSlice = createSlice({
 
 export const {
     addAllTracks,
+    shuffleTracks,
     toggleIsLoop,
     toggleIsPaused,
-    setCurrentId,
+    setCurrentTrack,
     toggleIsShuffled,
-    shuffleTracks,
     getNewId,
-} = playlistSlice.actions;
+} = playerSlice.actions;
 
-export default playlistSlice.reducer;
+export default playerSlice.reducer;

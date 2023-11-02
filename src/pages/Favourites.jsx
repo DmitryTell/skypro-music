@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { PageLayout } from "../components/global/PageLayout";
 import { useGetAllFavouriteTracksQuery } from "../services/playlist";
 import { makeMergTracks } from "../data/secondary-functions";
-import { playlistAllTracksSelector } from "../store/selectors/playlist";
+import { playerAllTracksSelector } from "../store/selectors/player";
 import { refreshToken } from "../api/user";
 import { setToken } from "../store/slices/token";
 import { useUserContext } from "../context/user";
@@ -26,7 +26,7 @@ export const Favourites = ({
     setVolume,
     controls,
 }) => {
-    const allTracks = useSelector(playlistAllTracksSelector);
+    const allTracks = useSelector(playerAllTracksSelector);
 
     const { data, error, isLoading } = useGetAllFavouriteTracksQuery();
     const dispatch = useDispatch();

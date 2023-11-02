@@ -38,7 +38,7 @@ export const playlistApi = createApi({
         }),
         getAllFavouriteTracks: builder.query({
             query: () => "track/favorite/all/",
-            invalidatesTags: [DATA_TAG],
+            providesTags: [DATA_TAG],
         }),
     }),
     onError: (error) => {

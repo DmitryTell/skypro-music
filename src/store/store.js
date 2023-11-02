@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { playlistApi } from "../services/playlist";
-import playlistReducer from "./slices/playlist";
+import playerReducer from "./slices/player";
 import tokenReducer from "./slices/token";
 
 export const store = configureStore({
     reducer: {
-        playlist: playlistReducer,
+        player: playerReducer,
         token: tokenReducer,
         [playlistApi.reducerPath]: playlistApi.reducer,
     },

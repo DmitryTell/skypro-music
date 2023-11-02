@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { NotFound } from "../not-found/NotFound";
 import { Nav } from "../nav/Nav";
 import { Header } from "../header/Header";
@@ -6,6 +7,7 @@ import { Sidebar } from "../sidebar/Sidebar";
 import { Bar } from "../bar/Bar";
 import * as S from "./App.styles";
 import * as P from "../../data/pages";
+import { playerCurrentTrackSelector } from "../../store/selectors/player";
 
 export const PageLayout = ({
     page,
@@ -14,16 +16,10 @@ export const PageLayout = ({
     isLoading,
     isOpenedMenu,
     setIsOpenedMenu,
-    player,
-    setPlayer,
     newError,
-    currentTime,
-    setCurrentTime,
-    duration,
-    volume,
-    setVolume,
-    controls,
 }) => {
+    const currentTrack = useSelector(playerCurrentTrackSelector);
+
     return (
         <S.Container>
             <S.Main>
@@ -39,7 +35,6 @@ export const PageLayout = ({
                             page={page}
                             tracks={tracks}
                             isLoading={isLoading}
-                            setPlayer={setPlayer}
                             newError={newError}
                         />
                     ) : (
@@ -48,18 +43,7 @@ export const PageLayout = ({
                 </S.MainCenterblock>
                 <Sidebar page={page} isLoading={isLoading} />
             </S.Main>
-            {player && (
-                <Bar
-                    page={page}
-                    player={player}
-                    currentTime={currentTime}
-                    setCurrentTime={setCurrentTime}
-                    duration={duration}
-                    volume={volume}
-                    setVolume={setVolume}
-                    controls={controls}
-                />
-            )}
+            {currentTrack && <Bar page={page} />}
             <footer className="footer" />
         </S.Container>
     );

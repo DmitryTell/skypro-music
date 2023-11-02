@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
 import * as S from "./Header.styles";
-import { playlistAllTracksSelector } from "../../store/selectors/playlist";
+import { playerAllTracksSelector } from "../../store/selectors/player";
 
 export const Author = () => {
-    const tracks = useSelector(playlistAllTracksSelector);
+    const tracks = useSelector(playerAllTracksSelector);
 
     const AUTHORS = [...new Set(tracks.map((track) => track.author))];
 

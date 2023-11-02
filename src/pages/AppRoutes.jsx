@@ -12,20 +12,10 @@ import * as T from "../data/titles";
 export const AppRoutes = ({
     user,
     setUser,
-    tracks,
-    setTracks,
     isOpenedMenu,
     setIsOpenedMenu,
-    player,
-    setPlayer,
     newError,
     setNewError,
-    currentTime,
-    setCurrentTime,
-    duration,
-    volume,
-    setVolume,
-    controls,
 }) => {
     return (
         <Routes>
@@ -56,12 +46,6 @@ export const AppRoutes = ({
                         page={P.NOT_FOUND}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
-                        currentTime={currentTime}
-                        setCurrentTime={setCurrentTime}
-                        duration={duration}
-                        volume={volume}
-                        setVolume={setVolume}
-                        controls={controls}
                     />
                 }
             />
@@ -72,20 +56,10 @@ export const AppRoutes = ({
                         <Main
                             page={P.MAIN}
                             title={T.MAIN_TITLE}
-                            tracks={tracks}
-                            setTracks={setTracks}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
-                            player={player}
-                            setPlayer={setPlayer}
                             newError={newError}
                             setNewError={setNewError}
-                            currentTime={currentTime}
-                            setCurrentTime={setCurrentTime}
-                            duration={duration}
-                            volume={volume}
-                            setVolume={setVolume}
-                            controls={controls}
                         />
                     }
                 />
@@ -95,20 +69,10 @@ export const AppRoutes = ({
                         <Favourites
                             page={P.FAVOURITES}
                             title={T.FAVOURITES_TITLE}
-                            tracks={tracks}
-                            setTracks={setTracks}
                             isOpenedMenu={isOpenedMenu}
                             setIsOpenedMenu={setIsOpenedMenu}
-                            player={player}
-                            setPlayer={setPlayer}
                             newError={newError}
                             setNewError={setNewError}
-                            currentTime={currentTime}
-                            setCurrentTime={setCurrentTime}
-                            duration={duration}
-                            volume={volume}
-                            setVolume={setVolume}
-                            controls={controls}
                         />
                     }
                 />
@@ -118,20 +82,10 @@ export const AppRoutes = ({
                 element={
                     <Category
                         page={P.CATEGORY}
-                        tracks={tracks}
-                        setTracks={setTracks}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
-                        player={player}
-                        setPlayer={setPlayer}
                         newError={newError}
                         setNewError={setNewError}
-                        currentTime={currentTime}
-                        setCurrentTime={setCurrentTime}
-                        duration={duration}
-                        volume={volume}
-                        setVolume={setVolume}
-                        controls={controls}
                     />
                 }
             />

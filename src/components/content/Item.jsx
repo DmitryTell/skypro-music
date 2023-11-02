@@ -3,66 +3,35 @@ import * as S from "./Content.styles";
 import * as P from "../../data/pages";
 import { getMinutesFromSeconds } from "../../data/secondary-functions";
 import {
-    playlistCurrentIdSelector,
-    playlistIsPausedSelector,
-} from "../../store/selectors/playlist";
-import { setCurrentId } from "../../store/slices/playlist";
+    playerAllTracksSelector,
+    playerCurrentTrackSelector,
+    playerIsPausedSelector,
+} from "../../store/selectors/player";
+import { setCurrentTrack } from "../../store/slices/player";
 import { useLikeTrackMutation } from "../../services/playlist";
-import { refreshToken } from "../../api/user";
-import { setToken } from "../../store/slices/token";
 import { useUserContext } from "../../context/user";
 
 const NOTE_PATH = "img/icon/sprite.svg#icon-note";
 const LIKE_PATH = "img/icon/sprite.svg#icon-like";
 const DOTE_PATH = "img/icon/sprite.svg#dote";
 
-export const Item = ({
-    page,
-    track,
-    userId,
-    staredUser,
-    isLoading,
-    setPlayer,
-}) => {
+export const Item = ({ page, track, userId, staredUser, isLoading }) => {
     const [likeTrack] = useLikeTrackMutation();
+    const dispatch = useDispatch();
+    const { clearUser } = useUserContext();
+
+    const allTracks = useSelector(playerAllTracksSelector);
+    const isPaused = useSelector(playerIsPausedSelector);
+    const currentTrack = useSelector(playerCurrentTrackSelector);
 
     const isLiked = Boolean(
         staredUser?.find(({ id }) => id === userId) || false,
     );
-    const { clearUser } = useUserContext();
 
-    const isPaused = useSelector(playlistIsPausedSelector);
-    const currentId = useSelector(playlistCurrentIdSelector);
-
-    const dispatch = useDispatch();
-
-    const processLikeError = () => {
-        const tokenRefresh = window.localStorage.getItem("REFRESH");
-
-        refreshToken(tokenRefresh)
-            .then((newToken) => {
-                alert("Token пользователя успешно обновлен");
-                dispatch(
-                    setToken({
-                        access: newToken.access,
-                        refresh: tokenRefresh,
-                    }),
-                );
-            })
-            .catch(() => {
-                alert("Не удалось обновить token пользователя");
-                clearUser();
-            });
-    };
     const handleClick = (event) => {
         event.preventDefault();
 
-        setPlayer({
-            title: track.name,
-            author: track.author,
-            link: track.track_file,
-        });
-        dispatch(setCurrentId({ id: track.id }));
+        dispatch(setCurrentTrack({ id: track.id, tracks: allTracks }));
     };
     const toggleLike = () => {
         const data = { id: track.id, isLiked };
@@ -74,7 +43,7 @@ export const Item = ({
                 if (error.status === 401) {
                     alert(`Ошибка авторизации: ${error.data.detail}`);
 
-                    processLikeError();
+                    clearUser();
                 } else {
                     alert(`Что-то пошло не так: ${error.error}`);
                 }
@@ -88,7 +57,7 @@ export const Item = ({
                     {!isLoading ? (
                         <>
                             <S.PlaylistTrackTitleImg>
-                                {track.id === currentId ? (
+                                {track.id === currentTrack?.id ? (
                                     <S.PlaylistTrackDoteSvg
                                         $paused={!isPaused ? "paused" : ""}
                                     >

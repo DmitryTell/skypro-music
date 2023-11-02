@@ -1,132 +1,29 @@
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GlobalStyles } from "./components/global/Global.styles";
 import { AppRoutes } from "./pages/AppRoutes";
 import { UserContext } from "./context/user";
 import * as S from "./components/global/App.styles";
-import {
-    playlistIsLoopSelector,
-    playlistIsPausedSelector,
-    playlistNextTrackSelector,
-    playlistPrevTrackSelector,
-    playlistTracksIdsSelector,
-    playlistShuffledTracksIdsSelector,
-    playlistIsShuffledSelector,
-    playlistCurrentIdSelector,
-} from "./store/selectors/playlist";
-import {
-    getNewId,
-    setCurrentId,
-    toggleIsLoop,
-    toggleIsPaused,
-    toggleIsShuffled,
-} from "./store/slices/playlist";
-import {
-    tokenAccessSelector,
-    tokenRefreshSelector,
-} from "./store/selectors/token";
+import { tokenAccessSelector } from "./store/selectors/token";
 import { setToken } from "./store/slices/token";
 
 export const App = () => {
-    const isLoop = useSelector(playlistIsLoopSelector);
-    const isPaused = useSelector(playlistIsPausedSelector);
-    const nextTrack = useSelector(playlistNextTrackSelector);
-    const prevTrack = useSelector(playlistPrevTrackSelector);
-    const allIds = useSelector(playlistTracksIdsSelector);
-    const shuffledIds = useSelector(playlistShuffledTracksIdsSelector);
-    const isShuffled = useSelector(playlistIsShuffledSelector);
-    const currentId = useSelector(playlistCurrentIdSelector);
     const tokenAccess = useSelector(tokenAccessSelector);
-    const tokenRefresh = useSelector(tokenRefreshSelector);
 
     const [user, setUser] = useState(null);
-    const [tracks, setTracks] = useState([
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-    ]);
     const [isOpenedMenu, setIsOpenedMenu] = useState(false);
-    const [player, setPlayer] = useState(null);
     const [newError, setNewError] = useState(null);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(190);
-    const [volume, setVolume] = useState(40);
 
-    const audioRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const controls = {
-        togglePlayPause: () => {
-            if (isPaused) {
-                audioRef.current.play();
-
-                dispatch(toggleIsPaused({ status: false }));
-            } else {
-                audioRef.current.pause();
-
-                dispatch(toggleIsPaused({ status: true }));
-            }
-        },
-        toggleLoop: () => {
-            audioRef.current.loop = isLoop;
-
-            dispatch(toggleIsLoop());
-        },
-        toggleShuffled: () => {
-            dispatch(toggleIsShuffled());
-        },
-        handleChangeProgress: () => {
-            audioRef.current.currentTime = currentTime;
-        },
-        handleNextTrack: () => {
-            if (nextTrack) {
-                setPlayer({
-                    title: nextTrack.name,
-                    author: nextTrack.author,
-                    link: nextTrack.track_file,
-                });
-                dispatch(setCurrentId({ id: nextTrack.id }));
-            }
-        },
-        handlePrevTrack: () => {
-            if (prevTrack) {
-                setPlayer({
-                    title: prevTrack.name,
-                    author: prevTrack.author,
-                    link: prevTrack.track_file,
-                });
-                dispatch(setCurrentId({ id: prevTrack.id }));
-            }
-        },
-    };
-    const updateTime = () => {
-        setCurrentTime(audioRef.current.currentTime);
-    };
     const clearUser = () => {
         window.localStorage.clear();
 
         setUser(null);
         navigate("/login");
         dispatch(setToken({ access: null, refresh: null }));
-    };
-    const getNextTrack = () => {
-        if (!isLoop && nextTrack) {
-            setPlayer({
-                title: nextTrack.name,
-                author: nextTrack.author,
-                link: nextTrack.track_file,
-            });
-            dispatch(setCurrentId({ id: nextTrack.id }));
-        }
     };
 
     const contextUser = useMemo(() => ({
@@ -136,22 +33,6 @@ export const App = () => {
     }));
 
     useEffect(() => {
-        if (tokenAccess) {
-            setTimeout(() => {
-                window.localStorage.setItem("REFRESH", tokenRefresh);
-
-                dispatch(setToken({ access: null, refresh: tokenRefresh }));
-            }, 200000);
-        }
-    }, [tokenAccess]);
-    useEffect(() => {
-        if (!isShuffled) {
-            dispatch(getNewId({ ids: allIds, currentId }));
-        } else {
-            dispatch(getNewId({ ids: shuffledIds, currentId }));
-        }
-    }, [currentId, isShuffled]);
-    useEffect(() => {
         const userJson = window.localStorage.getItem("USER");
 
         if (userJson) {
@@ -160,55 +41,25 @@ export const App = () => {
         }
     }, []);
     useEffect(() => {
-        const currentDuration = audioRef.current.duration;
-
-        if (currentDuration && !Number.isNaN(currentDuration)) {
-            setDuration(currentDuration);
+        if (tokenAccess) {
+            setTimeout(() => {
+                dispatch(setToken({ access: null, refresh: null }));
+            }, 200000);
         }
-    }, [audioRef.current?.duration]);
-    useEffect(() => {
-        audioRef.current?.addEventListener("timeupdate", updateTime);
-        audioRef.current?.addEventListener("ended", getNextTrack);
-
-        return () =>
-            audioRef.current?.removeEventListener("timeupdate", updateTime);
-    });
-    useEffect(() => {
-        if (player) {
-            audioRef.current.src = player.link;
-
-            dispatch(toggleIsPaused({ status: false }));
-        }
-    }, [player]);
-    useEffect(() => {
-        audioRef.current.volume = volume / 100;
-    }, [volume]);
+    }, [tokenAccess]);
 
     return (
         <>
-            <audio autoPlay ref={audioRef}>
-                <source src={player?.link} type="audio/mpeg" />
-            </audio>
             <GlobalStyles />
             <S.Wrapper>
                 <UserContext.Provider value={contextUser}>
                     <AppRoutes
                         user={user}
                         setUser={setUser}
-                        tracks={tracks}
-                        setTracks={setTracks}
                         isOpenedMenu={isOpenedMenu}
                         setIsOpenedMenu={setIsOpenedMenu}
-                        player={player}
-                        setPlayer={setPlayer}
                         newError={newError}
                         setNewError={setNewError}
-                        currentTime={currentTime}
-                        setCurrentTime={setCurrentTime}
-                        duration={duration}
-                        volume={volume}
-                        setVolume={setVolume}
-                        controls={controls}
                     />
                 </UserContext.Provider>
             </S.Wrapper>

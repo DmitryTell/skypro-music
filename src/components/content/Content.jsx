@@ -1,11 +1,19 @@
-import { v4 as uuid } from "uuid";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Title } from "./Title";
 import { Item } from "./Item";
 import * as S from "./Content.styles";
 import { useUserContext } from "../../context/user";
+import { addAllTracks, shuffleTracks } from "../../store/slices/player";
 
-export const Content = ({ page, tracks, isLoading, setPlayer, newError }) => {
+export const Content = ({ page, tracks, isLoading, newError }) => {
     const { userId } = useUserContext();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(addAllTracks({ tracks }));
+        dispatch(shuffleTracks({ tracks }));
+    }, [page, isLoading]);
 
     return (
         <S.Content>
@@ -16,24 +24,25 @@ export const Content = ({ page, tracks, isLoading, setPlayer, newError }) => {
                 </S.ContentPlaylistErrorText>
             ) : (
                 <S.ContentPlaylist>
-                    {tracks.length ? (
-                        tracks.map((track) => (
+                    {tracks &&
+                        tracks.map((track, index) => (
                             <Item
-                                key={uuid()}
+                                key={
+                                    track.id ? String(track.id) : String(index)
+                                }
                                 page={page}
                                 track={track}
                                 userId={userId}
                                 staredUser={track.stared_user}
                                 isLoading={isLoading}
-                                setPlayer={setPlayer}
                             />
-                        ))
-                    ) : (
+                        ))}
+                    <S.PlaylistLastItem />
+                    {!tracks?.length && (
                         <S.ContentPlaylistErrorText>
                             Список треков пуст
                         </S.ContentPlaylistErrorText>
                     )}
-                    <S.PlaylistLastItem />
                 </S.ContentPlaylist>
             )}
         </S.Content>

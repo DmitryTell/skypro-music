@@ -7,7 +7,7 @@ const TRACK_PATHS = [
     "img/icon/sprite.svg#icon-dislike",
 ];
 
-export const Track = ({ page, player }) => {
+export const Track = ({ page, currentTrack }) => {
     return (
         <S.Track>
             <S.TrackContain>
@@ -23,10 +23,10 @@ export const Track = ({ page, player }) => {
                     </S.TrackSvg>
                 </S.TrackImg>
                 <S.TrackAuthor>
-                    <S.TrackAuthorSpan>{player?.title}</S.TrackAuthorSpan>
+                    <S.TrackAuthorSpan>{currentTrack?.name}</S.TrackAuthorSpan>
                 </S.TrackAuthor>
                 <S.TrackAlbum>
-                    <S.TrackAlbumSpan>{player?.author}</S.TrackAlbumSpan>
+                    <S.TrackAlbumSpan>{currentTrack?.author}</S.TrackAlbumSpan>
                 </S.TrackAlbum>
             </S.TrackContain>
             <S.TrackLikeDis>
