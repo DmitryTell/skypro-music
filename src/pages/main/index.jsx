@@ -14,8 +14,6 @@ export const Main = ({ page, title }) => {
 
     if (error) {
         dispatch(setNewError({ textError: `Ошибка загрузки: ${error.error}` }));
-    } else {
-        dispatch(setNewError({ textError: null }));
     }
 
     return (

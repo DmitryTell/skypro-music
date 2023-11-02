@@ -24,8 +24,6 @@ export const Favourites = ({ page, title }) => {
                 setNewError({ textError: `Oшибка загрузки: ${error.error}` }),
             );
         }
-    } else {
-        dispatch(setNewError({ textError: null }));
     }
 
     return (
