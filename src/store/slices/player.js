@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { shuffleTrackList } from "../../data/secondary-functions";
 
 const initialState = {
     allTracks: [],
@@ -18,13 +17,17 @@ export const playerSlice = createSlice({
     reducers: {
         addAllTracks: (state, action) => {
             const { tracks } = action.payload;
+            const tracksJson = [
+                ...tracks.map((track) => JSON.stringify(track)),
+            ];
+            const shuffledTracksJson = [
+                ...tracksJson.sort(() => Math.random() - 0.5),
+            ];
 
             state.allTracks = [...tracks];
-        },
-        shuffleTracks: (state, action) => {
-            const { tracks } = action.payload;
-
-            state.shuffledTracks = [...shuffleTrackList(tracks)];
+            state.shuffledTracks = [
+                ...shuffledTracksJson.map((track) => JSON.parse(track)),
+            ];
         },
         toggleIsLoop: (state) => {
             state.isLoop = !state.isLoop;
@@ -60,7 +63,7 @@ export const playerSlice = createSlice({
 
 export const {
     addAllTracks,
-    shuffleTracks,
+    setNewError,
     toggleIsLoop,
     toggleIsPaused,
     setCurrentTrack,

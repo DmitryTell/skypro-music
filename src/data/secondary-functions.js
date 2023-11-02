@@ -6,30 +6,3 @@ export const getMinutesFromSeconds = (seconds) => {
 
     return `${addZeroBefore(min)}:${addZeroBefore(sec)}`;
 };
-export const shuffleTrackList = (list) => {
-    const result = [...list];
-
-    for (let i = result.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-
-        [result[i], result[j]] = [result[j], result[i]];
-    }
-
-    return result;
-};
-export const makeMergTracks = (allTracks, favouriteTracks) => {
-    const result = [];
-
-    favouriteTracks?.forEach((favTrack) => {
-        allTracks?.forEach((track) => {
-            if (favTrack.id === track.id) {
-                result.push({
-                    ...favTrack,
-                    ...track,
-                });
-            }
-        });
-    });
-
-    return result;
-};

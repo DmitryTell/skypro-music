@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getNewToken, loginUser } from "../../api/user";
 import * as S from "./Login.styles";
-import { setToken } from "../../store/slices/token";
+import { setToken, setNewError } from "../../store/slices/user";
 
 export const SighnIn = ({
-    newError,
-    setNewError,
     setUser,
     email,
     setEmail,
@@ -15,6 +12,7 @@ export const SighnIn = ({
     setPassword,
     isLoadingBtn,
     setIsLoadingBtn,
+    newError,
 }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -23,12 +21,12 @@ export const SighnIn = ({
         setIsLoadingBtn(true);
 
         if (!email) {
-            setNewError("Введите адрес почты");
+            dispatch(setNewError({ textError: "Введите адрес почты" }));
             setIsLoadingBtn(false);
             return;
         }
         if (!password) {
-            setNewError("Введите пароль");
+            dispatch(setNewError({ textError: "Введите пароль" }));
             setIsLoadingBtn(false);
             return;
         }
@@ -45,7 +43,7 @@ export const SighnIn = ({
                 );
             })
             .catch((error) => {
-                setNewError(error.message);
+                dispatch(setNewError({ textError: error.message }));
             });
         loginUser(email, password)
             .then((user) => {
@@ -55,18 +53,14 @@ export const SighnIn = ({
 
                 setUser(user);
                 setIsLoadingBtn(false);
-                setNewError(null);
+                dispatch(setNewError({ textError: null }));
                 navigate("/", { replace: true });
             })
             .catch((error) => {
-                setNewError(error.message);
+                dispatch(setNewError({ textError: error.message }));
                 setIsLoadingBtn(false);
             });
     };
-
-    useEffect(() => {
-        setNewError(null);
-    }, []);
 
     return (
         <S.ContainerLogin>
@@ -101,7 +95,7 @@ export const SighnIn = ({
                     </S.ModalButtonEnter>
                     <S.ModalButtonSignUp
                         onClick={() => {
-                            setNewError(null);
+                            dispatch(setNewError({ textError: null }));
                             navigate("/register", { replace: true });
                         }}
                     >

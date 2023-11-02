@@ -4,16 +4,25 @@ import { Title } from "./Title";
 import { Item } from "./Item";
 import * as S from "./Content.styles";
 import { useUserContext } from "../../context/user";
-import { addAllTracks, shuffleTracks } from "../../store/slices/player";
+import { addAllTracks, getNewId } from "../../store/slices/player";
 
 export const Content = ({ page, tracks, isLoading, newError }) => {
+    const currentId = tracks[0]?.id;
+
     const { userId } = useUserContext();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(addAllTracks({ tracks }));
-        dispatch(shuffleTracks({ tracks }));
-    }, [page, isLoading]);
+        if (!isLoading) {
+            dispatch(addAllTracks({ tracks }));
+            dispatch(
+                getNewId({
+                    ids: [...tracks.map(({ id }) => id)],
+                    currentId: currentId - 1,
+                }),
+            );
+        }
+    }, [isLoading]);
 
     return (
         <S.Content>

@@ -1,8 +1,11 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { useUserContext } from "../../context/user";
 import * as S from "./Nav.styles";
 import * as P from "../../data/pages";
+import { userIsMenuSelector } from "../../store/selectors/user";
+import { setIsMenu } from "../../store/slices/user";
 
 const MENU_ITEMS = [
     {
@@ -26,8 +29,12 @@ const MENU_ITEMS = [
 ];
 const IMG_PATH = "img/logo.png";
 
-export const Nav = ({ page, isOpenedMenu, setIsOpenedMenu }) => {
+export const Nav = ({ page }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const isMenu = useSelector(userIsMenuSelector);
+
     const { clearUser } = useUserContext();
 
     const goToPath = (e, id, path) => {
@@ -49,12 +56,12 @@ export const Nav = ({ page, isOpenedMenu, setIsOpenedMenu }) => {
                     alt="logo"
                 />
             </S.NavLogo>
-            <S.NavBurger onClick={() => setIsOpenedMenu(!isOpenedMenu)}>
+            <S.NavBurger onClick={() => dispatch(setIsMenu())}>
                 <S.NavBurgerLine />
                 <S.NavBurgerLine />
                 <S.NavBurgerLine />
             </S.NavBurger>
-            {isOpenedMenu && (
+            {isMenu && (
                 <S.NavMenu>
                     <S.NavMenuList>
                         {MENU_ITEMS.map((item) => (

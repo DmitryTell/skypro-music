@@ -9,59 +9,16 @@ import { Category } from "./Category";
 import * as P from "../data/pages";
 import * as T from "../data/titles";
 
-export const AppRoutes = ({
-    user,
-    setUser,
-    isOpenedMenu,
-    setIsOpenedMenu,
-    newError,
-    setNewError,
-}) => {
+export const AppRoutes = ({ user, setUser }) => {
     return (
         <Routes>
-            <Route
-                path="/login"
-                element={
-                    <Login
-                        newError={newError}
-                        setNewError={setNewError}
-                        setUser={setUser}
-                    />
-                }
-            />
-            <Route
-                path="/register"
-                element={
-                    <Register
-                        newError={newError}
-                        setNewError={setNewError}
-                        setUser={setUser}
-                    />
-                }
-            />
-            <Route
-                path="*"
-                element={
-                    <Page404
-                        page={P.NOT_FOUND}
-                        isOpenedMenu={isOpenedMenu}
-                        setIsOpenedMenu={setIsOpenedMenu}
-                    />
-                }
-            />
+            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/register" element={<Register setUser={setUser} />} />
+            <Route path="*" element={<Page404 page={P.NOT_FOUND} />} />
             <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
                 <Route
                     path="/"
-                    element={
-                        <Main
-                            page={P.MAIN}
-                            title={T.MAIN_TITLE}
-                            isOpenedMenu={isOpenedMenu}
-                            setIsOpenedMenu={setIsOpenedMenu}
-                            newError={newError}
-                            setNewError={setNewError}
-                        />
-                    }
+                    element={<Main page={P.MAIN} title={T.MAIN_TITLE} />}
                 />
                 <Route
                     path="/favourites"
@@ -69,25 +26,13 @@ export const AppRoutes = ({
                         <Favourites
                             page={P.FAVOURITES}
                             title={T.FAVOURITES_TITLE}
-                            isOpenedMenu={isOpenedMenu}
-                            setIsOpenedMenu={setIsOpenedMenu}
-                            newError={newError}
-                            setNewError={setNewError}
                         />
                     }
                 />
             </Route>
             <Route
                 path="/category/:id"
-                element={
-                    <Category
-                        page={P.CATEGORY}
-                        isOpenedMenu={isOpenedMenu}
-                        setIsOpenedMenu={setIsOpenedMenu}
-                        newError={newError}
-                        setNewError={setNewError}
-                    />
-                }
+                element={<Category page={P.CATEGORY} />}
             />
         </Routes>
     );

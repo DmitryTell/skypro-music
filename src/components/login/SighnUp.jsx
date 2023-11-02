@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getNewToken, registerUser } from "../../api/user";
 import * as S from "./Login.styles";
-import { setToken } from "../../store/slices/token";
+import { setToken, setNewError } from "../../store/slices/user";
 
 export const SighnUp = ({
-    newError,
-    setNewError,
     setUser,
     email,
     setEmail,
@@ -19,6 +16,7 @@ export const SighnUp = ({
     setSecondPassword,
     isLoadingBtn,
     setIsLoadingBtn,
+    newError,
 }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,27 +25,27 @@ export const SighnUp = ({
         setIsLoadingBtn(true);
 
         if (!name) {
-            setNewError("Придумайте имя");
+            dispatch(setNewError({ textError: "Придумайте имя" }));
             setIsLoadingBtn(false);
             return;
         }
         if (!email) {
-            setNewError("Введите email");
+            dispatch(setNewError({ textError: "Введите email" }));
             setIsLoadingBtn(false);
             return;
         }
         if (!password) {
-            setNewError("Введите пароль");
+            dispatch(setNewError({ textError: "Введите пароль" }));
             setIsLoadingBtn(false);
             return;
         }
         if (!secondPassword) {
-            setNewError("Подтвердите пароль");
+            dispatch(setNewError({ textError: "Подтвердите пароль" }));
             setIsLoadingBtn(false);
             return;
         }
         if (password !== secondPassword) {
-            setNewError("Пароли не совпадают");
+            dispatch(setNewError({ textError: "Пароли не совпадают" }));
             setIsLoadingBtn(false);
             return;
         }
@@ -63,7 +61,9 @@ export const SighnUp = ({
                     }),
                 );
             })
-            .catch((error) => setNewError(error.message));
+            .catch((error) =>
+                dispatch(setNewError({ textError: error.message })),
+            );
         registerUser(name, email, password)
             .then((user) => {
                 const userJson = JSON.stringify(user);
@@ -72,19 +72,15 @@ export const SighnUp = ({
 
                 setUser(user);
                 setIsLoadingBtn(false);
-                setNewError(null);
+                dispatch(setNewError({ textError: null }));
 
                 navigate("/", { replace: true });
             })
             .catch((error) => {
-                setNewError(error.message);
+                dispatch(setNewError({ textError: error.message }));
                 setIsLoadingBtn(false);
             });
     };
-
-    useEffect(() => {
-        setNewError(null);
-    }, []);
 
     return (
         <S.ContainerLogin>

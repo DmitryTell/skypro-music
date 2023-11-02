@@ -14,13 +14,12 @@ import {
 import {
     playerIsPausedSelector,
     playerIsLoopSelector,
-    playerNextTrackSelector,
-    playerPrevTrackSelector,
-    playerTracksIdsSelector,
-    playerShuffledTracksIdsSelector,
+    playerNextIdSelector,
+    playerPrevIdSelector,
     playerIsShuffledSelector,
     playerCurrentTrackSelector,
     playerAllTracksSelector,
+    playerShuffledTracksSelector,
 } from "../../store/selectors/player";
 
 export const Bar = ({ page }) => {
@@ -32,12 +31,11 @@ export const Bar = ({ page }) => {
     const [volume, setVolume] = useState(40);
 
     const tracks = useSelector(playerAllTracksSelector);
+    const shuffledTracks = useSelector(playerShuffledTracksSelector);
     const isPaused = useSelector(playerIsPausedSelector);
     const isLoop = useSelector(playerIsLoopSelector);
-    const nextTrack = useSelector(playerNextTrackSelector);
-    const prevTrack = useSelector(playerPrevTrackSelector);
-    const allIds = useSelector(playerTracksIdsSelector);
-    const shuffledIds = useSelector(playerShuffledTracksIdsSelector);
+    const nextId = useSelector(playerNextIdSelector);
+    const prevId = useSelector(playerPrevIdSelector);
     const isShuffled = useSelector(playerIsShuffledSelector);
     const currentTrack = useSelector(playerCurrentTrackSelector);
 
@@ -64,30 +62,38 @@ export const Bar = ({ page }) => {
         audioRef.current.currentTime = currentTime;
     };
     const handleNextTrack = () => {
-        if (nextTrack) {
-            dispatch(setCurrentTrack({ id: nextTrack.id, tracks }));
+        if (nextId) {
+            dispatch(setCurrentTrack({ id: nextId, tracks }));
         }
     };
     const handlePrevTrack = () => {
-        if (prevTrack) {
-            dispatch(setCurrentTrack({ id: prevTrack.id, tracks }));
+        if (prevId) {
+            dispatch(setCurrentTrack({ id: prevId, tracks }));
         }
     };
     const updateTime = () => {
-        setCurrentTime(audioRef.current.currentTime);
+        setCurrentTime(audioRef.current?.currentTime);
     };
     const getNextTrack = () => {
-        if (!isLoop && nextTrack) {
-            dispatch(setCurrentTrack({ id: nextTrack.id, tracks }));
+        if (!isLoop && nextId) {
+            dispatch(setCurrentTrack({ id: nextId, tracks }));
         }
     };
 
     useEffect(() => {
         if (!isShuffled) {
-            dispatch(getNewId({ ids: allIds, currentId: currentTrack.id }));
+            dispatch(
+                getNewId({
+                    ids: [...tracks.map(({ id }) => id)],
+                    currentId: currentTrack.id,
+                }),
+            );
         } else {
             dispatch(
-                getNewId({ ids: shuffledIds, currentId: currentTrack.id }),
+                getNewId({
+                    ids: [...shuffledTracks.map(({ id }) => id)],
+                    currentId: currentTrack.id,
+                }),
             );
         }
     }, [currentTrack?.id, isShuffled]);

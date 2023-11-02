@@ -9,25 +9,13 @@ import * as S from "./App.styles";
 import * as P from "../../data/pages";
 import { playerCurrentTrackSelector } from "../../store/selectors/player";
 
-export const PageLayout = ({
-    page,
-    title,
-    tracks,
-    isLoading,
-    isOpenedMenu,
-    setIsOpenedMenu,
-    newError,
-}) => {
+export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const currentTrack = useSelector(playerCurrentTrackSelector);
 
     return (
         <S.Container>
             <S.Main>
-                <Nav
-                    page={page}
-                    isOpenedMenu={isOpenedMenu}
-                    setIsOpenedMenu={setIsOpenedMenu}
-                />
+                <Nav page={page} />
                 <S.MainCenterblock>
                     <Header page={page} title={title} />
                     {page !== P.NOT_FOUND ? (

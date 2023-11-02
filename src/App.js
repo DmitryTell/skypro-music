@@ -5,15 +5,13 @@ import { GlobalStyles } from "./components/global/Global.styles";
 import { AppRoutes } from "./pages/AppRoutes";
 import { UserContext } from "./context/user";
 import * as S from "./components/global/App.styles";
-import { tokenAccessSelector } from "./store/selectors/token";
-import { setToken } from "./store/slices/token";
+import { userAccessSelector } from "./store/selectors/user";
+import { setToken } from "./store/slices/user";
 
 export const App = () => {
-    const tokenAccess = useSelector(tokenAccessSelector);
+    const tokenAccess = useSelector(userAccessSelector);
 
     const [user, setUser] = useState(null);
-    const [isOpenedMenu, setIsOpenedMenu] = useState(false);
-    const [newError, setNewError] = useState(null);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -44,7 +42,7 @@ export const App = () => {
         if (tokenAccess) {
             setTimeout(() => {
                 dispatch(setToken({ access: null, refresh: null }));
-            }, 200000);
+            }, 300000);
         }
     }, [tokenAccess]);
 
@@ -53,14 +51,7 @@ export const App = () => {
             <GlobalStyles />
             <S.Wrapper>
                 <UserContext.Provider value={contextUser}>
-                    <AppRoutes
-                        user={user}
-                        setUser={setUser}
-                        isOpenedMenu={isOpenedMenu}
-                        setIsOpenedMenu={setIsOpenedMenu}
-                        newError={newError}
-                        setNewError={setNewError}
-                    />
+                    <AppRoutes user={user} setUser={setUser} />
                 </UserContext.Provider>
             </S.Wrapper>
         </>
