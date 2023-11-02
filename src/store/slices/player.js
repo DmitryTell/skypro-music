@@ -9,6 +9,10 @@ const initialState = {
     isShuffled: false,
     nextId: null,
     prevId: null,
+    duration: 190,
+    volume: 40,
+    currentTime: 0,
+    changedCurrentTime: null,
 };
 
 export const playerSlice = createSlice({
@@ -58,6 +62,26 @@ export const playerSlice = createSlice({
             state.nextId = ids[currentIndex + 1];
             state.prevId = ids[currentIndex - 1];
         },
+        setDuration: (state, action) => {
+            const { duration } = action.payload;
+
+            state.duration = duration;
+        },
+        setVolume: (state, action) => {
+            const { value } = action.payload;
+
+            state.volume = value;
+        },
+        setCurrentTime: (state, action) => {
+            const { value } = action.payload;
+
+            state.currentTime = value;
+        },
+        setNewCurrentTime: (state, action) => {
+            const { value } = action.payload;
+
+            state.changedCurrentTime = value;
+        },
     },
 });
 
@@ -69,6 +93,10 @@ export const {
     setCurrentTrack,
     toggleIsShuffled,
     getNewId,
+    setDuration,
+    setVolume,
+    setCurrentTime,
+    setNewCurrentTime,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

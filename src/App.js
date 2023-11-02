@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { GlobalStyles } from "./components/global/Global.styles";
 import { AppRoutes } from "./pages/routes";
 import { UserContext } from "./context/user";
+import { Player } from "./components/player";
 import * as S from "./components/global/App.styles";
 import { userAccessSelector } from "./store/selectors/user";
 import { setToken } from "./store/slices/user";
@@ -49,6 +50,7 @@ export const App = () => {
     return (
         <>
             <GlobalStyles />
+            <Player />
             <S.Wrapper>
                 <UserContext.Provider value={contextUser}>
                     <AppRoutes user={user} setUser={setUser} />

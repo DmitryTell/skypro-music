@@ -14,3 +14,11 @@ export const playerNextIdSelector = (store) =>
     playerSelector(store)?.nextId || null;
 export const playerPrevIdSelector = (store) =>
     playerSelector(store)?.prevId || null;
+export const playerDurationSelector = (store) =>
+    playerSelector(store)?.duration || 190;
+export const playerVolumeSelector = (store) =>
+    playerSelector(store)?.volume || 40;
+export const playerCurrentTimeSelector = (store) =>
+    playerSelector(store)?.currentTime || 0;
+export const playerChangedCurrentTimeSelector = (store) =>
+    playerSelector(store)?.changedCurrentTime || null;
