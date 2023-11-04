@@ -26,7 +26,7 @@ export const playerSlice = createSlice({
             state.allTracks = [...tracks];
         },
         setNewPlaylist: (state, action) => {
-            const { tracks, shuffledTracks } = action.payload;
+            const { tracks } = action.payload;
             const tracksJson = [
                 ...tracks.map((track) => JSON.stringify(track)),
             ];
@@ -34,13 +34,10 @@ export const playerSlice = createSlice({
                 ...tracksJson.sort(() => Math.random() - 0.5),
             ];
 
-            if (!shuffledTracks?.length) {
-                state.shuffledPlaylist = [
-                    ...shuffledTracksJson.map((track) => JSON.parse(track)),
-                ];
-            }
-
             state.playlist = [...tracks];
+            state.shuffledPlaylist = [
+                ...shuffledTracksJson.map((track) => JSON.parse(track)),
+            ];
         },
         toggleIsLoop: (state) => {
             state.isLoop = !state.isLoop;

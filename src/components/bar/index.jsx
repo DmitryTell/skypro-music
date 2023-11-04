@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Controls } from "../bar_controls/index";
 import { Track } from "../bar_content_track/index";
 import { Volume } from "../bar_content_volume/index";
 import * as S from "./index.styles";
 import {
-    playerIsShuffledSelector,
     playerCurrentTrackSelector,
     playerNextIdSelector,
     playerPrevIdSelector,
@@ -13,10 +11,8 @@ import {
     playerDurationSelector,
     playerCurrentTimeSelector,
     playerPlaylistSelector,
-    playerShuffledPlaylistSelector,
 } from "../../store/selectors/player";
 import {
-    getNewId,
     setCurrentTrack,
     toggleIsShuffled,
     toggleIsPaused,
@@ -29,10 +25,8 @@ export const Bar = ({ page }) => {
     const dispatch = useDispatch();
 
     const playlist = useSelector(playerPlaylistSelector);
-    const shuffledPlaylist = useSelector(playerShuffledPlaylistSelector);
     const currentTrack = useSelector(playerCurrentTrackSelector);
     const isPaused = useSelector(playerIsPausedSelector);
-    const isShuffled = useSelector(playerIsShuffledSelector);
     const nextId = useSelector(playerNextIdSelector);
     const prevId = useSelector(playerPrevIdSelector);
     const duration = useSelector(playerDurationSelector);
@@ -50,12 +44,12 @@ export const Bar = ({ page }) => {
     };
     const handleNextTrack = () => {
         if (nextId) {
-            dispatch(setCurrentTrack({ id: nextId, playlist }));
+            dispatch(setCurrentTrack({ id: nextId, tracks: playlist }));
         }
     };
     const handlePrevTrack = () => {
         if (prevId) {
-            dispatch(setCurrentTrack({ id: prevId, playlist }));
+            dispatch(setCurrentTrack({ id: prevId, tracks: playlist }));
         }
     };
     const toggleShuffled = () => {
@@ -64,24 +58,6 @@ export const Bar = ({ page }) => {
     const handleChangeProgress = () => {
         dispatch(setNewCurrentTime({ value: currentTime }));
     };
-
-    useEffect(() => {
-        if (!isShuffled) {
-            dispatch(
-                getNewId({
-                    ids: [...playlist.map(({ id }) => id)],
-                    currentId: currentTrack.id,
-                }),
-            );
-        } else {
-            dispatch(
-                getNewId({
-                    ids: [...shuffledPlaylist.map(({ id }) => id)],
-                    currentId: currentTrack.id,
-                }),
-            );
-        }
-    }, [currentTrack?.id, isShuffled]);
 
     return (
         <S.Bar>
