@@ -4,25 +4,17 @@ import { Title } from "../content_title";
 import { Item } from "../content_item";
 import * as S from "./index.styles";
 import { useUserContext } from "../../context/user";
-import { addAllTracks, getNewId } from "../../store/slices/player";
+import { addAllTracks } from "../../store/slices/player";
 
 export const Content = ({ page, tracks, isLoading, newError }) => {
-    const currentId = tracks[0]?.id;
-
     const { userId } = useUserContext();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!isLoading) {
+        if (tracks) {
             dispatch(addAllTracks({ tracks }));
-            dispatch(
-                getNewId({
-                    ids: [...tracks.map(({ id }) => id)],
-                    currentId: currentId - 1,
-                }),
-            );
         }
-    }, [isLoading]);
+    }, [tracks]);
 
     return (
         <S.Content>

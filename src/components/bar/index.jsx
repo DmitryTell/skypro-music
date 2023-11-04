@@ -5,15 +5,15 @@ import { Track } from "../bar_content_track/index";
 import { Volume } from "../bar_content_volume/index";
 import * as S from "./index.styles";
 import {
-    playerShuffledTracksSelector,
     playerIsShuffledSelector,
-    playerAllTracksSelector,
     playerCurrentTrackSelector,
     playerNextIdSelector,
     playerPrevIdSelector,
     playerIsPausedSelector,
     playerDurationSelector,
     playerCurrentTimeSelector,
+    playerPlaylistSelector,
+    playerShuffledPlaylistSelector,
 } from "../../store/selectors/player";
 import {
     getNewId,
@@ -28,9 +28,9 @@ import {
 export const Bar = ({ page }) => {
     const dispatch = useDispatch();
 
-    const tracks = useSelector(playerAllTracksSelector);
+    const playlist = useSelector(playerPlaylistSelector);
+    const shuffledPlaylist = useSelector(playerShuffledPlaylistSelector);
     const currentTrack = useSelector(playerCurrentTrackSelector);
-    const shuffledTracks = useSelector(playerShuffledTracksSelector);
     const isPaused = useSelector(playerIsPausedSelector);
     const isShuffled = useSelector(playerIsShuffledSelector);
     const nextId = useSelector(playerNextIdSelector);
@@ -50,12 +50,12 @@ export const Bar = ({ page }) => {
     };
     const handleNextTrack = () => {
         if (nextId) {
-            dispatch(setCurrentTrack({ id: nextId, tracks }));
+            dispatch(setCurrentTrack({ id: nextId, playlist }));
         }
     };
     const handlePrevTrack = () => {
         if (prevId) {
-            dispatch(setCurrentTrack({ id: prevId, tracks }));
+            dispatch(setCurrentTrack({ id: prevId, playlist }));
         }
     };
     const toggleShuffled = () => {
@@ -69,14 +69,14 @@ export const Bar = ({ page }) => {
         if (!isShuffled) {
             dispatch(
                 getNewId({
-                    ids: [...tracks.map(({ id }) => id)],
+                    ids: [...playlist.map(({ id }) => id)],
                     currentId: currentTrack.id,
                 }),
             );
         } else {
             dispatch(
                 getNewId({
-                    ids: [...shuffledTracks.map(({ id }) => id)],
+                    ids: [...shuffledPlaylist.map(({ id }) => id)],
                     currentId: currentTrack.id,
                 }),
             );

@@ -6,8 +6,9 @@ import {
     playerAllTracksSelector,
     playerCurrentTrackSelector,
     playerIsPausedSelector,
+    playerShuffledPlaylistSelector,
 } from "../../store/selectors/player";
-import { setCurrentTrack } from "../../store/slices/player";
+import { setCurrentTrack, setNewPlaylist } from "../../store/slices/player";
 import { useLikeTrackMutation } from "../../services/playlist";
 import { useUserContext } from "../../context/user";
 
@@ -21,6 +22,7 @@ export const Item = ({ page, track, userId, staredUser, isLoading }) => {
     const { clearUser } = useUserContext();
 
     const allTracks = useSelector(playerAllTracksSelector);
+    const shuffledPlaylist = useSelector(playerShuffledPlaylistSelector);
     const isPaused = useSelector(playerIsPausedSelector);
     const currentTrack = useSelector(playerCurrentTrackSelector);
 
@@ -32,6 +34,12 @@ export const Item = ({ page, track, userId, staredUser, isLoading }) => {
         event.preventDefault();
 
         dispatch(setCurrentTrack({ id: track.id, tracks: allTracks }));
+        dispatch(
+            setNewPlaylist({
+                tracks: allTracks,
+                shuffledTracks: shuffledPlaylist,
+            }),
+        );
     };
     const toggleLike = () => {
         const data = { id: track.id, isLiked };

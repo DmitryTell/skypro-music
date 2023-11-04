@@ -2,8 +2,10 @@ const playerSelector = (store) => store.player;
 
 export const playerAllTracksSelector = (store) =>
     playerSelector(store)?.allTracks || [];
-export const playerShuffledTracksSelector = (store) =>
-    playerSelector(store)?.shuffledTracks || [];
+export const playerPlaylistSelector = (store) =>
+    playerSelector(store)?.playlist || [];
+export const playerShuffledPlaylistSelector = (store) =>
+    playerSelector(store)?.shuffledPlaylist || [];
 export const playerIsLoopSelector = (store) => playerSelector(store).isLoop;
 export const playerIsPausedSelector = (store) => playerSelector(store).isPaused;
 export const playerCurrentTrackSelector = (store) =>
