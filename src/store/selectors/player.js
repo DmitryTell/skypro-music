@@ -2,6 +2,8 @@ const playerSelector = (store) => store.player;
 
 export const playerAllTracksSelector = (store) =>
     playerSelector(store)?.allTracks || [];
+export const playerCategoryTracksSelector = (store) =>
+    playerSelector(store)?.categoryTracks || [];
 export const playerPlaylistSelector = (store) =>
     playerSelector(store)?.playlist || [];
 export const playerShuffledPlaylistSelector = (store) =>

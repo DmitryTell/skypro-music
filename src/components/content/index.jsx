@@ -38,13 +38,12 @@ export const Content = ({ page, tracks, isLoading, newError }) => {
                                 isLoading={isLoading}
                             />
                         ))}
-                    <S.PlaylistLastItem />
-                    {!tracks?.length && (
-                        <S.ContentPlaylistErrorText>
-                            Список треков пуст
-                        </S.ContentPlaylistErrorText>
-                    )}
                 </S.ContentPlaylist>
+            )}
+            {!tracks?.length && (
+                <S.ContentPlaylistErrorText>
+                    Список треков пуст
+                </S.ContentPlaylistErrorText>
             )}
         </S.Content>
     );

@@ -1,12 +1,25 @@
-import { ITEMS } from "../../data/category-items";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as S from "./index.styles";
 import * as P from "../../data/pages";
 import { useUserContext } from "../../context/user";
+import { getSelectionList } from "../../api/selection";
+import { setSelectionList } from "../../store/slices/user";
+import { userSelectionListSelector } from "../../store/selectors/user";
 
 const LOGOUT_PATH = "img/icon/sprite.svg#logout";
 
 export const Sidebar = ({ page, isLoading }) => {
     const { username, clearUser } = useUserContext();
+    const dispatch = useDispatch();
+
+    const selectionList = useSelector(userSelectionListSelector);
+
+    const loadingSelectionList = isLoading ? ["1", "2", "3"] : null;
+
+    useEffect(() => {
+        getSelectionList().then((list) => dispatch(setSelectionList({ list })));
+    }, []);
 
     return (
         <S.Sidebar>
@@ -29,15 +42,20 @@ export const Sidebar = ({ page, isLoading }) => {
             <S.SidebarBlock>
                 {page === P.MAIN && (
                     <S.SidebarList>
-                        {ITEMS.map((item) => (
-                            <S.SidebarItem key={item.key}>
+                        {loadingSelectionList?.map((item) => (
+                            <S.SidebarItem key={item}>
+                                {isLoading && <S.SidebarItemSkeleton />}
+                            </S.SidebarItem>
+                        ))}
+                        {selectionList?.map((item) => (
+                            <S.SidebarItem key={String(item.id)}>
                                 {!isLoading ? (
                                     <S.SidebarLink to={`/category/${item.id}`}>
                                         <S.SidebarImg
                                             src={
                                                 page === P.CATEGORY
-                                                    ? `../${item.path}`
-                                                    : item.path
+                                                    ? `../img/playlist0${item.id}.png`
+                                                    : `img/playlist0${item.id}.png`
                                             }
                                             alt="day's playlist"
                                         />

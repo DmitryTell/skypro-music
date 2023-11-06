@@ -116,12 +116,12 @@ export const GlobalStyles = createGlobalStyle`
                 transform: scale(1);
       }
       50% {
-        -webkit-transform: scale(1.1);
-                transform: scale(1.1);
+        -webkit-transform: scale(1.3);
+                transform: scale(1.3);
       }
       100% {
-        -webkit-transform: scale(1);
-                transform: scale(1);
+        -webkit-transform: scale(0.5);
+                transform: scale(0.5);
       }
     }
 

@@ -4,7 +4,7 @@ import { useGetAllTracksQuery } from "../../services/playlist";
 import { setNewError } from "../../store/slices/user";
 import { userNewErrorSelector } from "../../store/selectors/user";
 
-export const Main = ({ page, title }) => {
+export const Main = ({ page }) => {
     const emptyList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
     const { data, error, isLoading } = useGetAllTracksQuery();
@@ -19,7 +19,7 @@ export const Main = ({ page, title }) => {
     return (
         <PageLayout
             page={page}
-            title={title}
+            title="Треки"
             tracks={data ?? emptyList}
             isLoading={isLoading}
             newError={newError}

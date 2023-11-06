@@ -5,6 +5,8 @@ const initialState = {
     refresh: null,
     newError: null,
     isMenu: false,
+    selectionList: [],
+    categoryTitle: "",
 };
 
 export const userSlice = createSlice({
@@ -25,8 +27,24 @@ export const userSlice = createSlice({
         setIsMenu: (state) => {
             state.isMenu = !state.isMenu;
         },
+        setSelectionList: (state, action) => {
+            const { list } = action.payload;
+
+            state.selectionList = [...list];
+        },
+        setCategoryTitle: (state, action) => {
+            const { title } = action.payload;
+
+            state.categoryTitle = title;
+        },
     },
 });
-export const { setToken, setNewError, setIsMenu } = userSlice.actions;
+export const {
+    setToken,
+    setNewError,
+    setIsMenu,
+    setSelectionList,
+    setCategoryTitle,
+} = userSlice.actions;
 
 export default userSlice.reducer;
