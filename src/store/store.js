@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { playerApi } from "../services/player";
+import { playlistApi } from "../services/playlist";
 import playerReducer from "./slices/player";
+import userReducer from "./slices/user";
 
 export const store = configureStore({
     reducer: {
         player: playerReducer,
-        [playerApi.reducerPath]: playerApi.reducer,
+        user: userReducer,
+        [playlistApi.reducerPath]: playlistApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(playerApi.middleware),
+        getDefaultMiddleware().concat(playlistApi.middleware),
 });
