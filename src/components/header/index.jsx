@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import * as S from "./index.styles";
 import * as P from "../../data/pages";
 import { Author } from "../header_author_popup/index";
 import { Year } from "../header_year_popup/index";
 import { Genre } from "../header_genre_popup/index";
 import { AUTHOR, GENRE, YEAR } from "../../data/popups";
+import { setSearchText } from "../../store/slices/filters";
 
 const SVG_PATH = "img/icon/sprite.svg#icon-search";
 
 export const Header = ({ page, title }) => {
     const [opened, setOpened] = useState(null);
+
+    const dispatch = useDispatch();
 
     const handleClick = (popup) => {
         if (popup === opened) {
@@ -31,7 +35,14 @@ export const Header = ({ page, title }) => {
                         }
                     />
                 </S.SearchSvg>
-                <S.SearchText type="search" placeholder="Поиск" name="search" />
+                <S.SearchText
+                    type="search"
+                    placeholder="Поиск"
+                    name="search"
+                    onChange={(e) =>
+                        dispatch(setSearchText({ text: e.target.value }))
+                    }
+                />
             </S.Search>
             {page !== P.NOT_FOUND && <S.Title>{title}</S.Title>}
             {page === P.MAIN && (

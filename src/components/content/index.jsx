@@ -5,16 +5,22 @@ import { Item } from "../content_item";
 import * as S from "./index.styles";
 import { useUserContext } from "../../context/user";
 import { addAllTracks } from "../../store/slices/player";
+import { setNewError } from "../../store/slices/user";
 
-export const Content = ({ page, tracks, isLoading, newError }) => {
+export const Content = ({ page, tracks, isLoading, newError, searchText }) => {
     const { userId } = useUserContext();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (tracks) {
+        if (tracks?.length) {
+            dispatch(setNewError({ textError: null }));
             dispatch(addAllTracks({ tracks }));
+        } else if (searchText) {
+            dispatch(setNewError({ textError: "Ничего не найдено :(" }));
+        } else {
+            dispatch(setNewError({ textError: "Список треков пуст" }));
         }
-    }, [tracks]);
+    }, [tracks?.length, searchText]);
 
     return (
         <S.Content>
@@ -39,11 +45,6 @@ export const Content = ({ page, tracks, isLoading, newError }) => {
                             />
                         ))}
                 </S.ContentPlaylist>
-            )}
-            {!tracks?.length && (
-                <S.ContentPlaylistErrorText>
-                    Список треков пуст
-                </S.ContentPlaylistErrorText>
             )}
         </S.Content>
     );

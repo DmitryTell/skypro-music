@@ -6,3 +6,20 @@ export const getMinutesFromSeconds = (seconds) => {
 
     return `${addZeroBefore(min)}:${addZeroBefore(sec)}`;
 };
+export const filterBySearchText = (tracks, searchText) => {
+    const result = [];
+
+    if (!searchText) {
+        return tracks;
+    }
+
+    const searchTextReg = new RegExp(`${searchText}`, "gi");
+
+    tracks.forEach((track) => {
+        if (searchTextReg.test(track.name)) {
+            result.push(track);
+        }
+    });
+
+    return result?.length ? result : [];
+};
