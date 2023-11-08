@@ -1,5 +1,7 @@
 import * as P from "../../data/pages";
 import * as S from "./index.styles";
+import { useUserContext } from "../../context/user";
+import { useLikeTrackMutation } from "../../services/playlist";
 
 const TRACK_PATHS = [
     "img/icon/sprite.svg#icon-note",
@@ -8,6 +10,26 @@ const TRACK_PATHS = [
 ];
 
 export const Track = ({ page, currentTrack }) => {
+    const { clearUser } = useUserContext();
+    const [likeTrack] = useLikeTrackMutation();
+
+    const toggleLike = (id, isLiked) => {
+        const data = { id, isLiked };
+
+        likeTrack(data)
+            .unwrap()
+            .then(() => {})
+            .catch((error) => {
+                if (error.status === 401) {
+                    alert(`Ошибка авторизации: ${error.data.detail}`);
+
+                    clearUser();
+                } else {
+                    alert(`Что-то пошло не так: ${error.error}`);
+                }
+            });
+    };
+
     return (
         <S.Track>
             <S.TrackContain>
@@ -30,7 +52,10 @@ export const Track = ({ page, currentTrack }) => {
                 </S.TrackAlbum>
             </S.TrackContain>
             <S.TrackLikeDis>
-                <S.TrackLike className="_btn-icon">
+                <S.TrackLike
+                    className="_btn-icon"
+                    onClick={() => toggleLike(currentTrack?.id, false)}
+                >
                     <S.TrackLikeSvg alt="like">
                         <use
                             xlinkHref={
@@ -41,7 +66,10 @@ export const Track = ({ page, currentTrack }) => {
                         />
                     </S.TrackLikeSvg>
                 </S.TrackLike>
-                <S.TrackDislike className="_btn-icon">
+                <S.TrackDislike
+                    className="_btn-icon"
+                    onClick={() => toggleLike(currentTrack?.id, true)}
+                >
                     <S.TrackDislikeSvg alt="dislike">
                         <use
                             xlinkHref={
