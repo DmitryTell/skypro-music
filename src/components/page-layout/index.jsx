@@ -14,9 +14,14 @@ import {
     playerPlaylistSelector,
     playerIsShuffledSelector,
 } from "../../store/selectors/player";
-import { getNewId } from "../../store/slices/player";
-import { filtersSearchTextSelector } from "../../store/selectors/filters";
-import { filterBySearchText } from "../../data/secondary-functions";
+import { addAllTracks, getNewId } from "../../store/slices/player";
+import {
+    filterAuthorsSelector,
+    filterGenresSelector,
+    filterYearSelector,
+    filtersSearchTextSelector,
+} from "../../store/selectors/filters";
+import { filterTracks } from "../../data/secondary-functions";
 
 export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const dispatch = useDispatch();
@@ -25,8 +30,16 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const shuffledPlaylist = useSelector(playerShuffledPlaylistSelector);
     const currentTrack = useSelector(playerCurrentTrackSelector);
     const isShuffled = useSelector(playerIsShuffledSelector);
+    const authors = useSelector(filterAuthorsSelector);
+    const genres = useSelector(filterGenresSelector);
+    const year = useSelector(filterYearSelector);
     const searchText = useSelector(filtersSearchTextSelector);
 
+    useEffect(() => {
+        if (tracks?.length) {
+            dispatch(addAllTracks({ tracks }));
+        }
+    }, [tracks]);
     useEffect(() => {
         if (!isShuffled) {
             dispatch(
@@ -54,7 +67,13 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
                     {page !== P.NOT_FOUND ? (
                         <Content
                             page={page}
-                            tracks={filterBySearchText(tracks, searchText)}
+                            tracks={filterTracks(
+                                tracks,
+                                authors,
+                                genres,
+                                year,
+                                searchText,
+                            )}
                             isLoading={isLoading}
                             newError={newError}
                             searchText={searchText}

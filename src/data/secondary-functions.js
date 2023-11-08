@@ -60,14 +60,7 @@ const sortTracks = (tracks, year) => {
 
     return result;
 };
-
-export const getMinutesFromSeconds = (seconds) => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds - min * 60;
-
-    return `${addZeroBefore(min)}:${addZeroBefore(sec)}`;
-};
-export const filterBySearchText = (tracks, searchText) => {
+const filterBySearchText = (tracks, searchText) => {
     const result = [];
 
     if (!searchText) {
@@ -82,9 +75,16 @@ export const filterBySearchText = (tracks, searchText) => {
         }
     });
 
-    return result?.length ? result : [];
+    return result;
 };
-export const filterTracks = (tracks, authors, genres, year) => {
+
+export const getMinutesFromSeconds = (seconds) => {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds - min * 60;
+
+    return `${addZeroBefore(min)}:${addZeroBefore(sec)}`;
+};
+export const filterTracks = (tracks, authors, genres, year, searchText) => {
     const filteredByAuthorsJson = filterByAuthorsInJson(tracks, authors);
     const filteredByGenresJson = filterByGenresInJson(tracks, genres);
     const result = [];
@@ -117,5 +117,7 @@ export const filterTracks = (tracks, authors, genres, year) => {
         });
     }
 
-    return sortTracks(result, year);
+    const sortedTracks = sortTracks(result, year);
+
+    return filterBySearchText(sortedTracks, searchText);
 };

@@ -8,7 +8,7 @@ import {
     userSelectionListSelector,
 } from "../../store/selectors/user";
 import { getSelectionItem } from "../../api/selection";
-import { addAllTracks, setCategoryTracks } from "../../store/slices/player";
+import { setCategoryTracks } from "../../store/slices/player";
 import { setCategoryTitle, setNewError } from "../../store/slices/user";
 import { playerCategoryTracksSelector } from "../../store/selectors/player";
 
@@ -25,11 +25,8 @@ export const Category = ({ page }) => {
     const emptyList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
     useEffect(() => {
-        setCategoryTracks({ tracks: [] });
-
         getSelectionItem(category?.id)
             .then((data) => {
-                dispatch(addAllTracks({ tracks: data.items }));
                 dispatch(setCategoryTracks({ tracks: data.items }));
                 dispatch(setCategoryTitle({ title: data.name }));
             })
@@ -40,7 +37,7 @@ export const Category = ({ page }) => {
                     }),
                 ),
             );
-    }, [categoryTracks?.length]);
+    }, []);
 
     return (
         <PageLayout
