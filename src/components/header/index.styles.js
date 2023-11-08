@@ -9,6 +9,19 @@ const mixinSearchText = css`
 const mixinTransition = css`
     transition: all 0.5s;
 `;
+const mixinFilterLength = css`
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ad61ff;
+    font-size: 13px;
+    line-height: 13px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+`;
 
 export const Search = styled.div`
     width: 100%;
@@ -81,10 +94,11 @@ export const FilterTitle = styled.h3`
 export const FilterButton = styled.div`
     font-size: 16px;
     line-height: 24px;
-    border: 1px solid #ffffff;
+    border: 1px solid ${({ $color }) => $color};
     border-radius: 60px;
     padding: 6px 20px;
     cursor: pointer;
+    color: ${({ $color }) => $color};
     ${mixinTransition}
 
     &:hover {
@@ -98,4 +112,14 @@ export const FilterButton = styled.div`
     &:not(:last-child) {
         margin-right: 10px;
     }
+`;
+export const FilterLengthAuthor = styled.div`
+    ${mixinFilterLength}
+    top: -9px;
+    left: 220px;
+`;
+export const FilterLengthGenre = styled.div`
+    ${mixinFilterLength}
+    top: -9px;
+    left: 470px;
 `;

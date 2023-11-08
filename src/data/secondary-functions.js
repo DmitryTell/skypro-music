@@ -1,4 +1,65 @@
 const addZeroBefore = (num) => (String(num).length < 2 ? `0${num}` : num);
+const filterByAuthorsInJson = (tracks, authors) => {
+    const result = [];
+
+    if (!authors?.length) {
+        return null;
+    }
+
+    tracks.forEach((track) => {
+        if (authors.includes(track.author)) {
+            result.push(track);
+        }
+    });
+
+    return [...result.map((track) => JSON.stringify(track))];
+};
+const filterByGenresInJson = (tracks, genres) => {
+    const result = [];
+
+    if (!genres?.length) {
+        return null;
+    }
+
+    tracks.forEach((track) => {
+        if (genres.includes(track.genre)) {
+            result.push(track);
+        }
+    });
+
+    return [...result.map((track) => JSON.stringify(track))];
+};
+const sortTracks = (tracks, year) => {
+    const result = [...tracks];
+
+    if (year === "Сначала новые") {
+        result.sort((a, b) => {
+            const firstDate = a.release_date
+                ? a.release_date.split("-")[0]
+                : "1900";
+            const secondDate = b.release_date
+                ? b.release_date.split("-")[0]
+                : "1900";
+
+            return secondDate - firstDate;
+        });
+    }
+
+    if (year === "Сначала старые") {
+        result.sort((a, b) => {
+            const firstDate = a.release_date
+                ? a.release_date.split("-")[0]
+                : "1900";
+            const secondDate = b.release_date
+                ? b.release_date.split("-")[0]
+                : "1900";
+
+            return firstDate - secondDate;
+        });
+    }
+
+    return result;
+};
 
 export const getMinutesFromSeconds = (seconds) => {
     const min = Math.floor(seconds / 60);
@@ -22,4 +83,39 @@ export const filterBySearchText = (tracks, searchText) => {
     });
 
     return result?.length ? result : [];
+};
+export const filterTracks = (tracks, authors, genres, year) => {
+    const filteredByAuthorsJson = filterByAuthorsInJson(tracks, authors);
+    const filteredByGenresJson = filterByGenresInJson(tracks, genres);
+    const result = [];
+
+    if (filteredByAuthorsJson && filteredByGenresJson) {
+        const filteredTracksJson = [
+            ...new Set([...filteredByAuthorsJson, ...filteredByGenresJson]),
+        ];
+
+        filteredTracksJson.forEach((json) => {
+            const track = JSON.parse(json);
+
+            result.push(track);
+        });
+    } else if (filteredByAuthorsJson) {
+        filteredByAuthorsJson.forEach((json) => {
+            const track = JSON.parse(json);
+
+            result.push(track);
+        });
+    } else if (filteredByGenresJson) {
+        filteredByGenresJson.forEach((json) => {
+            const track = JSON.parse(json);
+
+            result.push(track);
+        });
+    } else {
+        tracks.forEach((track) => {
+            result.push(track);
+        });
+    }
+
+    return sortTracks(result, year);
 };

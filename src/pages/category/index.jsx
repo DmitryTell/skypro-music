@@ -8,7 +8,7 @@ import {
     userSelectionListSelector,
 } from "../../store/selectors/user";
 import { getSelectionItem } from "../../api/selection";
-import { setCategoryTracks } from "../../store/slices/player";
+import { addAllTracks, setCategoryTracks } from "../../store/slices/player";
 import { setCategoryTitle, setNewError } from "../../store/slices/user";
 import { playerCategoryTracksSelector } from "../../store/selectors/player";
 
@@ -29,6 +29,7 @@ export const Category = ({ page }) => {
 
         getSelectionItem(category?.id)
             .then((data) => {
+                dispatch(addAllTracks({ tracks: data.items }));
                 dispatch(setCategoryTracks({ tracks: data.items }));
                 dispatch(setCategoryTitle({ title: data.name }));
             })

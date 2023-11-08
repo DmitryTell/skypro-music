@@ -4,7 +4,6 @@ import { Title } from "../content_title";
 import { Item } from "../content_item";
 import * as S from "./index.styles";
 import { useUserContext } from "../../context/user";
-import { addAllTracks } from "../../store/slices/player";
 import { setNewError } from "../../store/slices/user";
 
 export const Content = ({ page, tracks, isLoading, newError, searchText }) => {
@@ -14,7 +13,6 @@ export const Content = ({ page, tracks, isLoading, newError, searchText }) => {
     useEffect(() => {
         if (tracks?.length) {
             dispatch(setNewError({ textError: null }));
-            dispatch(addAllTracks({ tracks }));
         } else if (searchText) {
             dispatch(setNewError({ textError: "Ничего не найдено :(" }));
         } else {

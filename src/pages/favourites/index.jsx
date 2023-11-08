@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PageLayout } from "../../components/page-layout/index";
 import { useGetAllFavouriteTracksQuery } from "../../services/playlist";
 import { setNewError } from "../../store/slices/user";
 import { userNewErrorSelector } from "../../store/selectors/user";
+import { addAllTracks } from "../../store/slices/player";
 
 export const Favourites = ({ page }) => {
     const emptyList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
@@ -25,6 +27,12 @@ export const Favourites = ({ page }) => {
             );
         }
     }
+
+    useEffect(() => {
+        if (data) {
+            dispatch(addAllTracks({ tracks: data }));
+        }
+    }, [data]);
 
     return (
         <PageLayout
