@@ -40,6 +40,10 @@ export const playlistApi = createApi({
             query: () => "track/favorite/all/",
             providesTags: [DATA_TAG],
         }),
+        getCategoryTracks: builder.query({
+            query: (id) => `selection/${id}/`,
+            providesTags: [DATA_TAG],
+        }),
     }),
     onError: (error) => {
         throw new Error(error.response.data);
@@ -50,4 +54,5 @@ export const {
     useGetAllTracksQuery,
     useLikeTrackMutation,
     useGetAllFavouriteTracksQuery,
+    useGetCategoryTracksQuery,
 } = playlistApi;

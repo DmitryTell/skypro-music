@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     allTracks: [],
-    categoryTracks: [],
     playlist: [],
     shuffledPlaylist: [],
     currentTrack: null,
@@ -25,11 +24,6 @@ export const playerSlice = createSlice({
             const { tracks } = action.payload;
 
             state.allTracks = [...tracks];
-        },
-        setCategoryTracks: (state, action) => {
-            const { tracks } = action.payload;
-
-            state.categoryTracks = [...tracks];
         },
         setNewPlaylist: (state, action) => {
             const { tracks } = action.payload;
@@ -99,7 +93,6 @@ export const playerSlice = createSlice({
 
 export const {
     addAllTracks,
-    setCategoryTracks,
     setNewPlaylist,
     setNewError,
     toggleIsLoop,
