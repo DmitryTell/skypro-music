@@ -1,10 +1,12 @@
 const filtersSelector = (store) => store.filters;
 
-export const filtersSearchTextSelector = (store) =>
-    filtersSelector(store)?.searchText || null;
+export const filtersSearchingTextSelector = (store) =>
+    filtersSelector(store)?.searchingText || null;
 export const filterAuthorsSelector = (store) =>
-    filtersSelector(store)?.authorFilters || [];
+    filtersSelector(store)?.authors || [];
 export const filterGenresSelector = (store) =>
-    filtersSelector(store)?.genreFilters || [];
+    filtersSelector(store)?.genres || [];
 export const filterYearSelector = (store) =>
-    filtersSelector(store)?.yearFilter || "По умолчанию";
+    filtersSelector(store)?.year || "По умолчанию";
+export const filterFilteredTracksSelector = (store) =>
+    filtersSelector(store)?.filteredTracks || null;

@@ -6,19 +6,27 @@ import * as S from "./index.styles";
 import { useUserContext } from "../../context/user";
 import { setNewError } from "../../store/slices/user";
 
-export const Content = ({ page, tracks, isLoading, newError, searchText }) => {
+export const Content = ({
+    page,
+    tracks,
+    isLoading,
+    newError,
+    searchingText,
+    authors,
+    genres,
+}) => {
     const { userId } = useUserContext();
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (tracks?.length) {
             dispatch(setNewError({ textError: null }));
-        } else if (searchText) {
+        } else if (searchingText || authors?.length || genres?.length) {
             dispatch(setNewError({ textError: "Ничего не найдено :(" }));
         } else {
             dispatch(setNewError({ textError: "Список треков пуст" }));
         }
-    }, [tracks?.length, searchText]);
+    }, [tracks?.length, searchingText, authors, genres]);
 
     return (
         <S.Content>

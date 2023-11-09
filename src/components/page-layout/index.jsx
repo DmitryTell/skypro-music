@@ -17,11 +17,16 @@ import {
 import { addAllTracks, getNewId } from "../../store/slices/player";
 import {
     filterAuthorsSelector,
+    filterFilteredTracksSelector,
     filterGenresSelector,
     filterYearSelector,
-    filtersSearchTextSelector,
+    filtersSearchingTextSelector,
 } from "../../store/selectors/filters";
-import { filterTracks } from "../../data/secondary-functions";
+import {
+    filterTracks,
+    searchTrack,
+    sortTracks,
+} from "../../store/slices/filters";
 
 export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const dispatch = useDispatch();
@@ -33,7 +38,8 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const authors = useSelector(filterAuthorsSelector);
     const genres = useSelector(filterGenresSelector);
     const year = useSelector(filterYearSelector);
-    const searchText = useSelector(filtersSearchTextSelector);
+    const searchingText = useSelector(filtersSearchingTextSelector);
+    const filteredTracks = useSelector(filterFilteredTracksSelector);
 
     useEffect(() => {
         if (tracks?.length) {
@@ -57,6 +63,17 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
             );
         }
     }, [currentTrack?.id, isShuffled]);
+    useEffect(() => {
+        dispatch(
+            searchTrack({ tracks: filteredTracks ?? tracks, searchingText }),
+        );
+    }, [searchingText]);
+    useEffect(() => {
+        dispatch(filterTracks({ tracks, authors, genres }));
+    }, [authors, genres]);
+    useEffect(() => {
+        dispatch(sortTracks({ tracks: filteredTracks ?? tracks, year }));
+    }, [year]);
 
     return (
         <S.Container>
@@ -67,16 +84,12 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
                     {page !== P.NOT_FOUND ? (
                         <Content
                             page={page}
-                            tracks={filterTracks(
-                                tracks,
-                                authors,
-                                genres,
-                                year,
-                                searchText,
-                            )}
+                            tracks={filteredTracks ?? tracks}
                             isLoading={isLoading}
                             newError={newError}
-                            searchText={searchText}
+                            searchingText={searchingText}
+                            authors={authors}
+                            genres={genres}
                         />
                     ) : (
                         <NotFound />
