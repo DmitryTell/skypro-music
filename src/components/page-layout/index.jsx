@@ -64,15 +64,13 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
         }
     }, [currentTrack?.id, isShuffled]);
     useEffect(() => {
-        dispatch(
-            searchTrack({ tracks: filteredTracks ?? tracks, searchingText }),
-        );
+        dispatch(searchTrack({ tracks, searchingText }));
     }, [searchingText]);
     useEffect(() => {
         dispatch(filterTracks({ tracks, authors, genres }));
     }, [authors, genres]);
     useEffect(() => {
-        dispatch(sortTracks({ tracks: filteredTracks ?? tracks, year }));
+        dispatch(sortTracks({ tracks, year }));
     }, [year]);
 
     return (
