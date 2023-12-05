@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 import { useUserContext } from "../../context/user";
 import * as S from "./index.styles";
 import * as P from "../../data/pages";
-import { userIsMenuSelector } from "../../store/selectors/user";
-import { setIsMenu } from "../../store/slices/user";
+import { commonIsMenuSelector } from "../../store/selectors/common";
+import { setIsMenu } from "../../store/slices/common";
 
 const MENU_ITEMS = [
     {
@@ -33,7 +33,7 @@ export const Nav = ({ page }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const isMenu = useSelector(userIsMenuSelector);
+    const isMenu = useSelector(commonIsMenuSelector);
 
     const { clearUser } = useUserContext();
 

@@ -19,6 +19,7 @@ export const Content = styled.div`
 
 export const ContentPlaylist = styled.ul`
     height: 100vh;
+    padding-bottom: 450px;
     ${mixinFlexbox}
     ${mixinFlexboxVertical}
     overflow-y: auto;
@@ -33,7 +34,4 @@ export const ContentPlaylistErrorText = styled.p`
     font-size: 32px;
     line-height: 48px;
     color: #fff;
-`;
-export const PlaylistLastItem = styled.li`
-    margin-top: 450px;
 `;

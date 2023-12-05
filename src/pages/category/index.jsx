@@ -1,52 +1,38 @@
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PageLayout } from "../../components/page-layout/index";
-import { ITEMS } from "../../data/category-items";
+import {
+    commonCategoryTitleSelector,
+    commonNewErrorSelector,
+    commonSelectionListSelector,
+} from "../../store/selectors/common";
+import { useGetCategoryTracksQuery } from "../../services/playlist";
+import { setNewError } from "../../store/slices/common";
 
-export const Category = ({
-    page,
-    tracks,
-    setTracks,
-    isLoading,
-    isOpenedMenu,
-    setIsOpenedMenu,
-    player,
-    setPlayer,
-    newError,
-    setNewError,
-    currentTime,
-    setCurrentTime,
-    duration,
-    volume,
-    setVolume,
-    controls,
-}) => {
+export const Category = ({ page }) => {
     const params = useParams();
-    const category = ITEMS.find((item) => item.id === Number(params.id));
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        setNewError(null);
-        setTracks([]);
-    }, []);
+    const selectionList = useSelector(commonSelectionListSelector);
+    const newError = useSelector(commonNewErrorSelector);
+    const categoryTitle = useSelector(commonCategoryTitleSelector);
+
+    const category = selectionList.find(({ id }) => id === Number(params.id));
+    const emptyList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
+
+    const { data, error, isLoading } = useGetCategoryTracksQuery(category?.id);
+
+    if (error) {
+        dispatch(setNewError({ textError: "Ошибка загрузки" }));
+    }
 
     return (
         <PageLayout
             page={page}
-            title={category.title}
-            tracks={tracks}
-            setTracks={setTracks}
+            title={categoryTitle}
+            tracks={data ? data?.items : emptyList}
             isLoading={isLoading}
-            isOpenedMenu={isOpenedMenu}
-            setIsOpenedMenu={setIsOpenedMenu}
-            player={player}
-            setPlayer={setPlayer}
             newError={newError}
-            currentTime={currentTime}
-            setCurrentTime={setCurrentTime}
-            duration={duration}
-            volume={volume}
-            setVolume={setVolume}
-            controls={controls}
         />
     );
 };

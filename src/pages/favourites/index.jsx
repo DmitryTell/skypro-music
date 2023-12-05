@@ -1,16 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import { PageLayout } from "../../components/page-layout/index";
 import { useGetAllFavouriteTracksQuery } from "../../services/playlist";
-import { setNewError } from "../../store/slices/user";
-import { userNewErrorSelector } from "../../store/selectors/user";
+import { setNewError } from "../../store/slices/common";
+import { commonNewErrorSelector } from "../../store/selectors/common";
 
-export const Favourites = ({ page, title }) => {
+export const Favourites = ({ page }) => {
     const emptyList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
     const { data, error, isLoading } = useGetAllFavouriteTracksQuery();
     const dispatch = useDispatch();
 
-    const newError = useSelector(userNewErrorSelector);
+    const newError = useSelector(commonNewErrorSelector);
 
     if (error) {
         if (error.status === 401) {
@@ -29,7 +29,7 @@ export const Favourites = ({ page, title }) => {
     return (
         <PageLayout
             page={page}
-            title={title}
+            title="Мои треки"
             tracks={data ?? emptyList}
             isLoading={isLoading}
             newError={newError}

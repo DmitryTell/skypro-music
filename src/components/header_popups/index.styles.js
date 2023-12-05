@@ -33,6 +33,18 @@ const mixinTransition = css`
     transition: all 0.5s;
 `;
 
+export const Author = styled.div`
+    ${mixinPopups}
+    position: absolute;
+    top: 40px;
+    left: 35px;
+`;
+export const Genre = styled.div`
+    ${mixinPopups}
+    position: absolute;
+    top: 40px;
+    left: 320px;
+`;
 export const Year = styled.div`
     ${mixinPopups}
     width: 221px;
@@ -45,7 +57,7 @@ export const PopupContainer = styled.div`
     ${mixinPopupsContainer}
 `;
 export const PopupLink = styled.a`
-    color: #fff;
+    color: ${({ $color }) => $color};
     font-variant-numeric: lining-nums proportional-nums;
     font-size: 20px;
     line-height: 24px;

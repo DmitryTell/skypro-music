@@ -14,7 +14,19 @@ import {
     playerPlaylistSelector,
     playerIsShuffledSelector,
 } from "../../store/selectors/player";
-import { getNewId } from "../../store/slices/player";
+import { addAllTracks, getNewId } from "../../store/slices/player";
+import {
+    filterAuthorsSelector,
+    filterFilteredTracksSelector,
+    filterGenresSelector,
+    filterYearSelector,
+    filtersSearchingTextSelector,
+} from "../../store/selectors/filters";
+import {
+    filterTracks,
+    searchTrack,
+    sortTracks,
+} from "../../store/slices/filters";
 
 export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const dispatch = useDispatch();
@@ -23,7 +35,17 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
     const shuffledPlaylist = useSelector(playerShuffledPlaylistSelector);
     const currentTrack = useSelector(playerCurrentTrackSelector);
     const isShuffled = useSelector(playerIsShuffledSelector);
+    const authors = useSelector(filterAuthorsSelector);
+    const genres = useSelector(filterGenresSelector);
+    const year = useSelector(filterYearSelector);
+    const searchingText = useSelector(filtersSearchingTextSelector);
+    const filteredTracks = useSelector(filterFilteredTracksSelector);
 
+    useEffect(() => {
+        if (tracks?.length) {
+            dispatch(addAllTracks({ tracks }));
+        }
+    }, [tracks]);
     useEffect(() => {
         if (!isShuffled) {
             dispatch(
@@ -41,6 +63,15 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
             );
         }
     }, [currentTrack?.id, isShuffled]);
+    useEffect(() => {
+        dispatch(searchTrack({ tracks, searchingText }));
+    }, [searchingText]);
+    useEffect(() => {
+        dispatch(filterTracks({ tracks, authors, genres }));
+    }, [authors, genres]);
+    useEffect(() => {
+        dispatch(sortTracks({ tracks, year }));
+    }, [year]);
 
     return (
         <S.Container>
@@ -51,9 +82,12 @@ export const PageLayout = ({ page, title, tracks, isLoading, newError }) => {
                     {page !== P.NOT_FOUND ? (
                         <Content
                             page={page}
-                            tracks={tracks}
+                            tracks={filteredTracks ?? tracks}
                             isLoading={isLoading}
                             newError={newError}
+                            searchingText={searchingText}
+                            authors={authors}
+                            genres={genres}
                         />
                     ) : (
                         <NotFound />

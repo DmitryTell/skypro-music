@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import * as S from "./index.styles";
 import * as P from "../../data/pages";
-import { getMinutesFromSeconds } from "../../data/secondary-functions";
+import { getMinutesFromSeconds } from "../../data/functions";
 import {
     playerAllTracksSelector,
     playerCurrentTrackSelector,

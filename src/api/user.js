@@ -66,21 +66,3 @@ export const getNewToken = async (email, password) => {
 
     return data;
 };
-export const refreshToken = async (refresh) => {
-    const response = await fetch(`${userUrl}/token/refresh/`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            refresh,
-        }),
-    });
-    const data = await response.json();
-
-    if (response.status === 401 || response.status === 400) {
-        throw new Error("Ошибка авторизации");
-    }
-
-    return data;
-};

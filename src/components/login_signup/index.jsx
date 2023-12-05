@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getNewToken, registerUser } from "../../api/user";
 import * as S from "./index.styles";
-import { setToken, setNewError } from "../../store/slices/user";
+import { setToken, setNewError } from "../../store/slices/common";
 
 export const SighnUp = ({
     setUser,
