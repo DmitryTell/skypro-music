@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { selectToken } from "../store/selectors/user";
+import { selectToken } from "../store/selectors/common";
 
 const DATA_TAG = { type: "Playlist", id: "LIST" };
 

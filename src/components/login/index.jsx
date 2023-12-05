@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { SighnIn } from "../login_signin/index";
 import { SighnUp } from "../login_signup/index";
 import { LOGIN } from "../../data/pages";
-import { userNewErrorSelector } from "../../store/selectors/user";
+import { commonNewErrorSelector } from "../../store/selectors/common";
 
 export const LoginPageLayout = ({ page, setUser }) => {
     const [email, setEmail] = useState(null);
@@ -12,7 +12,7 @@ export const LoginPageLayout = ({ page, setUser }) => {
     const [secondPassword, setSecondPassword] = useState(null);
     const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
-    const newError = useSelector(userNewErrorSelector);
+    const newError = useSelector(commonNewErrorSelector);
 
     return page === LOGIN ? (
         <SighnIn

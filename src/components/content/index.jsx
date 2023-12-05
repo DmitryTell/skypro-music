@@ -4,7 +4,7 @@ import { Title } from "../content_title";
 import { Item } from "../content_item";
 import * as S from "./index.styles";
 import { useUserContext } from "../../context/user";
-import { setNewError } from "../../store/slices/user";
+import { setNewError } from "../../store/slices/common";
 
 export const Content = ({
     page,

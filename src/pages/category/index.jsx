@@ -2,20 +2,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PageLayout } from "../../components/page-layout/index";
 import {
-    userCategoryTitleSelector,
-    userNewErrorSelector,
-    userSelectionListSelector,
-} from "../../store/selectors/user";
+    commonCategoryTitleSelector,
+    commonNewErrorSelector,
+    commonSelectionListSelector,
+} from "../../store/selectors/common";
 import { useGetCategoryTracksQuery } from "../../services/playlist";
-import { setNewError } from "../../store/slices/user";
+import { setNewError } from "../../store/slices/common";
 
 export const Category = ({ page }) => {
     const params = useParams();
     const dispatch = useDispatch();
 
-    const selectionList = useSelector(userSelectionListSelector);
-    const newError = useSelector(userNewErrorSelector);
-    const categoryTitle = useSelector(userCategoryTitleSelector);
+    const selectionList = useSelector(commonSelectionListSelector);
+    const newError = useSelector(commonNewErrorSelector);
+    const categoryTitle = useSelector(commonCategoryTitleSelector);
 
     const category = selectionList.find(({ id }) => id === Number(params.id));
     const emptyList = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];

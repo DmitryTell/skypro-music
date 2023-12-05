@@ -6,11 +6,11 @@ import { AppRoutes } from "./pages/routes";
 import { UserContext } from "./context/user";
 import { Player } from "./components/player";
 import * as S from "./components/global/App.styles";
-import { userAccessSelector } from "./store/selectors/user";
-import { setToken } from "./store/slices/user";
+import { commonAccessSelector } from "./store/selectors/common";
+import { setToken } from "./store/slices/common";
 
 export const App = () => {
-    const tokenAccess = useSelector(userAccessSelector);
+    const tokenAccess = useSelector(commonAccessSelector);
 
     const [user, setUser] = useState(null);
 

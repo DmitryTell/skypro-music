@@ -4,8 +4,8 @@ import * as S from "./index.styles";
 import * as P from "../../data/pages";
 import { useUserContext } from "../../context/user";
 import { getSelectionList } from "../../api/selection";
-import { setSelectionList } from "../../store/slices/user";
-import { userSelectionListSelector } from "../../store/selectors/user";
+import { setSelectionList } from "../../store/slices/common";
+import { commonSelectionListSelector } from "../../store/selectors/common";
 
 const LOGOUT_PATH = "img/icon/sprite.svg#logout";
 
@@ -13,7 +13,7 @@ export const Sidebar = ({ page, isLoading }) => {
     const { username, clearUser } = useUserContext();
     const dispatch = useDispatch();
 
-    const selectionList = useSelector(userSelectionListSelector);
+    const selectionList = useSelector(commonSelectionListSelector);
 
     const loadingSelectionList = isLoading ? ["1", "2", "3"] : null;
 
