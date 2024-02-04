@@ -36,4 +36,28 @@ export const GlobalStyle = createGlobalStyle`
     ul li {
         list-style: none;
     }
+
+    img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+    }
+
+    @-webkit-keyframes button-animation {
+      0% {
+        background: #580ea2;
+      }
+      100% {
+        background: #b22cff;
+      }
+    }
+    
+    @keyframes button-animation {
+      0% {
+        background: #580ea2;
+      }
+      100% {
+        background: #b22cff;
+      }
+    }
 `;
