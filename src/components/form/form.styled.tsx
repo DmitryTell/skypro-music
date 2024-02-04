@@ -11,7 +11,7 @@ export const FormModalBlock = styled.div`
 
 export const Form = styled.div`
     width: 366px;
-    height: 439px;
+    min-height: 439px;
     padding: 43px 47px 47px 40px;
     background-color: #fff;
     border-radius: 12px;
