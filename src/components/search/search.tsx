@@ -8,6 +8,6 @@ export const Search = () => (
     <Styled.SearchSvg>
       <SearchIcon />
     </Styled.SearchSvg>
-    <Styled.SearchInput type="text" onKeyDown={ (e) => console.log(e.currentTarget) } />
+    <Styled.SearchInput placeholder="Поиск" type="text" onKeyDown={ (e) => console.log(e.currentTarget) } />
   </Styled.SearchContainer>
 );

@@ -8,6 +8,7 @@ export const FilterButton = styled.button`
     border-radius: 60px;
     background: transparent;
     padding: 6px 20px;
+    color: #fff;
     transition: all 0.5s;
 
     &:hover {

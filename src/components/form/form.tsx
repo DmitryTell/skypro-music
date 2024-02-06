@@ -1,4 +1,5 @@
 import { FC, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as LogoAuth } from '@assets/icon/LogoAuth.svg';
 
@@ -13,7 +14,9 @@ export const Form: FC<IForm> = ({ children }) => (
   <Styled.FormModalBlock>
     <Styled.Form>
       <Styled.FormLogo>
-        <LogoAuth />
+        <Link to="/">
+          <LogoAuth />
+        </Link>
       </Styled.FormLogo>
       { children }
     </Styled.Form>
