@@ -10,8 +10,7 @@ export const Inputs = styled.div`
 
 export const ErrorBox = styled.div`
     width: 100%;
-    height: 50px;
-    padding: 10px;
+    height: 60px;
 `;
 
 export const ErrorText = styled.div`
@@ -19,8 +18,8 @@ export const ErrorText = styled.div`
     margin-bottom: 5px;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 24px;
     letter-spacing: -0.05px;
     color: red;
 `;
