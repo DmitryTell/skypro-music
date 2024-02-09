@@ -5,6 +5,7 @@ import { ReactComponent as Logout } from '@assets/icon/Logout.svg';
 import { useAppSelector, useAppDispatch } from '@hook/';
 import { getStateAuth, removeAuthData } from '@redux/';
 
+import { SidebarListLoading } from './sidebar-list-loading';
 import { items } from './lib';
 import * as Styled from './right-sidebar.styled';
 
@@ -35,15 +36,19 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
       </Styled.SidebarPersonal>
       { location === '/' && (
         <Styled.SidebarBlock>
-          <Styled.SidebarList>
-            { items.map((item) => (
-              <Styled.SidebarItem key={ String(item.id) }>
-                <Link to={ `/category/${item.id}` }>
-                  <img alt={ item.alt } src={ `${process.env.PUBLIC_URL}${item.img_path}` } />
-                </Link>
-              </Styled.SidebarItem>
-            )) }
-          </Styled.SidebarList>
+          { isLoading ? (
+            <SidebarListLoading />
+          ) : (
+            <Styled.SidebarList>
+              { items.map((item) => (
+                <Styled.SidebarItem key={ String(item.id) }>
+                  <Link to={ `/category/${item.id}` }>
+                    <img alt={ item.alt } src={ `${process.env.PUBLIC_URL}${item.img_path}` } />
+                  </Link>
+                </Styled.SidebarItem>
+              )) }
+            </Styled.SidebarList>
+          ) }
         </Styled.SidebarBlock>
       ) }
     </Styled.SidebarContainer>

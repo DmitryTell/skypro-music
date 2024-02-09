@@ -11,7 +11,7 @@ export const Home = () => {
     <>
       <Title text="Треки" />
       <Filter />
-      <Playlist tracks={ tracks } />
+      <Playlist isLoading tracks={ tracks } />
     </>
   );
 };

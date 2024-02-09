@@ -60,4 +60,22 @@ export const GlobalStyle = createGlobalStyle`
         background: #b22cff;
       }
     }
+
+    @-webkit-keyframes skeleton-animation {
+      0% {
+        background: #313131;
+      }
+      100% {
+        background: #4E4E4E;
+      }
+    }
+    
+    @keyframes skeleton-animation {
+      0% {
+        background: #313131;
+      }
+      100% {
+        background: #4E4E4E;
+      }
+    }
 `;
