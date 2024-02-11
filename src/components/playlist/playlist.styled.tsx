@@ -66,6 +66,7 @@ export const PlaylistList = styled.ul`
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+    height: 100vh;
     gap: 12px;
     padding-bottom: 450px;
     overflow-y: auto;
@@ -115,17 +116,7 @@ export const PlaylistTrackTitle = styled.div`
 export const PlaylistTrackTitleImg = styled.div`
     width: 51px;
     height: 51px;
-    padding: 16px;
     background: #313131;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
 `;
 
 export const PlaylistTrackTitleName = styled.span`

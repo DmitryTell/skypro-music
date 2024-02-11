@@ -18,7 +18,7 @@ export const Layout = () => {
           <LeftSidebar />
           <Styled.LayoutCenterblock>
             <Search />
-            <Outlet context={ setIsLoading } />
+            <Outlet context={{ setIsLoading }} />
           </Styled.LayoutCenterblock>
           <RightSidebar isLoading={ isLoading } location={ pathname } />
         </Styled.LayoutMain>

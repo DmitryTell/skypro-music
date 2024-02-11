@@ -13,9 +13,10 @@ import * as Styled from './playlist.styled';
 interface IPlaylist {
   tracks: ITrack[] | [];
   isLoading: boolean;
+  error: string | null;
 }
 
-export const Playlist: FC<IPlaylist> = ({ tracks, isLoading }) => (
+export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, error }) => (
   <Styled.PlaylistContainer>
     <Styled.PlaylistTitleContainer>
       <Styled.PlaylistTitleCol01>трек</Styled.PlaylistTitleCol01>
@@ -56,7 +57,7 @@ export const Playlist: FC<IPlaylist> = ({ tracks, isLoading }) => (
           </Styled.PlaylistItem>
         )) : (
           <Styled.PlatlistTrackErrorText>
-            Не удалось загрузить плейлист
+            { error ? `Ошибка загрузки: ${error}` : 'Не удалось загрузить плейлист' }
           </Styled.PlatlistTrackErrorText>
         ) }
       </Styled.PlaylistList>

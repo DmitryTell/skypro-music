@@ -5,7 +5,7 @@ import { LayoutAuth } from '@layouts/';
 import { Form } from '@components/';
 import { Input, Button } from '@shared/';
 import { useAppDispatch } from '@hook/';
-import { setNewUser } from '@redux/';
+import { setNewToken, setNewUser } from '@redux/';
 import { registerUser, createToken } from '@api/';
 
 import * as Styled from './sign-up.styled';
@@ -53,14 +53,14 @@ export const SignUp = () => {
 
       setIsLoading(false);
 
-      dispatch(setNewUser({
+      dispatch(setNewToken({
         token: {
           access: tokenData.access,
           refresh: tokenData.refresh,
           isAuth: true,
         },
-        user: userData,
       }));
+      dispatch(setNewUser({ user: userData }));
       navigate('/', { replace: true });
     } catch (error) {
       if (error instanceof Error) {

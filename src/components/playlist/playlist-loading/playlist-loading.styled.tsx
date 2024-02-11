@@ -15,13 +15,6 @@ export const PlaylistLoadingList = styled.ul`
     -ms-flex-direction: column;
     flex-direction: column;
     gap: 12px;
-    padding-bottom: 450px;
-    overflow-y: auto;
-    scrollbar-width: 0;
-
-    &::-webkit-scrollbar {
-        width: 0;
-    }
 `;
 
 export const PlaylistLoadingItem = styled.li`

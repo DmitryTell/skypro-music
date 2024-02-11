@@ -32,12 +32,18 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: getAuthDataFromLocalStoreage(),
   reducers: {
-    setNewUser(state, action: PayloadAction<{ token: IToken; user: IUser }>) {
-      const { token, user } = action.payload;
+    setNewToken(state, action: PayloadAction<{ token: IToken }>) {
+      const { token } = action.payload;
 
       state.access = token.access;
       state.refresh = token.refresh;
       state.isAuth = token.isAuth;
+
+      localStorage.setItem(AUTH_DATA, JSON.stringify(state));
+    },
+    setNewUser(state, action: PayloadAction<{ user: IUser }>) {
+      const { user } = action.payload;
+
       state.userId = user.id;
       state.username = user.username;
 
@@ -55,4 +61,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setNewUser, removeAuthData } = authSlice.actions;
+export const { setNewToken, setNewUser, removeAuthData } = authSlice.actions;
