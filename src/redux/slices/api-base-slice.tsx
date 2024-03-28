@@ -1,89 +1,66 @@
-import {
-  BaseQueryApi, FetchArgs, createApi, fetchBaseQuery, BaseQueryFn, FetchBaseQueryError,
-} from '@reduxjs/toolkit/query/react';
+import { fetchBaseQuery, createApi } from '@reduxjs/toolkit/query/react';
 
 import { setNewToken, removeAuthData } from './auth';
+import { type RootState } from '../store';
 
-import type { RootState } from '../store';
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query';
 
 
-interface IRefreshResultData {
+interface IRefreshAuthData {
   access: string;
   refresh: string;
 }
 
-const baseQueryWithReauth:
-BaseQueryFn<FetchArgs | string, unknown, FetchBaseQueryError, Record<string, unknown>> = async (
-  args: FetchArgs | string,
-  api: BaseQueryApi,
-  extraOptions: Record<string, unknown>,
-) => {
-  const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.access;
+const baseQuery = fetchBaseQuery({
+  baseUrl: process.env.REACT_APP_API_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.access;
 
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
 
-      return headers;
-    },
-  });
+    return headers;
+  },
+});
 
-  const result = await baseQuery(args, api, extraOptions);
+const baseQueryWithReauth: BaseQueryFn<
+FetchArgs | string,
+unknown,
+FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status !== 401) {
-    return result;
-  }
+  if (result.error && result.error.status === 401) {
+    const { refresh } = (api.getState() as RootState).auth;
 
-  const forceLogout = () => {
-    api.dispatch(removeAuthData());
-    window.location.replace('/login');
-  };
-
-  const { auth } = api.getState() as RootState;
-
-  if (!auth.access || !auth.refresh) {
-    forceLogout();
-    return result;
-  }
-
-  const refreshResult = await baseQuery(
-    {
+    const resultRefreshToken = await baseQuery({
       url: '/user/token/refresh/',
       method: 'POST',
       body: {
-        refresh: auth.refresh,
+        refresh,
       },
-    },
-    api,
-    extraOptions,
-  );
+    }, api, extraOptions);
 
-  const data = refreshResult.data as IRefreshResultData;
+    if (resultRefreshToken) {
+      api.dispatch(setNewToken({
+        token: {
+          ...resultRefreshToken.data as IRefreshAuthData,
+          isAuth: true,
+        },
+      }));
 
-  if (!data.access || !data.refresh || refreshResult.error) {
-    forceLogout();
-    return refreshResult;
-  }
-
-  api.dispatch(setNewToken({
-    token: {
-      access: data.access,
-      refresh: data.refresh,
-      isAuth: true,
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(removeAuthData());
     }
-  }));
-
-  const retryResult = await baseQuery(args, api, extraOptions);
-
-  if (retryResult?.error?.status === 401) {
-    forceLogout();
-    return retryResult;
   }
 
-  return retryResult;
+  return result;
 };
 
 export const apiBaseSlice = createApi({

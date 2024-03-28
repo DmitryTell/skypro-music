@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IUser, IToken } from '@interface/';
+import { IToken } from '@interface/';
 
 
 const AUTH_DATA = 'auth-data';
@@ -9,16 +9,12 @@ interface IAuthState {
   access: string | null;
   refresh: string | null;
   isAuth: boolean;
-  userId: number | null;
-  username: string | null;
 }
 
 const initialState: IAuthState = {
   access: null,
   refresh: null,
   isAuth: false,
-  userId: null,
-  username: null,
 };
 
 const getAuthDataFromLocalStoreage = () => {
@@ -41,24 +37,14 @@ export const authSlice = createSlice({
 
       localStorage.setItem(AUTH_DATA, JSON.stringify(state));
     },
-    setNewUser(state, action: PayloadAction<{ user: IUser }>) {
-      const { user } = action.payload;
-
-      state.userId = user.id;
-      state.username = user.username;
-
-      localStorage.setItem(AUTH_DATA, JSON.stringify(state));
-    },
     removeAuthData(state) {
       state.access = null;
       state.refresh = null;
       state.isAuth = false;
-      state.userId = null;
-      state.username = null;
 
-      localStorage.clear();
+      localStorage.removeItem(AUTH_DATA);
     },
   },
 });
 
-export const { setNewToken, setNewUser, removeAuthData } = authSlice.actions;
+export const { setNewToken, removeAuthData } = authSlice.actions;

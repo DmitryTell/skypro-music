@@ -53,6 +53,7 @@ export const SignUp = () => {
 
       setIsLoading(false);
 
+      dispatch(setNewUser({ user: userData }));
       dispatch(setNewToken({
         token: {
           access: tokenData.access,
@@ -60,7 +61,6 @@ export const SignUp = () => {
           isAuth: true,
         },
       }));
-      dispatch(setNewUser({ user: userData }));
       navigate('/', { replace: true });
     } catch (error) {
       if (error instanceof Error) {

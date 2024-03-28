@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { LeftSidebar, Search, RightSidebar } from '@components/';
+import {
+  LeftSidebar, Search, RightSidebar, Audioplayer
+} from '@components/';
+import { useAppSelector } from '@hook/';
+import { getStatePlaylist } from '@redux/';
 
 import * as Styled from './layout.styled';
 
 
 export const Layout = () => {
   const { pathname } = useLocation();
+  const { currentTrack } = useAppSelector(getStatePlaylist);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,6 +27,7 @@ export const Layout = () => {
           </Styled.LayoutCenterblock>
           <RightSidebar isLoading={ isLoading } location={ pathname } />
         </Styled.LayoutMain>
+        { currentTrack && <Audioplayer /> }
       </Styled.LayoutContainer>
     </Styled.LayoutWrapper>
   );

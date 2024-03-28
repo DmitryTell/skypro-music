@@ -1,5 +1,18 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
+
+interface ILikedButton {
+  $isLiked: boolean;
+}
+
+interface IDoteAnimation {
+  $isPlaying: boolean;
+}
+
+const trackDoteAnimation = css`
+    -webkit-animation: track-dote-animation 0.5s ease-in-out infinite both;
+    animation: track-dote-animation 0.5s ease-in-out infinite both;
+`;
 
 const PlaylistTitleCol = styled.div`
     font-size: 14px;
@@ -119,6 +132,19 @@ export const PlaylistTrackTitleImg = styled.div`
     background: #313131;
 `;
 
+export const PlaylistTrackTitleImgDote = styled.div<IDoteAnimation>`
+    width: 51px;
+    height: 51px;
+    background: #313131;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & svg {
+        ${(props) => (props.$isPlaying && trackDoteAnimation)}
+    }
+`;
+
 export const PlaylistTrackTitleName = styled.span`
     font-size: 16px;
     line-height: 24px;
@@ -158,9 +184,20 @@ export const PlaylistTrackTitleTimeLike = styled.div`
     gap: 17px;
 `;
 
-export const PlaylistTrackTitleLike = styled.div`
+export const PlaylistTrackTitleLike = styled.button<ILikedButton>`
     width: 14px;
     height: 12px;
+    background: transparent;
+    border: none;
+
+    & svg path {
+        fill: ${(props) => (props.$isLiked ? '#B672FF' : 'transparent')};
+        stroke: ${(props) => (props.$isLiked ? '#B672FF' : '#696969')};
+    }
+
+    &:hover svg path {
+        stroke: #acacac;
+    }
 `;
 
 export const PlaylistTrackTitleTime = styled.span`

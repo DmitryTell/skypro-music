@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Logout } from '@assets/icon/Logout.svg';
 import { useAppSelector, useAppDispatch } from '@hook/';
-import { getStateAuth, removeAuthData } from '@redux/';
+import { getStateUser, removeAuthData, removeUserData } from '@redux/';
 
 import { SidebarListLoading } from './sidebar-list-loading';
 import { items } from './lib';
@@ -19,10 +19,11 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { username } = useAppSelector(getStateAuth);
+  const { username } = useAppSelector(getStateUser);
 
   const handleLogout = () => {
     dispatch(removeAuthData());
+    dispatch(removeUserData());
     navigate('/login', { replace: true });
   };
 

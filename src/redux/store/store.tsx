@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { authSlice, menuSlice, playlistApi } from '../slices';
+import {
+  authSlice, userSlice, menuSlice, playlistSlice, playlistApi
+} from '../slices';
 
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    user: userSlice.reducer,
     menu: menuSlice.reducer,
+    playlist: playlistSlice.reducer,
     [playlistApi.reducerPath]: playlistApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(playlistApi.middleware),
