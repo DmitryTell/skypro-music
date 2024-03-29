@@ -7,12 +7,14 @@ import { ReactComponent as Shuffle } from '@assets/icon/Shuffle.svg';
 import { ReactComponent as Plug } from '@assets/icon/Plug.svg';
 import { ReactComponent as Like } from '@assets/icon/Like.svg';
 import { useAppDispatch, useAppSelector } from '@hook/';
+import { getNextTrack, getPrevTrack } from '@utils/';
 import {
   getStatePlaylist,
   getStateUser,
   setIsPlaying,
   setIsLoop,
   setIsShuffled,
+  getNewTrack,
 } from '@redux/';
 
 // eslint-disable-next-line import/max-dependencies
@@ -26,6 +28,7 @@ export const ControlBar = () => {
   const {
     currentTrack,
     currentPlaylist,
+    shuffledPlaylist,
     isPlaying,
     isLoop,
     isShuffled,
@@ -33,10 +36,26 @@ export const ControlBar = () => {
 
   const isLiked = Boolean(currentTrack?.stared_user?.find((user) => (user.id === userId)));
 
+  const handleGetPrevTrack = () => {
+    if (isShuffled) {
+      dispatch(getNewTrack({ track: getPrevTrack(currentTrack, shuffledPlaylist) }));
+    } else {
+      dispatch(getNewTrack({ track: getPrevTrack(currentTrack, currentPlaylist) }));
+    }
+  };
+
+  const handleGetNextTrack = () => {
+    if (isShuffled) {
+      dispatch(getNewTrack({ track: getNextTrack(currentTrack, shuffledPlaylist) }));
+    } else {
+      dispatch(getNewTrack({ track: getNextTrack(currentTrack, currentPlaylist) }));
+    }
+  };
+
   return (
     <Styled.ControlBarContainer>
       <Styled.ControlBarButtons>
-        <Styled.ControlBarPrevButton type="button" onClick={ () => console.log('Click prev') }>
+        <Styled.ControlBarPrevButton type="button" onClick={ handleGetPrevTrack }>
           <Prev />
         </Styled.ControlBarPrevButton>
         { isPlaying ? (
@@ -48,13 +67,13 @@ export const ControlBar = () => {
             <Play />
           </Styled.ControlBarPlayButton>
         ) }
-        <Styled.ControlBarNextButton type="button" onClick={ () => console.log('Click next') }>
+        <Styled.ControlBarNextButton type="button" onClick={ handleGetNextTrack }>
           <Next />
         </Styled.ControlBarNextButton>
         <Styled.ControlBarRepeatButton $isLoop={ isLoop } type="button" onClick={ () => dispatch(setIsLoop()) }>
           <Repeat />
         </Styled.ControlBarRepeatButton>
-        <Styled.ControlBarShuffleButton $isShuffled={ isShuffled } type="button" onClick={ () => dispatch(setIsShuffled()) }>
+        <Styled.ControlBarShuffleButton $isShuffled={ isShuffled } type="button" onClick={ () => dispatch(setIsShuffled({ isShuffled, currentPlaylist })) }>
           <Shuffle />
         </Styled.ControlBarShuffleButton>
       </Styled.ControlBarButtons>

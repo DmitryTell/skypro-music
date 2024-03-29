@@ -7,6 +7,7 @@ interface IPlaylistState {
   isFirstLoading: boolean;
   currentTrack: ITrack | null;
   currentPlaylist: ITrack[] | [];
+  shuffledPlaylist: ITrack[] | [];
   isPlaying: boolean;
   isLoop: boolean;
   isShuffled: boolean;
@@ -20,6 +21,7 @@ const initialState: IPlaylistState = {
   isFirstLoading: false,
   currentTrack: null,
   currentPlaylist: [],
+  shuffledPlaylist: [],
   isPlaying: false,
   isLoop: false,
   isShuffled: false,
@@ -55,8 +57,18 @@ export const playlistSlice = createSlice({
     setIsLoop(state) {
       state.isLoop = !state.isLoop;
     },
-    setIsShuffled(state) {
-      state.isShuffled = !state.isShuffled;
+    setIsShuffled(state, action: PayloadAction<{ isShuffled: boolean; currentPlaylist: ITrack[] }>) {
+      const { isShuffled, currentPlaylist } = action.payload;
+
+      if (!isShuffled) {
+        const currentPlaylistJson = currentPlaylist.map((track) => JSON.stringify(track));
+        const shuffledPlaylistJson = currentPlaylistJson.sort(() => Math.random() - 0.5);
+        const shuffledPlaylist = shuffledPlaylistJson.map((track) => JSON.parse(track));
+
+        state.shuffledPlaylist = shuffledPlaylist;
+      }
+
+      state.isShuffled = !isShuffled;
     },
     setDuration(state, action: PayloadAction<{ duration: number }>) {
       const { duration } = action.payload;
@@ -78,6 +90,12 @@ export const playlistSlice = createSlice({
 
       state.volume = volume;
     },
+    getNewTrack(state, action: PayloadAction<{ track: ITrack }>) {
+      const { track } = action.payload;
+
+      state.currentTrack = track;
+      state.isPlaying = true;
+    },
   },
 });
 
@@ -91,4 +109,5 @@ export const {
   setCurrentTime,
   setChangedCurrentTime,
   setVolume,
+  getNewTrack,
 } = playlistSlice.actions;
