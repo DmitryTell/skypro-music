@@ -9,7 +9,17 @@ export const playlistApi = apiBaseSlice.injectEndpoints({
       query: () => '/catalog/track/all/',
       providesTags: ['Tracks'],
     }),
+    likeTrack: builder.mutation({
+      query: ({ id, isLiked }: { id: number; isLiked: boolean }) => ({
+        url: `/catalog/track/${id}/favorite/`,
+        method: isLiked ? 'DELETE' : 'POST',
+      }),
+      invalidatesTags: ['Tracks'],
+    }),
   }),
 });
 
-export const { useGetAllTracksQuery } = playlistApi;
+export const {
+  useGetAllTracksQuery,
+  useLikeTrackMutation,
+} = playlistApi;

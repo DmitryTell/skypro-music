@@ -39,7 +39,7 @@ export const Home = () => {
       <Title text="Треки" />
       <Filter />
       <Playlist
-        error={ errorText }
+        isError={ errorText }
         isLoading={ isLoading }
         tracks={ tracks }
       />

@@ -1,7 +1,14 @@
 import { FC } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@hook/';
-import { clickToPlay, getStateUser, getStatePlaylist } from '@redux/';
+import {
+  clickToPlay,
+  getStateUser,
+  getStatePlaylist,
+  useLikeTrackMutation,
+  removeAuthData,
+  removeUserData,
+} from '@redux/';
 import { ITrack } from '@interface/';
 import { transofrmDuration } from '@utils/';
 import { ReactComponent as Clock } from '@assets/icon/Clock.svg';
@@ -17,20 +24,39 @@ import * as Styled from './playlist.styled';
 interface IPlaylist {
   tracks: ITrack[] | [];
   isLoading: boolean;
-  error: string | null;
+  isError: string | null;
 }
 
-export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, error }) => {
+export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, isError }) => {
   const dispatch = useAppDispatch();
 
   const { userId } = useAppSelector(getStateUser);
   const { currentTrack, isPlaying } = useAppSelector(getStatePlaylist);
+
+  const [likeTrack] = useLikeTrackMutation();
 
   const handleClickToTrack = (track: ITrack) => {
     dispatch(clickToPlay({
       track,
       playlist: tracks,
     }));
+  };
+
+  const handleLikeTrack = (track: ITrack, isLiked: boolean) => {
+    likeTrack({ id: track.id, isLiked })
+      .unwrap()
+      .catch((error) => {
+        if (error.status === 401) {
+          // eslint-disable-next-line no-alert
+          alert(`Ошибка авторизации: ${error.data.detail}`);
+
+          dispatch(removeAuthData());
+          dispatch(removeUserData());
+        } else {
+          // eslint-disable-next-line no-alert
+          alert(`Что-то пошло не так: ${error.error}`);
+        }
+      });
   };
 
   return (
@@ -72,7 +98,10 @@ export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, error }) => {
                   <Styled.PlaylistTrackTitleLike
                     $isLiked={ Boolean(track.stared_user.find((user) => (user.id === userId))) }
                     type="button"
-                    onClick={ () => console.log('Click to like') }
+                    onClick={ () => handleLikeTrack(
+                      track,
+                      Boolean(track.stared_user.find((user) => (user.id === userId))),
+                    ) }
                   >
                     <Like />
                   </Styled.PlaylistTrackTitleLike>
@@ -84,7 +113,7 @@ export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, error }) => {
             </Styled.PlaylistItem>
           )) : (
             <Styled.PlatlistTrackErrorText>
-              { error ? `Ошибка загрузки: ${error}` : 'Не удалось загрузить плейлист' }
+              { isError ? `Ошибка загрузки: ${isError}` : 'Не удалось загрузить плейлист' }
             </Styled.PlatlistTrackErrorText>
           ) }
         </Styled.PlaylistList>
