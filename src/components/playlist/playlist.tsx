@@ -6,8 +6,6 @@ import {
   getStateUser,
   getStatePlaylist,
   useLikeTrackMutation,
-  removeAuthData,
-  removeUserData,
 } from '@redux/';
 import { ITrack } from '@interface/';
 import { transofrmDuration } from '@utils/';
@@ -44,19 +42,7 @@ export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, isError }) => {
 
   const handleLikeTrack = (track: ITrack, isLiked: boolean) => {
     likeTrack({ id: track.id, isLiked })
-      .unwrap()
-      .catch((error) => {
-        if (error.status === 401) {
-          // eslint-disable-next-line no-alert
-          alert(`Ошибка авторизации: ${error.data.detail}`);
-
-          dispatch(removeAuthData());
-          dispatch(removeUserData());
-        } else {
-          // eslint-disable-next-line no-alert
-          alert(`Что-то пошло не так: ${error.error}`);
-        }
-      });
+      .unwrap();
   };
 
   return (
