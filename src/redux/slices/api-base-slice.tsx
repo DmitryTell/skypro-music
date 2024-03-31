@@ -73,7 +73,7 @@ FetchBaseQueryError
   api.dispatch(setNewToken({
     token: {
       access: data.access,
-      refresh: data.refresh,
+      refresh: auth.refresh,
       isAuth: true,
     }
   }));

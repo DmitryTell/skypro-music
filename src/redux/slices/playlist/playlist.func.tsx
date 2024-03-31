@@ -1,4 +1,4 @@
-import { ITrack } from '@interface/';
+import { ITrack, ICategory } from '@interface/';
 
 import { apiBaseSlice } from '../api-base-slice';
 
@@ -20,6 +20,10 @@ export const playlistApi = apiBaseSlice.injectEndpoints({
       query: () => '/catalog/track/favorite/all/',
       providesTags: ['Tracks'],
     }),
+    getCategoryTracks: builder.query<ICategory, number>({
+      query: (id) => `/catalog/selection/${id}/`,
+      providesTags: ['Tracks'],
+    }),
   }),
 });
 
@@ -27,4 +31,5 @@ export const {
   useGetAllTracksQuery,
   useLikeTrackMutation,
   useGetAllFavouriteTracksQuery,
+  useGetCategoryTracksQuery,
 } = playlistApi;
