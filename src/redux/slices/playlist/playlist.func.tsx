@@ -16,10 +16,15 @@ export const playlistApi = apiBaseSlice.injectEndpoints({
       }),
       invalidatesTags: ['Tracks'],
     }),
+    getAllFavouriteTracks: builder.query<ITrack[], void>({
+      query: () => '/catalog/track/favorite/all/',
+      providesTags: ['Tracks'],
+    }),
   }),
 });
 
 export const {
   useGetAllTracksQuery,
   useLikeTrackMutation,
+  useGetAllFavouriteTracksQuery,
 } = playlistApi;

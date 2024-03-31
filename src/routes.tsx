@@ -2,7 +2,12 @@ import { Routes, Route } from 'react-router-dom';
 
 import { RequireAuth } from './hocs';
 import { Layout } from './layouts';
-import { SignIn, SignUp, Home } from './pages';
+import {
+  SignIn,
+  SignUp,
+  Home,
+  Favourites,
+} from './pages';
 
 
 export const AppRouter = () => (
@@ -12,6 +17,7 @@ export const AppRouter = () => (
     <Route element={ <RequireAuth /> } path="/">
       <Route element={ <Layout /> }>
         <Route index element={ <Home /> } />
+        <Route element={ <Favourites /> } path="/favourite" />
       </Route>
     </Route>
   </Routes>

@@ -1,21 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
-import { Title, Filter, Playlist } from '@components/';
+import { Title, Playlist } from '@components/';
 import { ITrack, IOutletContext } from '@interface/';
-import { useAppDispatch } from '@hook/';
-import { useGetAllTracksQuery, setAllTracks } from '@redux/';
+import { useAppSelector } from '@hook/';
+import { useGetAllFavouriteTracksQuery, getStatePlaylist } from '@redux/';
+import { addStaredUser } from '@utils/';
 
 
-export const Home = () => {
-  const dispatch = useAppDispatch();
+export const Favourites = () => {
+  const { allTracks } = useAppSelector(getStatePlaylist);
 
   const [tracks, setTracks] = useState<ITrack[] | []>([]);
   const [errorText, setErrorText] = useState<string | null>(null);
 
   const { setIsLoading } = useOutletContext<IOutletContext>();
 
-  const { data, isLoading, error } = useGetAllTracksQuery();
+  const { data, isLoading, error } = useGetAllFavouriteTracksQuery();
 
   useEffect(() => {
     setIsLoading(isLoading);
@@ -23,12 +24,11 @@ export const Home = () => {
 
   useEffect(() => {
     if (data) {
-      const result = Object.values(data);
+      const result = addStaredUser(allTracks, Object.values(data));
 
       setTracks(result);
-      dispatch(setAllTracks({ tracks: result }));
     }
-  }, [data, dispatch]);
+  }, [allTracks, data]);
 
   useEffect(() => {
     if (error) {
@@ -40,8 +40,7 @@ export const Home = () => {
 
   return (
     <>
-      <Title text="Треки" />
-      <Filter />
+      <Title text="Мои треки" />
       <Playlist
         isError={ errorText }
         isLoading={ isLoading }

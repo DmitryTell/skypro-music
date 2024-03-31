@@ -82,11 +82,11 @@ export const Playlist: FC<IPlaylist> = ({ tracks, isLoading, isError }) => {
                 </Styled.PlaylistTrackTitleAlbum>
                 <Styled.PlaylistTrackTitleTimeLike>
                   <Styled.PlaylistTrackTitleLike
-                    $isLiked={ Boolean(track.stared_user.find((user) => (user.id === userId))) }
+                    $isLiked={ Boolean(track.stared_user?.find((user) => (user.id === userId))) }
                     type="button"
                     onClick={ () => handleLikeTrack(
                       track,
-                      Boolean(track.stared_user.find((user) => (user.id === userId))),
+                      Boolean(track.stared_user?.find((user) => (user.id === userId))),
                     ) }
                   >
                     <Like />

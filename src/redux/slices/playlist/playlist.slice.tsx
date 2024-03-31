@@ -15,6 +15,7 @@ interface IPlaylistState {
   currentTime: number;
   changedCurrentTime: number | null;
   volume: number;
+  allTracks: ITrack[] | [];
 }
 
 const initialState: IPlaylistState = {
@@ -29,6 +30,7 @@ const initialState: IPlaylistState = {
   currentTime: 0,
   changedCurrentTime: null,
   volume: 25,
+  allTracks: [],
 };
 
 export const playlistSlice = createSlice({
@@ -96,6 +98,11 @@ export const playlistSlice = createSlice({
       state.currentTrack = track;
       state.isPlaying = true;
     },
+    setAllTracks(state, action: PayloadAction<{ tracks: ITrack[] }>) {
+      const { tracks } = action.payload;
+
+      state.allTracks = tracks;
+    },
   },
 });
 
@@ -110,4 +117,5 @@ export const {
   setChangedCurrentTime,
   setVolume,
   getNewTrack,
+  setAllTracks,
 } = playlistSlice.actions;
