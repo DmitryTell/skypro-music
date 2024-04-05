@@ -1,7 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import {
-  authSlice, userSlice, menuSlice, playlistSlice, playlistApi
+  authSlice,
+  userSlice,
+  menuSlice,
+  playlistSlice,
+  filtersSlice,
+  playlistApi,
 } from '../slices';
 
 
@@ -11,6 +16,7 @@ export const store = configureStore({
     user: userSlice.reducer,
     menu: menuSlice.reducer,
     playlist: playlistSlice.reducer,
+    filters: filtersSlice.reducer,
     [playlistApi.reducerPath]: playlistApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(playlistApi.middleware),

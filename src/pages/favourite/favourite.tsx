@@ -3,19 +3,17 @@ import { useOutletContext } from 'react-router-dom';
 
 import { Title, Playlist } from '@components/';
 import { ITrack, IOutletContext } from '@interface/';
-import { useAppSelector } from '@hook/';
-import { useGetAllFavouriteTracksQuery, getStatePlaylist } from '@redux/';
+import { useGetAllFavouriteTracksQuery, useGetAllTracksQuery } from '@redux/';
 import { addStaredUser } from '@utils/';
 
 
-export const Favourites = () => {
-  const { allTracks } = useAppSelector(getStatePlaylist);
-
+export const Favourite = () => {
   const [tracks, setTracks] = useState<ITrack[] | []>([]);
   const [errorText, setErrorText] = useState<string | null>(null);
 
   const { setIsLoading } = useOutletContext<IOutletContext>();
 
+  const { data: allTracks } = useGetAllTracksQuery();
   const { data, isLoading, error } = useGetAllFavouriteTracksQuery();
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export const Favourites = () => {
   }, [isLoading, setIsLoading]);
 
   useEffect(() => {
-    if (data) {
+    if (data && allTracks) {
       const result = addStaredUser(allTracks, Object.values(data));
 
       setTracks(result);

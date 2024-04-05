@@ -6,7 +6,7 @@ import {
   SignIn,
   SignUp,
   Home,
-  Favourites,
+  Favourite,
   Category,
 } from './pages';
 
@@ -18,7 +18,7 @@ export const AppRouter = () => (
     <Route element={ <RequireAuth /> } path="/">
       <Route element={ <Layout /> }>
         <Route index element={ <Home /> } />
-        <Route element={ <Favourites /> } path="/favourite" />
+        <Route element={ <Favourite /> } path="/favourite" />
         <Route element={ <Category /> } path="/category/:id" />
       </Route>
     </Route>
