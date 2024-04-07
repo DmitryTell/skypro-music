@@ -8,6 +8,7 @@ import {
   Home,
   Favourite,
   Category,
+  NotFound,
 } from './pages';
 
 
@@ -20,6 +21,7 @@ export const AppRouter = () => (
         <Route index element={ <Home /> } />
         <Route element={ <Favourite /> } path="/favourite" />
         <Route element={ <Category /> } path="/category/:id" />
+        <Route element={ <NotFound /> } path="*" />
       </Route>
     </Route>
   </Routes>
