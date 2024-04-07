@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { ReactComponent as Prev } from '@assets/icon/Prev.svg';
 import { ReactComponent as Play } from '@assets/icon/Play.svg';
 import { ReactComponent as Pause } from '@assets/icon/Pause.svg';
@@ -9,16 +7,15 @@ import { ReactComponent as Shuffle } from '@assets/icon/Shuffle.svg';
 import { ReactComponent as Plug } from '@assets/icon/Plug.svg';
 import { ReactComponent as Like } from '@assets/icon/Like.svg';
 import { useAppDispatch, useAppSelector } from '@hook/';
-import { ITrack } from '@interface/';
 import { getNextTrack, getPrevTrack } from '@utils/';
 import {
   getStatePlaylist,
-  getStateUser,
   setIsPlaying,
   setIsLoop,
   setIsShuffled,
   getNewTrack,
   useLikeTrackMutation,
+  setCurrentLike,
 } from '@redux/';
 
 // eslint-disable-next-line import/max-dependencies
@@ -30,7 +27,6 @@ export const ControlBar = () => {
 
   const [likeTrack] = useLikeTrackMutation();
 
-  const { userId } = useAppSelector(getStateUser);
   const {
     currentTrack,
     currentPlaylist,
@@ -38,6 +34,7 @@ export const ControlBar = () => {
     isPlaying,
     isLoop,
     isShuffled,
+    currentLike,
   } = useAppSelector(getStatePlaylist);
 
   const handleGetPrevTrack = () => {
@@ -56,16 +53,11 @@ export const ControlBar = () => {
     }
   };
 
-  const [isLiked, setIsLiked] = useState<boolean>(
-    Boolean(currentTrack?.stared_user.find((user) => user.id === userId))
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  const handleLikeTrack = (track: ITrack, isLiked: boolean) => {
-    likeTrack({ id: track.id, isLiked })
+  const handleLikeTrack = () => {
+    likeTrack({ id: currentTrack?.id || 0, isLiked: currentLike })
       .unwrap()
       .then(() => {
-        setIsLiked(!isLiked);
+        dispatch(setCurrentLike({ currentLike: !currentLike }));
       });
   };
 
@@ -107,7 +99,11 @@ export const ControlBar = () => {
           </Styled.ControlBarTrackPlayAlbum>
         </Styled.ControlBarTrackPlayContain>
         <Styled.ControlBarTrackPlayLike>
-          <Styled.ControlBarLikeButton $isLiked={ isLiked } type="button" onClick={ () => handleLikeTrack(currentTrack as ITrack, isLiked) }>
+          <Styled.ControlBarLikeButton
+            $isLiked={ currentLike }
+            type="button"
+            onClick={ handleLikeTrack }
+          >
             <Like />
           </Styled.ControlBarLikeButton>
         </Styled.ControlBarTrackPlayLike>

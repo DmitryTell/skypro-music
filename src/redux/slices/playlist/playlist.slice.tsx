@@ -15,6 +15,7 @@ interface IPlaylistState {
   currentTime: number;
   changedCurrentTime: number | null;
   volume: number;
+  currentLike: boolean;
 }
 
 const initialState: IPlaylistState = {
@@ -29,6 +30,7 @@ const initialState: IPlaylistState = {
   currentTime: 0,
   changedCurrentTime: null,
   volume: 25,
+  currentLike: false,
 };
 
 export const playlistSlice = createSlice({
@@ -96,6 +98,11 @@ export const playlistSlice = createSlice({
       state.currentTrack = track;
       state.isPlaying = true;
     },
+    setCurrentLike(state, action: PayloadAction<{ currentLike: boolean }>) {
+      const { currentLike } = action.payload;
+
+      state.currentLike = currentLike;
+    },
   },
 });
 
@@ -110,4 +117,5 @@ export const {
   setChangedCurrentTime,
   setVolume,
   getNewTrack,
+  setCurrentLike,
 } = playlistSlice.actions;
