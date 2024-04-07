@@ -46,7 +46,7 @@ FetchBaseQueryError
 
   const { auth } = api.getState() as RootState;
 
-  if (!auth.refresh) {
+  if (!auth?.refresh) {
     forceLogout();
 
     return result;
@@ -64,7 +64,7 @@ FetchBaseQueryError
 
   const data = refreshResult.data as IRefreshAuthData;
 
-  if (!data.access) {
+  if (!data?.access) {
     forceLogout();
 
     return refreshResult;
