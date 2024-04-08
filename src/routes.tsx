@@ -14,9 +14,9 @@ import {
 
 export const AppRouter = () => (
   <Routes>
-    <Route element={ <SignIn /> } path="/login" />
-    <Route element={ <SignUp /> } path="/register" />
-    <Route element={ <RequireAuth /> } path="/">
+    <Route element={ <SignIn /> } path="/skypro-music/login" />
+    <Route element={ <SignUp /> } path="/skypro-music/register" />
+    <Route element={ <RequireAuth /> } path="/skypro-music">
       <Route element={ <Layout /> }>
         <Route index element={ <Home /> } />
         <Route element={ <Favourite /> } path="/favourite" />
