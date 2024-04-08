@@ -27,7 +27,7 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
   const handleLogout = () => {
     dispatch(removeAuthData());
     dispatch(removeUserData());
-    navigate('/login', { replace: true });
+    navigate('/skypro-music/login', { replace: true });
   };
 
   return (
