@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/skypro-music/static/css/main.bcfc483c.css",
-    "main.js": "/skypro-music/static/js/main.ad14d397.js",
+    "main.js": "/skypro-music/static/js/main.46fe63ea.js",
     "static/media/SmileCrying.svg": "/skypro-music/static/media/SmileCrying.057678d751237823f107c7e4a79c7263.svg",
     "static/media/StratosSkyeng.woff": "/skypro-music/static/media/StratosSkyeng.d20eb275042a513c8d55.woff",
     "static/media/StratosSkyeng.woff2": "/skypro-music/static/media/StratosSkyeng.ec4882423f79afa46408.woff2",
@@ -26,10 +26,10 @@
     "static/media/Pause.svg": "/skypro-music/static/media/Pause.2ced727fda4f48c1c7386cc5537757f4.svg",
     "static/media/Play.svg": "/skypro-music/static/media/Play.6c8520a0bbe83b0907164be9d1f01518.svg",
     "main.bcfc483c.css.map": "/skypro-music/static/css/main.bcfc483c.css.map",
-    "main.ad14d397.js.map": "/skypro-music/static/js/main.ad14d397.js.map"
+    "main.46fe63ea.js.map": "/skypro-music/static/js/main.46fe63ea.js.map"
   },
   "entrypoints": [
     "static/css/main.bcfc483c.css",
-    "static/js/main.ad14d397.js"
+    "static/js/main.46fe63ea.js"
   ]
 }
