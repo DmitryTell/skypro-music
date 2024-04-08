@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LayoutAuth } from '@layouts/';
 import { Form } from '@components/';
 import { Input, Button, ButtonReg } from '@shared/';
 import { useAppDispatch } from '@hook/';
@@ -59,30 +58,28 @@ export const SignIn = () => {
   };
 
   return (
-    <LayoutAuth>
-      <Form>
-        <Styled.Inputs>
-          <Input placeholder="Почта" type="email" onChange={ (e) => setEmail(e.target.value) } />
-          <Input placeholder="Пароль" type="password" onChange={ (e) => setPassword(e.target.value) } />
-        </Styled.Inputs>
-        <Styled.ErrorBox>
-          { errorText && (
-            <Styled.ErrorText>{ errorText }</Styled.ErrorText>
+    <Form>
+      <Styled.Inputs>
+        <Input placeholder="Почта" type="email" onChange={ (e) => setEmail(e.target.value) } />
+        <Input placeholder="Пароль" type="password" onChange={ (e) => setPassword(e.target.value) } />
+      </Styled.Inputs>
+      <Styled.ErrorBox>
+        { errorText && (
+          <Styled.ErrorText>{ errorText }</Styled.ErrorText>
+        ) }
+      </Styled.ErrorBox>
+      <Styled.Buttons>
+        <Styled.ButtonBox>
+          { isLoading ? (
+            <Styled.ButtonLoading />
+          ) : (
+            <Button text="Войти" onClick={ handleLoginUser } />
           ) }
-        </Styled.ErrorBox>
-        <Styled.Buttons>
-          <Styled.ButtonBox>
-            { isLoading ? (
-              <Styled.ButtonLoading />
-            ) : (
-              <Button text="Войти" onClick={ handleLoginUser } />
-            ) }
-          </Styled.ButtonBox>
-          <Styled.ButtonBox>
-            <ButtonReg onClick={ () => navigate('/register', { replace: true }) } />
-          </Styled.ButtonBox>
-        </Styled.Buttons>
-      </Form>
-    </LayoutAuth>
+        </Styled.ButtonBox>
+        <Styled.ButtonBox>
+          <ButtonReg onClick={ () => navigate('/register', { replace: true }) } />
+        </Styled.ButtonBox>
+      </Styled.Buttons>
+    </Form>
   );
 };

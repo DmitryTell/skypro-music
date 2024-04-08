@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { LayoutAuth } from '@layouts/';
 import { Form } from '@components/';
 import { Input, Button } from '@shared/';
 import { useAppDispatch } from '@hook/';
@@ -71,29 +70,27 @@ export const SignUp = () => {
   };
 
   return (
-    <LayoutAuth>
-      <Form>
-        <Styled.Inputs>
-          <Input placeholder="Имя" type="text" onChange={ (e) => setName(e.target.value) } />
-          <Input placeholder="Почта" type="email" onChange={ (e) => setEmail(e.target.value) } />
-          <Input placeholder="Пароль" type="password" onChange={ (e) => setPassword(e.target.value) } />
-          <Input placeholder="Повторите пароль" type="password" onChange={ (e) => setSecondPassword(e.target.value) } />
-        </Styled.Inputs>
-        <Styled.ErrorBox>
-          { errorText && (
-            <Styled.ErrorText>{ errorText }</Styled.ErrorText>
+    <Form>
+      <Styled.Inputs>
+        <Input placeholder="Имя" type="text" onChange={ (e) => setName(e.target.value) } />
+        <Input placeholder="Почта" type="email" onChange={ (e) => setEmail(e.target.value) } />
+        <Input placeholder="Пароль" type="password" onChange={ (e) => setPassword(e.target.value) } />
+        <Input placeholder="Повторите пароль" type="password" onChange={ (e) => setSecondPassword(e.target.value) } />
+      </Styled.Inputs>
+      <Styled.ErrorBox>
+        { errorText && (
+          <Styled.ErrorText>{ errorText }</Styled.ErrorText>
+        ) }
+      </Styled.ErrorBox>
+      <Styled.Buttons>
+        <Styled.ButtonBox>
+          { isLoading ? (
+            <Styled.ButtonLoading />
+          ) : (
+            <Button text="Зарегистрироваться" onClick={ handleRegisterUser } />
           ) }
-        </Styled.ErrorBox>
-        <Styled.Buttons>
-          <Styled.ButtonBox>
-            { isLoading ? (
-              <Styled.ButtonLoading />
-            ) : (
-              <Button text="Зарегистрироваться" onClick={ handleRegisterUser } />
-            ) }
-          </Styled.ButtonBox>
-        </Styled.Buttons>
-      </Form>
-    </LayoutAuth>
+        </Styled.ButtonBox>
+      </Styled.Buttons>
+    </Form>
   );
 };

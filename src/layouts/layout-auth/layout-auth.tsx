@@ -1,16 +1,12 @@
-import { FC, ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import * as Styled from './layout-auth.styled';
 
 
-interface ILayoutAuth {
-  children: ReactNode;
-}
-
-export const LayoutAuth: FC<ILayoutAuth> = ({ children }) => (
+export const LayoutAuth = () => (
   <Styled.Wrapper>
     <Styled.Container>
-      { children }
+      <Outlet />
     </Styled.Container>
   </Styled.Wrapper>
 );

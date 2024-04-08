@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { RequireAuth } from './hocs';
-import { Layout } from './layouts';
+import { Layout, LayoutAuth } from './layouts';
 import {
   SignIn,
   SignUp,
@@ -14,8 +14,10 @@ import {
 
 export const AppRouter = () => (
   <Routes>
-    <Route element={ <SignIn /> } path="/skypro-music/login" />
-    <Route element={ <SignUp /> } path="/skypro-music/register" />
+    <Route element={ <LayoutAuth /> } path="/skypro-music">
+      <Route element={ <SignIn /> } path="login" />
+      <Route element={ <SignUp /> } path="register" />
+    </Route>
     <Route element={ <RequireAuth /> }>
       <Route element={ <Layout /> } path="/skypro-music">
         <Route index element={ <Home /> } />
