@@ -31,7 +31,7 @@ export const NotFound = () => {
           Возможно, она была удалена или перенесена на другой адрес
         </Styled.NotFoundSmText>
         <Styled.NotFoundButtonBox>
-          <Button text="Вернуться на главную" onClick={ () => navigate('/', { replace: true }) } />
+          <Button text="Вернуться на главную" onClick={ () => navigate('/skypro-music', { replace: true }) } />
         </Styled.NotFoundButtonBox>
       </Styled.NotFoundContainer>
     </Styled.NotFoundWrapper>

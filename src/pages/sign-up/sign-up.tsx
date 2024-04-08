@@ -60,7 +60,7 @@ export const SignUp = () => {
           isAuth: true,
         },
       }));
-      navigate('/', { replace: true });
+      navigate('/skypro-music', { replace: true });
     } catch (error) {
       if (error instanceof Error) {
         setIsLoading(false);

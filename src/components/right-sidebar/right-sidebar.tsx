@@ -53,7 +53,7 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
             <Styled.SidebarList>
               { items.map((item) => (
                 <Styled.SidebarItem key={ String(item.id) }>
-                  <Link to={ `/category/${item.id}` }>
+                  <Link to={ `/skypro-music/category/${item.id}` }>
                     <img alt={ item.alt } src={ `${process.env.PUBLIC_URL}${item.img_path}` } />
                   </Link>
                 </Styled.SidebarItem>

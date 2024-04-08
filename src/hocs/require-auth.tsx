@@ -8,7 +8,7 @@ export const RequireAuth = () => {
   const { isAuth } = useAppSelector(getStateAuth);
 
   if (!isAuth) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/skypro-music/login" />;
   }
 
   return <Outlet />;
