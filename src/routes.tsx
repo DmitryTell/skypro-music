@@ -19,8 +19,8 @@ export const AppRouter = () => (
     <Route element={ <RequireAuth /> }>
       <Route element={ <Layout /> } path="/skypro-music">
         <Route index element={ <Home /> } />
-        <Route element={ <Favourite /> } path="/favourite" />
-        <Route element={ <Category /> } path="/category/:id" />
+        <Route element={ <Favourite /> } path="favourite" />
+        <Route element={ <Category /> } path="category/:id" />
         <Route element={ <NotFound /> } path="*" />
       </Route>
     </Route>
