@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
 
+interface IVolumeBarImgProp {
+  $fill: string;
+}
+
+interface IVolumeBarProgressProps {
+  $color: string;
+  $bgColor: string;
+}
+
 export const VolumeBarContainer = styled.div`
     width: auto;
     display: -webkit-box;
@@ -28,10 +37,15 @@ export const VolumeBarContent = styled.div`
     justify-content: end;
 `;
 
-export const VolumeBarImg = styled.div`
+export const VolumeBarImg = styled.div<IVolumeBarImgProp>`
     width: 13px;
     height: 18px;
     margin-right: 17px;
+
+    & svg mask,
+    & svg path {
+        fill: ${(props) => props.$fill};
+    }
 `;
 
 export const VolumeBarProgress = styled.div`
@@ -39,10 +53,10 @@ export const VolumeBarProgress = styled.div`
     padding-bottom: 5px;
 `;
 
-export const VolumeBarProgressLine = styled.input`
+export const VolumeBarProgressLine = styled.input<IVolumeBarProgressProps>`
     --progress-height: 5px;
-    --progress-color: #fff;
-    --progress-bg-color: #797979;
+    --progress-color: ${(props) => props.$color};
+    --progress-bg-color: ${(props) => props.$bgColor};
 
     width: 100%;
     height: var(--progress-height);
