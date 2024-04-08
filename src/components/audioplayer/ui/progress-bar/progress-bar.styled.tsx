@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
 
-export const ProgressBar = styled.input`
+interface IProgressBarProp {
+  $bgColor: string;
+}
+
+export const ProgressBar = styled.input<IProgressBarProp>`
     --progress-height: 8px;
     --progress-color: #b672ff;
-    --progress-bg-color: #2e2e2e;
+    --progress-bg-color: ${(props) => props.$bgColor};
 
     margin: 0;
     width: 100%;

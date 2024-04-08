@@ -3,10 +3,26 @@ import styled, { css } from 'styled-components';
 
 interface IDoteAnimation {
   $isPlaying: boolean;
+  $background: string;
 }
 
-interface ILikedButton {
+interface ILikedButtonProps {
   $isLiked: boolean;
+  $stroke: string;
+  $strokeHover: string;
+}
+
+interface ITrackTitleImgProps {
+  $fill: string;
+  $stroke: string;
+}
+
+interface ITrackTitleTextProp {
+  $color: string;
+}
+
+interface ITrackTitleAlbumTimeProp {
+  $color: string;
 }
 
 const trackDoteAnimation = css`
@@ -45,16 +61,24 @@ export const TrackTitle = styled.div`
     width: 447px;
 `;
 
-export const TrackTitleImg = styled.div`
+export const TrackTitleImg = styled.div<ITrackTitleImgProps>`
     width: 51px;
     height: 51px;
-    background: #313131;
+    
+    & svg rect {
+        fill: ${(props) => props.$fill};
+    }
+
+    & svg path,
+    & svg ellipse {
+        stroke: ${(props) => props.$stroke};
+    }
 `;
 
 export const TrackTitleImgDote = styled.div<IDoteAnimation>`
     width: 51px;
     height: 51px;
-    background: #313131;
+    background: ${(props) => props.$background};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,10 +88,10 @@ export const TrackTitleImgDote = styled.div<IDoteAnimation>`
     }
 `;
 
-export const TrackTitleName = styled.span`
+export const TrackTitleName = styled.span<ITrackTitleTextProp>`
     font-size: 16px;
     line-height: 24px;
-    color: #fff;
+    color: ${(props) => props.$color};
 `;
 
 export const TrackTitleAuthor = styled.div`
@@ -80,10 +104,10 @@ export const TrackTitleAuthor = styled.div`
     justify-content: flex-start;
 `;
 
-export const TrackTitleAuthorText = styled.span`
+export const TrackTitleAuthorText = styled.span<ITrackTitleTextProp>`
     font-size: 16px;
     line-height: 24px;
-    color: #fff;
+    color: ${(props) => props.$color};
     text-align: left;
 `;
 
@@ -91,10 +115,10 @@ export const TrackTitleAlbum = styled.div`
     width: 245px;
 `;
 
-export const TrackTitleAlbumText = styled.span`
+export const TrackTitleAlbumText = styled.span<ITrackTitleAlbumTimeProp>`
     font-size: 16px;
     line-height: 24px;
-    color: #696969;
+    color: ${(props) => props.$color};
 `;
 
 export const TrackTitleTimeLike = styled.div`
@@ -103,7 +127,7 @@ export const TrackTitleTimeLike = styled.div`
     gap: 17px;
 `;
 
-export const TrackTitleLike = styled.button<ILikedButton>`
+export const TrackTitleLike = styled.button<ILikedButtonProps>`
     width: 14px;
     height: 12px;
     background: transparent;
@@ -111,17 +135,17 @@ export const TrackTitleLike = styled.button<ILikedButton>`
 
     & svg path {
         fill: ${(props) => (props.$isLiked ? '#B672FF' : 'transparent')};
-        stroke: ${(props) => (props.$isLiked ? '#B672FF' : '#696969')};
+        stroke: ${(props) => (props.$isLiked ? '#B672FF' : props.$stroke)};
     }
 
     &:hover svg path {
-        stroke: #acacac;
+        stroke: ${(props) => props.$strokeHover};
     }
 `;
 
-export const TrackTitleTime = styled.span`
+export const TrackTitleTime = styled.span<ITrackTitleAlbumTimeProp>`
     font-size: 16px;
     line-height: 24px;
     text-align: right;
-    color: #696969;
+    color: ${(props) => props.$color};
 `;

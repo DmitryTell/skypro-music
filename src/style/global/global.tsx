@@ -19,7 +19,6 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         height: 100%;
         font-family: "StratosSkyeng", sans-serif;
-        color: #fff;
     }
 
     a,
@@ -76,6 +75,24 @@ export const GlobalStyle = createGlobalStyle`
       }
       100% {
         background: #4E4E4E;
+      }
+    }
+
+    @-webkit-keyframes skeleton-animation-light {
+      0% {
+        background: #636363;
+      }
+      100% {
+        background: #888888;
+      }
+    }
+    
+    @keyframes skeleton-animation-light {
+      0% {
+        background: #636363;
+      }
+      100% {
+        background: #888888;
       }
     }
 

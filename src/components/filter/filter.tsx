@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useAppSelector } from '@hook/';
-import { getStateFilters } from '@redux/';
+import { getStateFilters, getStateMenu } from '@redux/';
 
 import { FilterButton } from './ui';
 import {
@@ -22,6 +22,7 @@ export const Filter = () => {
     genresFilter,
     dateFilter,
   } = useAppSelector(getStateFilters);
+  const { isDarkTheme } = useAppSelector(getStateMenu);
 
   const handleNewFilter = (filterName: string) => {
     if (filter === filterName) {
@@ -33,7 +34,9 @@ export const Filter = () => {
 
   return (
     <Styled.FilterContainer>
-      <Styled.FilterTitle>Искать по:</Styled.FilterTitle>
+      <Styled.FilterTitle $color={ isDarkTheme ? '#fff' : '#000' }>
+        Искать по:
+      </Styled.FilterTitle>
       <FilterButton text="исполнителю" onClick={ () => handleNewFilter('authors') } />
       <FilterButton text="году выпуска" onClick={ () => handleNewFilter('release-dates') } />
       <FilterButton text="жанру" onClick={ () => handleNewFilter('genres') } />

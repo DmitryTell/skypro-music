@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { useAppDispatch } from '@hook/';
-import { setAuthorsFilter } from '@redux/';
+import { useAppDispatch, useAppSelector } from '@hook/';
+import { setAuthorsFilter, getStateMenu } from '@redux/';
 import { isSelectedElement } from '@utils/';
 
 import * as Styled from './modals.styled';
@@ -15,6 +15,8 @@ interface IModalAuthors {
 export const ModalAuthors: FC<IModalAuthors> = ({ authors, authorsFilter }) => {
   const dispatch = useAppDispatch();
 
+  const { isDarkTheme } = useAppSelector(getStateMenu);
+
   const handleClickAuthor = (event: React.MouseEvent, author: string) => {
     event.preventDefault();
 
@@ -22,13 +24,14 @@ export const ModalAuthors: FC<IModalAuthors> = ({ authors, authorsFilter }) => {
   };
 
   return (
-    <Styled.ModalAuthor>
+    <Styled.ModalAuthor $background={ isDarkTheme ? '#313131' : '#F6F5F3' }>
       <Styled.ModalContainer>
         { authors.map((author, index) => (
           <Styled.ModalLink
             // eslint-disable-next-line react/no-array-index-key
             key={ String(index) }
-            $color={ isSelectedElement(author, authorsFilter) }
+            $color={ isDarkTheme ? '#fff' : '#313131' }
+            $colorActive={ isSelectedElement(author, authorsFilter) }
             href="/#"
             onClick={ (event) => handleClickAuthor(event, author) }
           >

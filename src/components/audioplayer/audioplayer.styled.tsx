@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
 
-export const PlayerContainer = styled.div`
+interface IPlayerContainerProp {
+  $background: string;
+}
+
+export const PlayerContainer = styled.div<IPlayerContainerProp>`
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(28, 28, 28, 0.5);
+    background: ${(props) => props.$background};
 `;
 
 export const PlayerContent = styled.div`

@@ -1,9 +1,18 @@
 import styled from 'styled-components';
 
 
-export const SidebarContainer = styled.nav`
+interface ISidebarContainerProp {
+  $background: string;
+}
+
+interface ISidebarBurgerProp {
+  $stroke: string;
+}
+
+export const SidebarContainer = styled.nav<ISidebarContainerProp>`
     width: 244px;
     padding: 20px 0 20px 36px;
+    background: ${(props) => props.$background};
 `;
 
 export const SidebarLogo = styled.div`
@@ -14,7 +23,11 @@ export const SidebarLogo = styled.div`
     margin-bottom: 20px;
 `;
 
-export const SidebarBurger = styled.button`
+export const SidebarBurger = styled.button<ISidebarBurgerProp>`
     background: transparent;
     border: none;
+
+    & svg path {
+      stroke: ${(props) => props.$stroke};
+    }
 `;

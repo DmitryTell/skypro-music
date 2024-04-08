@@ -5,6 +5,7 @@ import {
   clickToPlay,
   getStateUser,
   getStatePlaylist,
+  getStateMenu,
   useLikeTrackMutation,
   setCurrentLike,
 } from '@redux/';
@@ -22,6 +23,7 @@ export const Track: FC<{ track: ITrack; tracks: ITrack[] }> = ({ track, tracks }
 
   const { userId } = useAppSelector(getStateUser);
   const { currentTrack, isPlaying } = useAppSelector(getStatePlaylist);
+  const { isDarkTheme } = useAppSelector(getStateMenu);
 
   const [likeTrack] = useLikeTrackMutation();
 
@@ -60,31 +62,45 @@ export const Track: FC<{ track: ITrack; tracks: ITrack[] }> = ({ track, tracks }
     <Styled.Track>
       <Styled.TrackTitle onClick={ handleClickToTrack }>
         { track.id === currentTrack?.id ? (
-          <Styled.TrackTitleImgDote $isPlaying={ isPlaying }>
+          <Styled.TrackTitleImgDote
+            $background={ isDarkTheme ? '#313131' : '#F6F4F4' }
+            $isPlaying={ isPlaying }
+          >
             <Dote />
           </Styled.TrackTitleImgDote>
         ) : (
-          <Styled.TrackTitleImg>
+          <Styled.TrackTitleImg
+            $fill={ isDarkTheme ? '#313131' : '#F6F4F4' }
+            $stroke={ isDarkTheme ? '#4E4E4E' : '#B1B1B1' }
+          >
             <Plug />
           </Styled.TrackTitleImg>
         ) }
-        <Styled.TrackTitleName>{ track.name }</Styled.TrackTitleName>
+        <Styled.TrackTitleName $color={ isDarkTheme ? '#fff' : '#000' }>
+          { track.name }
+        </Styled.TrackTitleName>
       </Styled.TrackTitle>
       <Styled.TrackTitleAuthor onClick={ handleClickToTrack }>
-        <Styled.TrackTitleAuthorText>{ track.author }</Styled.TrackTitleAuthorText>
+        <Styled.TrackTitleAuthorText $color={ isDarkTheme ? '#fff' : '#000' }>
+          { track.author }
+        </Styled.TrackTitleAuthorText>
       </Styled.TrackTitleAuthor>
       <Styled.TrackTitleAlbum onClick={ handleClickToTrack }>
-        <Styled.TrackTitleAlbumText>{ track.album }</Styled.TrackTitleAlbumText>
+        <Styled.TrackTitleAlbumText $color={ isDarkTheme ? '#696969' : '#B1B1B1' }>
+          { track.album }
+        </Styled.TrackTitleAlbumText>
       </Styled.TrackTitleAlbum>
       <Styled.TrackTitleTimeLike>
         <Styled.TrackTitleLike
           $isLiked={ isLiked }
+          $stroke={ isDarkTheme ? '#696969' : '#B1B1B1' }
+          $strokeHover={ isDarkTheme ? '#acacac' : '#707070' }
           type="button"
           onClick={ handleLikeTrack }
         >
           <Like />
         </Styled.TrackTitleLike>
-        <Styled.TrackTitleTime>
+        <Styled.TrackTitleTime $color={ isDarkTheme ? '#696969' : '#B1B1B1' }>
           { transofrmDuration(track.duration_in_seconds) }
         </Styled.TrackTitleTime>
       </Styled.TrackTitleTimeLike>

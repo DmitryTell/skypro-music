@@ -16,6 +16,7 @@ import {
   getNewTrack,
   useLikeTrackMutation,
   setCurrentLike,
+  getStateMenu,
 } from '@redux/';
 
 // eslint-disable-next-line import/max-dependencies
@@ -36,6 +37,7 @@ export const ControlBar = () => {
     isShuffled,
     currentLike,
   } = useAppSelector(getStatePlaylist);
+  const { isDarkTheme } = useAppSelector(getStateMenu);
 
   const handleGetPrevTrack = () => {
     if (isShuffled) {
@@ -64,43 +66,86 @@ export const ControlBar = () => {
   return (
     <Styled.ControlBarContainer>
       <Styled.ControlBarButtons>
-        <Styled.ControlBarPrevButton type="button" onClick={ handleGetPrevTrack }>
+        <Styled.ControlBarPrevButton
+          $fill={ isDarkTheme ? '#D9D9D9' : '#B1B1B1' }
+          $fillHover={ isDarkTheme ? '#696969' : '#707070' }
+          $stroke={ isDarkTheme ? '#D9D9D9' : '#B1B1B1' }
+          $strokeHover={ isDarkTheme ? '#696969' : '#707070' }
+          type="button"
+          onClick={ handleGetPrevTrack }
+        >
           <Prev />
         </Styled.ControlBarPrevButton>
         { isPlaying ? (
-          <Styled.ControlBarPauseButton type="button" onClick={ () => dispatch(setIsPlaying({ isPlaying: false })) }>
+          <Styled.ControlBarPauseButton
+            $fill={ isDarkTheme ? '#D9D9D9' : '#B1B1B1' }
+            $fillHover={ isDarkTheme ? '#696969' : '#707070' }
+            type="button"
+            onClick={ () => dispatch(setIsPlaying({ isPlaying: false })) }
+          >
             <Pause />
           </Styled.ControlBarPauseButton>
         ) : (
-          <Styled.ControlBarPlayButton type="button" onClick={ () => dispatch(setIsPlaying({ isPlaying: true })) }>
+          <Styled.ControlBarPlayButton
+            $fill={ isDarkTheme ? '#D9D9D9' : '#B1B1B1' }
+            $fillHover={ isDarkTheme ? '#696969' : '#707070' }
+            type="button"
+            onClick={ () => dispatch(setIsPlaying({ isPlaying: true })) }
+          >
             <Play />
           </Styled.ControlBarPlayButton>
         ) }
-        <Styled.ControlBarNextButton type="button" onClick={ handleGetNextTrack }>
+        <Styled.ControlBarNextButton
+          $fill={ isDarkTheme ? '#D9D9D9' : '#B1B1B1' }
+          $fillHover={ isDarkTheme ? '#696969' : '#707070' }
+          $stroke={ isDarkTheme ? '#D9D9D9' : '#B1B1B1' }
+          $strokeHover={ isDarkTheme ? '#696969' : '#707070' }
+          type="button"
+          onClick={ handleGetNextTrack }
+        >
           <Next />
         </Styled.ControlBarNextButton>
-        <Styled.ControlBarRepeatButton $isLoop={ isLoop } type="button" onClick={ () => dispatch(setIsLoop()) }>
+        <Styled.ControlBarRepeatButton
+          $fill={ isDarkTheme ? '#696969' : '#B1B1B1' }
+          $fillActive={ isDarkTheme ? '#fff' : '#000' }
+          $fillHover={ isDarkTheme ? '#acacac' : '#707070' }
+          $isLoop={ isLoop }
+          type="button"
+          onClick={ () => dispatch(setIsLoop()) }
+        >
           <Repeat />
         </Styled.ControlBarRepeatButton>
-        <Styled.ControlBarShuffleButton $isShuffled={ isShuffled } type="button" onClick={ () => dispatch(setIsShuffled({ isShuffled, currentPlaylist })) }>
+        <Styled.ControlBarShuffleButton
+          $fill={ isDarkTheme ? '#696969' : '#B1B1B1' }
+          $fillActive={ isDarkTheme ? '#fff' : '#000' }
+          $fillHover={ isDarkTheme ? '#acacac' : '#707070' }
+          $isShuffled={ isShuffled }
+          type="button"
+          onClick={ () => dispatch(setIsShuffled({ isShuffled, currentPlaylist })) }
+        >
           <Shuffle />
         </Styled.ControlBarShuffleButton>
       </Styled.ControlBarButtons>
       <Styled.ControlBarTrackPlay>
         <Styled.ControlBarTrackPlayContain>
-          <Styled.ControlBarTrackPlayImg>
+          <Styled.ControlBarTrackPlayImg
+            $fill={ isDarkTheme ? '#313131' : '#F6F4F4' }
+            $stroke={ isDarkTheme ? '#4E4E4E' : '#B1B1B1' }
+          >
             <Plug />
           </Styled.ControlBarTrackPlayImg>
-          <Styled.ControlBarTrackPlayAuthor>
+          <Styled.ControlBarTrackPlayAuthor $color={ isDarkTheme ? '#fff' : '#000' }>
             <span>{ currentTrack?.author }</span>
           </Styled.ControlBarTrackPlayAuthor>
-          <Styled.ControlBarTrackPlayAlbum>
+          <Styled.ControlBarTrackPlayAlbum $color={ isDarkTheme ? '#fff' : '#000' }>
             <span>{ currentTrack?.album }</span>
           </Styled.ControlBarTrackPlayAlbum>
         </Styled.ControlBarTrackPlayContain>
         <Styled.ControlBarTrackPlayLike>
           <Styled.ControlBarLikeButton
             $isLiked={ currentLike }
+            $stroke={ isDarkTheme ? '#696969' : '#B1B1B1' }
+            $strokeHover={ isDarkTheme ? '#acacac' : '#707070' }
             type="button"
             onClick={ handleLikeTrack }
           >

@@ -1,9 +1,18 @@
 import styled, { css } from 'styled-components';
 
 
+interface IPlaylistLoadingTrackTitleProp {
+  $isDarkTheme: boolean;
+}
+
 const skeletonAnimation = css`
     -webkit-animation: skeleton-animation 2s linear infinite alternate both;
     animation: skeleton-animation 2s linear infinite alternate both;
+`;
+
+const skeletonAnimationLight = css`
+    -webkit-animation: skeleton-animation-light 2s linear infinite alternate both;
+    animation: skeleton-animation-light 2s linear infinite alternate both;
 `;
 
 export const PlaylistLoadingList = styled.ul`
@@ -52,26 +61,26 @@ export const PlaylistLoadingTrackTitle = styled.div`
     width: 447px;
 `;
 
-export const PlaylistLoadingTrackTitleImg = styled.div`
+export const PlaylistLoadingTrackTitleImg = styled.div<IPlaylistLoadingTrackTitleProp>`
     width: 51px;
     height: 51px;
-    ${skeletonAnimation}
+    ${(props) => (props.$isDarkTheme ? skeletonAnimation : skeletonAnimationLight)}
 `;
 
-export const PlaylistLoadingTrackTitleName = styled.div`
+export const PlaylistLoadingTrackTitleName = styled.div<IPlaylistLoadingTrackTitleProp>`
     width: 356px;
     height: 19px;
-    ${skeletonAnimation}
+    ${(props) => (props.$isDarkTheme ? skeletonAnimation : skeletonAnimationLight)}
 `;
 
-export const PlaylistLoadingTrackTitleAuthor = styled.div`
+export const PlaylistLoadingTrackTitleAuthor = styled.div<IPlaylistLoadingTrackTitleProp>`
     width: 271px;
     height: 19px;
-    ${skeletonAnimation}
+    ${(props) => (props.$isDarkTheme ? skeletonAnimation : skeletonAnimationLight)}
 `;
 
-export const PlaylistLoadingTrackTitleAlbum = styled.div`
+export const PlaylistLoadingTrackTitleAlbum = styled.div<IPlaylistLoadingTrackTitleProp>`
     width: 305px;
     height: 19px;
-    ${skeletonAnimation}
+    ${(props) => (props.$isDarkTheme ? skeletonAnimation : skeletonAnimationLight)}
 `;

@@ -1,16 +1,45 @@
 import styled from 'styled-components';
 
 
-interface IRepeatButton {
+interface IPrevNextButtonProps {
+  $fill: string;
+  $fillHover: string;
+  $stroke: string;
+  $strokeHover: string;
+}
+
+interface IPlayPauseButtonProps {
+  $fill: string;
+  $fillHover: string;
+}
+
+interface IRepeatButtonProps {
   $isLoop: boolean;
+  $fill: string;
+  $fillHover: string;
+  $fillActive: string;
 }
 
-interface IShuffledButton {
+interface IShuffledButtonProps {
   $isShuffled: boolean;
+  $fill: string;
+  $fillHover: string;
+  $fillActive: string;
 }
 
-interface ILikedButton {
+interface ITrackPlayImgProps {
+  $fill: string;
+  $stroke: string;
+}
+
+interface ITrackPlayTextProp {
+  $color: string;
+}
+
+interface ILikedButtonProp {
   $isLiked: boolean;
+  $stroke: string;
+  $strokeHover: string;
 }
 
 const ControlBarButton = styled.button`
@@ -48,67 +77,85 @@ export const ControlBarButtons = styled.div`
     padding: 0 27px 0 31px;
 `;
 
-export const ControlBarPrevButton = styled(ControlBarButton)`
+export const ControlBarPrevButton = styled(ControlBarButton)<IPrevNextButtonProps>`
     width: 16px;
     height: 14px;
 
+    & svg path {
+        stroke: ${(props) => props.$stroke};
+        fill: ${(props) => props.$fill};
+    }
+
     &:hover svg path {
-        stroke: #696969;
-        fill: #696969;
+        stroke: ${(props) => props.$strokeHover};
+        fill: ${(props) => props.$fillHover};
     }
 `;
 
-export const ControlBarPlayButton = styled(ControlBarButton)`
+export const ControlBarPlayButton = styled(ControlBarButton)<IPlayPauseButtonProps>`
     width: 22px;
     height: 20px;
 
+    & svg path {
+        fill: ${(props) => props.$fill};
+    }
+
     &:hover svg path {
-        fill: #696969;
+        fill: ${(props) => props.$fillHover};
     }
 `;
 
-export const ControlBarPauseButton = styled(ControlBarButton)`
+export const ControlBarPauseButton = styled(ControlBarButton)<IPlayPauseButtonProps>`
     width: 15px;
     height: 19px;
 
+    & svg rect {
+        fill: ${(props) => props.$fill};
+    }
+
     &:hover svg rect {
-        fill: #696969;
+        fill: ${(props) => props.$fillHover};
     }
 `;
 
-export const ControlBarNextButton = styled(ControlBarButton)`
+export const ControlBarNextButton = styled(ControlBarButton)<IPrevNextButtonProps>`
     width: 16px;
     height: 14px;
 
+    & svg path {
+        stroke: ${(props) => props.$stroke};
+        fill: ${(props) => props.$fill};
+    }
+
     &:hover svg path {
-        stroke: #696969;
-        fill: #696969;
+        stroke: ${(props) => props.$strokeHover};
+        fill: ${(props) => props.$fillHover};
     }
 `;
 
-export const ControlBarRepeatButton = styled(ControlBarButton)<IRepeatButton>`
+export const ControlBarRepeatButton = styled(ControlBarButton)<IRepeatButtonProps>`
     width: 18px;
     height: 12px;
 
     & svg path {
-        fill: ${(props) => (props.$isLoop ? '#fff' : '#696969')};
+        fill: ${(props) => (props.$isLoop ? props.$fillActive : props.$fill)};
     }
 
     &:hover svg path {
-        fill: #acacac;
+        fill: ${(props) => props.$fillHover};
     }
 `;
 
-export const ControlBarShuffleButton = styled(ControlBarButton)<IShuffledButton>`
+export const ControlBarShuffleButton = styled(ControlBarButton)<IShuffledButtonProps>`
     width: 19px;
     height: 12px;
 
     & svg path {
-        fill: ${(props) => (props.$isShuffled ? '#fff' : '#696969')};
+        fill: ${(props) => (props.$isShuffled ? props.$fillActive : props.$fill)};
     }
 
     &:hover svg path {
-        fill: #acacac;
+        fill: ${(props) => props.$fillHover};
     }
 `;
 
@@ -136,14 +183,22 @@ export const ControlBarTrackPlayContain = styled.div`
     gap: 0 15px;
 `;
 
-export const ControlBarTrackPlayImg = styled.div`
+export const ControlBarTrackPlayImg = styled.div<ITrackPlayImgProps>`
     width: 51px;
     height: 51px;
-    background-color: #313131;
     grid-area: image;
+
+    & svg rect {
+        fill: ${(props) => props.$fill};
+    }
+
+    & svg path,
+    & svg ellipse {
+        stroke: ${(props) => props.$stroke};
+    }
 `;
 
-export const ControlBarTrackPlayAuthor = styled.div`
+export const ControlBarTrackPlayAuthor = styled.div<ITrackPlayTextProp>`
     grid-row: 1;
     grid-column: 2;
     grid-area: author;
@@ -154,12 +209,12 @@ export const ControlBarTrackPlayAuthor = styled.div`
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
-        color: #ffffff;
+        color: ${(props) => props.$color};
         white-space: nowrap;
     }
 `;
 
-export const ControlBarTrackPlayAlbum = styled.div`
+export const ControlBarTrackPlayAlbum = styled.div<ITrackPlayTextProp>`
     grid-row: 2;
     grid-column: 2;
     grid-area: album;
@@ -170,7 +225,7 @@ export const ControlBarTrackPlayAlbum = styled.div`
         font-weight: 400;
         font-size: 13px;
         line-height: 24px;
-        color: #fff;
+        color: ${(props) => props.$color};
     }
 `;
 
@@ -188,16 +243,16 @@ export const ControlBarTrackPlayLike = styled.div`
     margin-left: 26%;
 `;
 
-export const ControlBarLikeButton = styled(ControlBarButton)<ILikedButton>`
+export const ControlBarLikeButton = styled(ControlBarButton)<ILikedButtonProp>`
     width: 14px;
     height: 12px;
 
     & svg path {
         fill: ${(props) => (props.$isLiked ? '#B672FF' : 'transparent')};
-        stroke: ${(props) => (props.$isLiked ? '#B672FF' : '#696969')};
+        stroke: ${(props) => (props.$isLiked ? '#B672FF' : props.$stroke)};
     }
 
     &:hover svg path {
-        stroke: #acacac;
+        stroke: ${(props) => props.$strokeHover};
     }
 `;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { useAppDispatch } from '@hook/';
-import { setDateFilter } from '@redux/';
+import { useAppDispatch, useAppSelector } from '@hook/';
+import { setDateFilter, getStateMenu } from '@redux/';
 
 import * as Styled from './modals.styled';
 
@@ -12,6 +12,8 @@ interface IModalRealeaseDates {
 
 export const ModalReleaseDates: FC<IModalRealeaseDates> = ({ dateFilter }) => {
   const dispatch = useAppDispatch();
+
+  const { isDarkTheme } = useAppSelector(getStateMenu);
 
   const FIRST_OLD = 'first_old';
   const FIRST_NEW = 'first_new';
@@ -30,17 +32,19 @@ export const ModalReleaseDates: FC<IModalRealeaseDates> = ({ dateFilter }) => {
   };
 
   return (
-    <Styled.ModalYear>
+    <Styled.ModalYear $background={ isDarkTheme ? '#313131' : '#F6F5F3' }>
       <Styled.ModalContainer>
         <Styled.ModalLink
-          $color={ dateFilter === FIRST_OLD }
+          $color={ isDarkTheme ? '#fff' : '#313131' }
+          $colorActive={ dateFilter === FIRST_OLD }
           href="/#"
           onClick={ (event) => handleClickFilter(event, FIRST_OLD) }
         >
           Сначала старые
         </Styled.ModalLink>
         <Styled.ModalLink
-          $color={ dateFilter === FIRST_NEW }
+          $color={ isDarkTheme ? '#fff' : '#313131' }
+          $colorActive={ dateFilter === FIRST_NEW }
           href="/#"
           onClick={ (event) => handleClickFilter(event, FIRST_NEW) }
         >

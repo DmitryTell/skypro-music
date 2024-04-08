@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Logout } from '@assets/icon/Logout.svg';
 import { useAppSelector, useAppDispatch } from '@hook/';
-import { getStateUser, removeAuthData, removeUserData } from '@redux/';
+import {
+  getStateUser, removeAuthData, removeUserData, getStateMenu
+} from '@redux/';
 
 import { SidebarListLoading } from './sidebar-list-loading';
 import { items } from './lib';
@@ -20,6 +22,7 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
   const dispatch = useAppDispatch();
 
   const { username } = useAppSelector(getStateUser);
+  const { isDarkTheme } = useAppSelector(getStateMenu);
 
   const handleLogout = () => {
     dispatch(removeAuthData());
@@ -30,8 +33,15 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
   return (
     <Styled.SidebarContainer>
       <Styled.SidebarPersonal>
-        <Styled.SidebarPersonalName>{ username }</Styled.SidebarPersonalName>
-        <Styled.SidebarButton type="button" onClick={ handleLogout }>
+        <Styled.SidebarPersonalName $color={ isDarkTheme ? '#fff' : '#000' }>
+          { username }
+        </Styled.SidebarPersonalName>
+        <Styled.SidebarButton
+          $background={ isDarkTheme ? '#313131' : 'transparent' }
+          $stroke={ isDarkTheme ? '#fff' : '#000' }
+          type="button"
+          onClick={ handleLogout }
+        >
           <Logout />
         </Styled.SidebarButton>
       </Styled.SidebarPersonal>

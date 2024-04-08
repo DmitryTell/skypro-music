@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 
 
+interface INotFoundTextProp {
+  $color: string;
+}
+
+interface INotFoundSmTextProp {
+  $color: string;
+}
+
 export const NotFoundWrapper = styled.div`
     width: 100%;
     height: 100vh;
@@ -17,10 +25,10 @@ export const NotFoundContainer = styled.div`
     gap: 16px;
 `;
 
-export const NotFoundTitle = styled.h2`
+export const NotFoundTitle = styled.h2<INotFoundTextProp>`
     font-size: 160px;
     line-height: 168px;
-    color: #fff;
+    color: ${(props) => props.$color};
 `;
 
 export const NotFoundTextBox = styled.div`
@@ -29,10 +37,10 @@ export const NotFoundTextBox = styled.div`
     gap: 16px;
 `;
 
-export const NotFoundBgText = styled.span`
+export const NotFoundBgText = styled.span<INotFoundTextProp>`
     font-size: 32px;
     line-height: 40px;
-    color: #fff;
+    color: ${(props) => props.$color};
 `;
 
 export const NotFoundImg = styled.div`
@@ -40,13 +48,13 @@ export const NotFoundImg = styled.div`
     height: 52px;
 `;
 
-export const NotFoundSmText = styled.p`
+export const NotFoundSmText = styled.p<INotFoundSmTextProp>`
     width: 100%;
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.3%;
     text-align: center;
-    color: #4E4E4E;
+    color: ${(props) => props.$color};
 `;
 
 export const NotFoundButtonBox = styled.div`

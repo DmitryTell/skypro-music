@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 
+interface IFilterTitleProp {
+  $color: string;
+}
+
 const FilterLength = styled.div`
     width: 25px;
     height: 25px;
@@ -32,10 +36,11 @@ export const FilterContainer = styled.div`
     margin-bottom: 51px;
 `;
 
-export const FilterTitle = styled.h3`
+export const FilterTitle = styled.h3<IFilterTitleProp>`
     font-size: 16px;
     line-height: 24px;
     margin-right: 5px;
+    color: ${(props) => props.$color};
 `;
 
 export const FilterLengthAuthors = styled(FilterLength)`

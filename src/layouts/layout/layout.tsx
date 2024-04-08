@@ -5,20 +5,22 @@ import {
   LeftSidebar, Search, RightSidebar, Audioplayer
 } from '@components/';
 import { useAppSelector } from '@hook/';
-import { getStatePlaylist } from '@redux/';
+import { getStatePlaylist, getStateMenu } from '@redux/';
 
 import * as Styled from './layout.styled';
 
 
 export const Layout = () => {
   const { pathname } = useLocation();
+
   const { currentTrack } = useAppSelector(getStatePlaylist);
+  const { isDarkTheme } = useAppSelector(getStateMenu);
 
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <Styled.LayoutWrapper>
-      <Styled.LayoutContainer>
+      <Styled.LayoutContainer $background={ isDarkTheme ? '#181818' : '#fff' }>
         <Styled.LayoutMain>
           <LeftSidebar />
           <Styled.LayoutCenterblock>

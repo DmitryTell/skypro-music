@@ -1,9 +1,21 @@
 import styled from 'styled-components';
 
 
-export const SearchContainer = styled.div`
+interface ISearchContainerProp {
+  $borderColor: string;
+}
+
+interface ISearchSvgProp {
+  $stroke: string;
+}
+
+interface IInputProp {
+  $color: string;
+}
+
+export const SearchContainer = styled.div<ISearchContainerProp>`
     width: 100%;
-    border-bottom: 1px solid #4e4e4e;
+    border-bottom: 1px solid ${(props) => props.$borderColor};
     margin-bottom: 51px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -17,28 +29,34 @@ export const SearchContainer = styled.div`
     align-items: center;
 `;
 
-export const SearchSvg = styled.div`
+export const SearchSvg = styled.div<ISearchSvgProp>`
     width: 17px;
     height: 17px;
     margin-right: 5px;
+
+    & svg path,
+    & svg circle {
+        stroke: ${(props) => props.$stroke};
+    }
 `;
 
-export const SearchInput = styled.input`
+export const SearchInput = styled.input<IInputProp>`
     -webkit-box-flex: 100;
     -ms-flex-positive: 100;
     flex-grow: 100;
     background-color: transparent;
     border: none;
+    outline: none;
     padding: 13px 10px 14px;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    color: #fff;
+    color: ${(props) => props.$color};
 
     &::-webkit-input-placeholder {
         background-color: transparent;
-        color: #fff;
+        color: ${(props) => props.$color};
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -47,7 +65,7 @@ export const SearchInput = styled.input`
 
     &:-ms-input-placeholder {
         background-color: transparent;
-        color: #fff;
+        color: ${(props) => props.$color};
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -56,7 +74,7 @@ export const SearchInput = styled.input`
 
     &::-ms-input-placeholder {
         background-color: transparent;
-        color: #fff;
+        color: ${(props) => props.$color};
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -65,7 +83,7 @@ export const SearchInput = styled.input`
 
     &::placeholder {
         background-color: transparent;
-        color: #fff;
+        color: ${(props) => props.$color};
         font-style: normal;
         font-weight: 400;
         font-size: 16px;

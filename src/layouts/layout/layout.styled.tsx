@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 
+interface ILayoutProp {
+  $background: string;
+}
+
 export const LayoutWrapper = styled.div`
     width: 100%;
     min-height: 100%;
@@ -8,12 +12,12 @@ export const LayoutWrapper = styled.div`
     background-color: #383838;
 `;
 
-export const LayoutContainer = styled.div`
+export const LayoutContainer = styled.div<ILayoutProp>`
     max-width: 1920px;
     height: 100vh;
     margin: 0 auto;
     position: relative;
-    background-color: #181818;
+    background-color: ${(props) => props.$background};
 `;
 
 export const LayoutMain = styled.main`

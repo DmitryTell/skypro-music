@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 
 
+interface ISidebarNameProp {
+  $color: string;
+}
+
+interface ISidebarButtonProp {
+  $background: string;
+  $stroke: string;
+}
+
 export const SidebarContainer = styled.div`
     max-width: 418px;
     padding: 20px 90px 20px 78px;
@@ -23,19 +32,27 @@ export const SidebarPersonal = styled.div`
     padding: 12px 0 15px 0;
 `;
 
-export const SidebarPersonalName = styled.p`
+export const SidebarPersonalName = styled.p<ISidebarNameProp>`
     font-size: 16px;
     line-height: 24px;
-    color: #fff;
+    color: ${(props) => props.$color};
     margin-right: 16px;
 `;
 
-export const SidebarButton = styled.button`
+export const SidebarButton = styled.button<ISidebarButtonProp>`
     width: 43px;
     height: 43px;
-    background-color: #313131;
+    background: ${(props) => props.$background};
     border: none;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & svg path,
+    & svg circle {
+        stroke: ${(props) => props.$stroke};
+    }
 `;
 
 export const SidebarBlock = styled.div`

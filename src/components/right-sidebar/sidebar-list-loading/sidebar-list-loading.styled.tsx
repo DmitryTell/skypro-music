@@ -1,9 +1,18 @@
 import styled, { css } from 'styled-components';
 
 
+interface ISidebarLoadingItemProp {
+  $isDarkTheme: boolean;
+}
+
 const skeletonAnimation = css`
     -webkit-animation: skeleton-animation 2s linear infinite alternate both;
     animation: skeleton-animation 2s linear infinite alternate both;
+`;
+
+const skeletonAnimationLight = css`
+    -webkit-animation: skeleton-animation-light 2s linear infinite alternate both;
+    animation: skeleton-animation-light 2s linear infinite alternate both;
 `;
 
 export const SidebarLoadingList = styled.ul`
@@ -20,8 +29,8 @@ export const SidebarLoadingList = styled.ul`
     gap: 30px;
 `;
 
-export const SidebarLoadingItem = styled.li`
+export const SidebarLoadingItem = styled.li<ISidebarLoadingItemProp>`
     width: 250px;
     height: 150px;
-    ${skeletonAnimation}
+    ${(props) => (props.$isDarkTheme ? skeletonAnimation : skeletonAnimationLight)}
 `;
