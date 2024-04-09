@@ -77,7 +77,7 @@ export const SignIn = () => {
           ) }
         </Styled.ButtonBox>
         <Styled.ButtonBox>
-          <ButtonReg onClick={ () => navigate('/register', { replace: true }) } />
+          <ButtonReg onClick={ () => navigate('/skypro-music/register', { replace: true }) } />
         </Styled.ButtonBox>
       </Styled.Buttons>
     </Form>

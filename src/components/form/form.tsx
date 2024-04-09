@@ -14,7 +14,7 @@ export const Form: FC<IForm> = ({ children }) => (
   <Styled.FormModalBlock>
     <Styled.Form>
       <Styled.FormLogo>
-        <Link to="/">
+        <Link to="/skypro-music">
           <LogoAuth />
         </Link>
       </Styled.FormLogo>
