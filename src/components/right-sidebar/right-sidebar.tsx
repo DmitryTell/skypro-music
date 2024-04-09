@@ -45,7 +45,7 @@ export const RightSidebar: FC<IRightSidebar> = ({ location, isLoading }) => {
           <Logout />
         </Styled.SidebarButton>
       </Styled.SidebarPersonal>
-      { location === '/' && (
+      { location === '/skypro-music' && (
         <Styled.SidebarBlock>
           { isLoading ? (
             <SidebarListLoading />
