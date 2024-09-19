@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import styles from "./form-login.module.scss";
 import { useAuthorization } from "@/hooks";
 import { Button, Input } from "@/shared";
-import { Modal } from "@/components";
+import { Loader, Modal } from "@/components";
 import {
     InputTypes,
     ButtonTypes,
@@ -54,6 +54,7 @@ export const FormLogin = () => {
                     { REGISTER_NAME }
                 </Button>
             </div>
+            { isLoading && <Loader /> }
             { authError.isError && (
                 <Modal
                     title={authError.titleError}

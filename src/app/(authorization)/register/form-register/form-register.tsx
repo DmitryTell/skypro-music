@@ -3,7 +3,7 @@
 import styles from "./form-register.module.scss";
 import { useAuthorization } from "@/hooks";
 import { Button, Input } from "@/shared";
-import { Modal } from "@/components";
+import { Loader, Modal } from "@/components";
 import { InputTypes, ButtonTypes } from "@/types";
 import {
     REGISTER_NAME,
@@ -37,6 +37,7 @@ export const FormRegister = () => {
                     { REGISTER_NAME }
                 </Button>
             </div>
+            { isLoading && <Loader /> }
             { authError.isError && (
                 <Modal
                     title={authError.titleError}
