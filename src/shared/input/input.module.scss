@@ -1,0 +1,15 @@
+.input {
+    width: 100%;
+    padding: 8px 1px;
+    border: none;
+    border-bottom: 1px solid var(--gray-extra-light);
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+
+    &::-webkit-input-placeholder,
+    &:-ms-input-placeholder,
+    &::placeholder {
+        color: var(--gray-extra-light);
+    }
+}
