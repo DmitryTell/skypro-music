@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { FormContainer } from "@/components";
+import { FormRegister } from "./form-register";
 
 
 export const metadata: Metadata = {
@@ -7,8 +9,8 @@ export const metadata: Metadata = {
 
 export default function Register() {
     return (
-        <div>
-            <h1 style={{ color: "white" }}>Register</h1>
-        </div>
+        <FormContainer>
+            <FormRegister />
+        </FormContainer>
     );
 }
