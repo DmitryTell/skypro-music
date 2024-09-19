@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IError } from "@/interfaces";
-import { validateLoginForm } from "./lib";
+import { validateLoginForm, validateRegisterForm } from "./lib";
 
 
 export const useAuthorization = () => {
@@ -20,14 +20,39 @@ export const useAuthorization = () => {
     
         setIsLoading(true);
 
-        const validatedDate = validateLoginForm(loginInput.value, passwordInput.value);
+        const validatedData = validateLoginForm(loginInput.value, passwordInput.value);
 
-        if (validatedDate) {
+        if (validatedData) {
             setIsLoading(false);
             setAuthError({
                 ...authError,
-                textError: validatedDate.textError,
-                isError: validatedDate.isError,
+                textError: validatedData.textError,
+                isError: validatedData.isError,
+            });
+            return;
+        }
+
+        console.log("Data is ready");
+    };
+
+    const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    
+        const form = e.target as HTMLFormElement;
+        const loginInput = form.elements[0] as HTMLInputElement;
+        const passwordInput = form.elements[1] as HTMLInputElement;
+        const passwordConfirmInput = form.elements[2] as HTMLInputElement;
+    
+        setIsLoading(true);
+
+        const validatedData = validateRegisterForm(loginInput.value, passwordInput.value, passwordConfirmInput.value);
+
+        if (validatedData) {
+            setIsLoading(false);
+            setAuthError({
+                ...authError,
+                textError: validatedData.textError,
+                isError: validatedData.isError,
             });
             return;
         }
@@ -47,6 +72,7 @@ export const useAuthorization = () => {
         isLoading,
         authError,
         handleLoginSubmit,
+        handleRegisterSubmit,
         handleResetError,
     };
 };
