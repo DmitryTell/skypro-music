@@ -1,0 +1,39 @@
+:root {
+    // Colors
+    --black: #000;
+    --black-medium: #1C1C1C;
+    --black-light: #181818;
+    --black-gray: #313131;
+    --white: #FFF;
+    --white-extra: #F6F5F3;
+    --white-gray: #F4F5F6;
+    --white-gray-medium: #D9D9D9;
+    --transparent: transparent;
+    --gray-extra-dark: #2E2E2E;
+    --gray-dark: #4E4E4E;
+    --gray: #696969;
+    --gray-extra-medium: #707070;
+    --gray-medium: #B1B1B1;
+    --gray-light: #ACACAC;
+    --gray-extra-light: #D0CECE;
+    --primary: #580EA2;
+    --primary-medium: #3F007D;
+    --primary-dark: #271A58;
+    --violet-dark: #AD61FF;
+    --violet: #B672FF;
+    --violet-light: #D9B6FF;
+
+    // Font-sizes
+    --title-h1: 60px;
+    --title-h2: 32px;
+    --extra: 20px;
+    --medium: 18px;
+    --small: 16px;
+    --extra-small: 13px;
+
+    // Line-heights
+    --title-h1-line-height: 64px;
+    --title-h2-line-height: 40px;
+    --extra-line-height: 24px;
+    --medium-line-height: 18px;
+}
