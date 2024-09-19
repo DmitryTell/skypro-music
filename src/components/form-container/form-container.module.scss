@@ -1,0 +1,24 @@
+.container {
+    position: absolute;
+    top: 25%;
+    width: 100%;
+}
+
+.inner {
+    width: 366px;
+    min-height: 439px;
+    margin: 0 auto;
+    padding: 43px 40px 47px;
+    background-color: var(--white);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 34px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
