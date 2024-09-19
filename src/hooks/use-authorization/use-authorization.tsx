@@ -10,6 +10,7 @@ export const useAuthorization = () => {
         textError: "",
         isError: false,
     });
+    const [succesRegister, setSuccessRegister] = useState<{ title: string; text: string } | null>(null);
 
     const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -71,6 +72,7 @@ export const useAuthorization = () => {
     return {
         isLoading,
         authError,
+        succesRegister,
         handleLoginSubmit,
         handleRegisterSubmit,
         handleResetError,

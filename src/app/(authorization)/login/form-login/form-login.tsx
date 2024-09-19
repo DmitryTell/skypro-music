@@ -16,7 +16,7 @@ import {
     LOGIN_PLACEHOLDER,
     REGISTER_NAME,
     PASSWORD_PLACEHOLDER,
-
+    AUTH_ERROR_NAME,
 } from "@/constants";
 
 
@@ -57,8 +57,10 @@ export const FormLogin = () => {
             { isLoading && <Loader /> }
             { authError.isError && (
                 <Modal
+                    isError={authError.isError}
                     title={authError.titleError}
                     text={authError.textError}
+                    buttonName={AUTH_ERROR_NAME}
                     onClick={handleResetError}
                 />
             ) }
