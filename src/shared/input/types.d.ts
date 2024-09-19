@@ -6,7 +6,5 @@ declare global {
     interface Input extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
         type: InputTypes;
         placeholder: string;
-        value: string;
-        onChange: React.ChangeEventHandler;
     }
 }
