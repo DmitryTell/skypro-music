@@ -2,7 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import styles from "./form-login.module.scss";
+import { useAuthorization } from "@/hooks";
 import { Button, Input } from "@/shared";
+import { Modal } from "@/components";
 import {
     InputTypes,
     ButtonTypes,
@@ -16,11 +18,17 @@ import {
     PASSWORD_PLACEHOLDER,
 
 } from "@/constants";
-import { handleLoginSubmit } from "./lib/handle-login-submit";
 
 
 export const FormLogin = () => {
     const router = useRouter();
+
+    const {
+        isLoading,
+        authError,
+        handleLoginSubmit,
+        handleResetError,
+    } = useAuthorization();
 
     const handleNavigateRegister = () => {
         router.push(Routes.REGISTER)
@@ -46,6 +54,13 @@ export const FormLogin = () => {
                     { REGISTER_NAME }
                 </Button>
             </div>
+            { authError.isError && (
+                <Modal
+                    title={authError.titleError}
+                    text={authError.textError}
+                    onClick={handleResetError}
+                />
+            ) }
         </form>
     );
 };
